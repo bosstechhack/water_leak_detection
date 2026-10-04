@@ -1,0 +1,24 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+.env.*
+
+# Node
+node_modules/
+.next/
+dist/
+
+# Python temporary files
+*.bin
+*.rpt
+
+# IDE
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db

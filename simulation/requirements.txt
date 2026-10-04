@@ -1,0 +1,4 @@
+wntr==1.1.0
+pandas==2.1.4
+networkx==3.2.1
+matplotlib==3.8.2
