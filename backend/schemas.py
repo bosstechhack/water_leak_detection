@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Dict, Optional
+from typing import Any, List, Dict, Optional
 
 class NodeBase(BaseModel):
     id: str
@@ -43,7 +43,35 @@ class FlowMetric(BaseModel):
     current_flow: float
     flow_change: float
 
+class ScenarioInfo(BaseModel):
+    id: str
+    network: str
+    name: str
+    group: str
+    event_class: str
+    truth_nodes: List[str] = []
+    params: Dict[str, Any] = {}
+
+
+class NetworkInfo(BaseModel):
+    id: str
+    name: str
+    junctions: int
+    scenarios: int
+
+
 class AnalysisResponse(BaseModel):
+    network: str = "net3"
+    split: str = "train"
+    event_class: Optional[str] = None
+    event_label: Optional[str] = None
+    probabilities: Dict[str, float] = {}
+    features: Dict[str, float] = {}
+    detection: Dict[str, float] = {}
+    worst_node: Optional[str] = None
+    candidate_region: List[str] = []
+    affected_nodes: List[str] = []
+    localization_error_hops: Optional[int] = None
     has_anomaly: bool
     event_assessment: str = "cause uncertain"
     scenario_truth: Dict[str, str] = {}

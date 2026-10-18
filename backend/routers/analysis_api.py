@@ -1,145 +1,163 @@
-from fastapi import APIRouter, HTTPException
+import json
 import os
+import re
 import sys
-import pandas as pd
-import wntr
-from schemas import AnalysisResponse, PredictionResult, NodeMetric, FlowMetric
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../ml_pipeline")))
-from detector import AnomalyDetector
-from localizer import Localizer
+import numpy as np
+import pandas as pd
+from fastapi import APIRouter, HTTPException
+
+from schemas import AnalysisResponse, FlowMetric, NodeMetric, PredictionResult
+
+ML_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../ml_pipeline"))
+sys.path.append(ML_DIR)
+import classifier  # noqa: E402
+from catalog import describe  # noqa: E402
+from dataset import RESULTS_DIR, available_networks  # noqa: E402
+from detector import persistent_peak  # noqa: E402
+from features import unaccounted_flow  # noqa: E402
+from pipeline import analyze, get_context  # noqa: E402
+from split import get_split  # noqa: E402
 
 router = APIRouter()
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR = os.path.abspath(os.path.join(BASE_DIR, "../../data/raw_simulations"))
-NETWORK_FILE = os.path.abspath(os.path.join(BASE_DIR, "../../data/networks/Net3.inp"))
-FLOW_WEIGHT = 50.0
+_MODELS = {}
 
 
-def _link_directions(wn):
-    mapping = {}
-    for node_name in wn.node_name_list:
-        mapping[str(node_name)] = [
-            (str(link_name), 1.0 if wn.get_link(link_name).end_node_name == node_name else -1.0)
-            for link_name in wn.get_links_for_node(node_name)
-        ]
-    return mapping
+def _models():
+    if "m" not in _MODELS:
+        _MODELS["m"] = classifier.load()
+    return _MODELS["m"]
+
+
+def _split(scenario_name):
+    """'net3_leak_15' -> ('net3', 'net3_leak_15'); 'net3_baseline' -> ('net3', 'baseline')."""
+    network = scenario_name.split("_")[0]
+    return network, ("baseline" if scenario_name == f"{network}_baseline" else scenario_name)
 
 
 @router.get("/analyze/{scenario_name}", response_model=AnalysisResponse)
-def analyze_scenario(scenario_name: str):
-    # Restrict names to simple file stems; scenarios are generated locally.
-    if not scenario_name.replace("_", "").isalnum():
+def analyze_scenario(scenario_name: str, use_demand_meters: bool = True):
+    # ids look like net3_reservoir_head_Lake_+5m: letters, digits and _ . + - only (no path characters)
+    if not re.fullmatch(r"[A-Za-z0-9_.+-]+", scenario_name):
         raise HTTPException(status_code=400, detail="Invalid scenario name")
-    baseline_path = os.path.join(DATA_DIR, "baseline_pressures.csv")
-    test_path = os.path.join(DATA_DIR, f"{scenario_name}_pressures.csv")
-    if not os.path.isfile(baseline_path) or not os.path.isfile(test_path):
-        raise HTTPException(status_code=404, detail=f"Scenario data not found: {scenario_name}")
+    network, file_id = _split(scenario_name)
+    if network not in available_networks():
+        raise HTTPException(status_code=404, detail=f"Unknown network in scenario: {scenario_name}")
+    ctx = get_context(network)
+    nd, ref = ctx.nd, ctx.ref
+    spec = None if file_id == "baseline" else nd.scenario(file_id)
+    if file_id != "baseline" and spec is None:
+        raise HTTPException(status_code=404, detail=f"Scenario not found: {scenario_name}")
+    test = nd.load(file_id)
+    base = nd.baseline
 
-    baseline = pd.read_csv(baseline_path, index_col=0)
-    test = pd.read_csv(test_path, index_col=0)
-    common_nodes = [n for n in baseline.columns if n in test.columns]
-    common_times = baseline.index.intersection(test.index)
-    if not common_nodes or len(common_times) == 0:
-        raise HTTPException(status_code=422, detail="Scenario and baseline have no matching nodes/times")
-    baseline, test = baseline.loc[common_times, common_nodes], test.loc[common_times, common_nodes]
+    models = _models()
+    result = analyze(ctx, test, models, use_demand_meters)
+    event_class = result["event_class"]
+    probabilities = result["probabilities"]
+    label = classifier.LABELS.get(event_class, event_class)
+    thr = ctx.ref.p_threshold
+    ranking = result["ranking"]
+    drop, unacc = result["drop"], result["unacc"]
 
-    baseline_flow_path = os.path.join(DATA_DIR, "baseline_flows.csv")
-    test_flow_path = os.path.join(DATA_DIR, f"{scenario_name}_flows.csv")
-    baseline_flow = pd.read_csv(baseline_flow_path, index_col=0) if os.path.isfile(baseline_flow_path) else None
-    test_flow = pd.read_csv(test_flow_path, index_col=0) if os.path.isfile(test_flow_path) else None
-    wn = wntr.network.WaterNetworkModel(NETWORK_FILE) if os.path.isfile(NETWORK_FILE) else None
-    link_dirs = _link_directions(wn) if wn else {}
+    is_leak = event_class == "leak"
+    has_anomaly = bool(event_class != "normal") if event_class else result["has_anomaly"]
 
-    residuals = baseline - test
-    detector = AnomalyDetector()
-    detector.fit(baseline)
-    anomalies = detector.detect(test)
-    has_anomaly = bool(anomalies.to_numpy().any())
-    peak_node = str(residuals.max().idxmax())
-    peak_time = str(residuals[peak_node].idxmax())
-    peak_drop = float(residuals[peak_node].max())
-    event_assessment = "anomaly detected; cause not classified" if has_anomaly else "no pressure anomaly detected"
-
-    explanation = []
-    if has_anomaly:
-        explanation.append(f"Pressure residual exceeded the {detector.threshold_drop:.2f} m threshold.")
-        explanation.append(f"Largest pressure drop was {peak_drop:.2f} m at node {peak_node}, time index {peak_time}.")
-        explanation.append("The cause is not classified by the current detector; demand or equipment changes may also cause pressure drops.")
-    else:
-        explanation.append(f"No node exceeded the {detector.threshold_drop:.2f} m pressure-drop threshold.")
+    # unaccounted flow in m3/s at every node (peak, persistent)
+    u_series = unaccounted_flow(nd, base, test, nd.nodes, use_demand_meters)
+    u_peak = persistent_peak(u_series, 2).clip(lower=0)
 
     predictions = []
-    ranked = pd.Series(dtype=float)
-    node_divergence = {}
-    if has_anomaly:
-        localizer = Localizer(flow_weight=FLOW_WEIGHT)
-        localizer.fit(baseline, baseline_flow)
-        ranked = localizer.localize(test, test_flow, link_dirs)
-        if wn:
-            ranked = ranked[ranked.index.astype(str).isin(set(map(str, wn.junction_name_list)))]
-        for node_id, score in ranked.head(5).items():
-            s = str(node_id)
-            div = 0.0
-            if baseline_flow is not None and test_flow is not None and s in link_dirs:
-                common_links = [p for p, _ in link_dirs[s] if p in baseline_flow and p in test_flow]
-                if common_links:
-                    series = pd.Series(0.0, index=common_times)
-                    for link, sign in link_dirs[s]:
-                        if link in common_links:
-                            series += (test_flow.loc[common_times, link] - baseline_flow.loc[common_times, link]) * sign
-                    div = max(0.0, float(series.max()))
-            predictions.append(PredictionResult(node_id=s, confidence_score=float(score),
-                                                 pressure_drop=float(residuals[s].max()), flow_divergence=div))
-        if predictions:
-            explanation.append(f"Candidate ranking combines maximum pressure drop with positive connected-link flow divergence (weight {FLOW_WEIGHT:g}).")
-            explanation.append("The ranking is a heuristic score, not a calibrated probability or proof of a leak.")
+    region = []
+    if is_leak:
+        for node_id, score in ranking.head(5).items():
+            predictions.append(PredictionResult(node_id=str(node_id), confidence_score=round(float(score), 3),
+                                                pressure_drop=round(float(drop.get(node_id, 0.0) * thr), 3),
+                                                flow_divergence=round(float(u_peak.get(node_id, 0.0)), 5)))
+        top = predictions[0].node_id
+        region = sorted([top] + [n for n in nd.graph.neighbors(top) if n in set(nd.nodes)])
 
-    top_ids = {p.node_id for p in predictions}
+    affected = sorted(str(n) for n in drop.index[drop > 1.0])
+    truth = {}
+    error_hops = None
+    if spec:
+        truth = {"event_class": spec["event_class"], "group": spec["group"], "description": describe(spec)}
+        if spec.get("truth_nodes"):
+            truth["leak_nodes"] = ", ".join(spec["truth_nodes"])
+            if predictions:
+                error_hops = nd.hops(predictions[0].node_id, spec["truth_nodes"][0])
+                error_hops = int(error_hops) if error_hops == error_hops else None
+    else:
+        truth = {"event_class": "normal", "description": "Baseline (no event)"}
+
+    feats = result["features"]
+    split = "reference" if file_id == "baseline" else get_split().get(file_id, "train")
+    explanation = []
+    if event_class is None:
+        explanation.append("Classifier model not found. Run ml_pipeline/train.py.")
+    else:
+        top_prob = max(probabilities.values()) if probabilities else 0.0
+        explanation.append(f"Predicted cause: {label} (model confidence {top_prob * 100:.0f}%).")
+    if feats["frac_hit"] > 0:
+        explanation.append(f"{feats['frac_hit'] * 100:.0f}% of junctions show a pressure drop above the "
+                           f"{thr:.2f} m noise threshold; the worst is {float(drop.max()) * thr:.2f} m.")
+    else:
+        explanation.append(f"No junction shows a persistent pressure drop above the {thr:.2f} m noise threshold.")
+    if use_demand_meters:
+        if feats["unacc_ratio"] >= 1:
+            explanation.append("Water is leaving a node without being metered (unaccounted flow), which only a leak causes.")
+        elif feats["demand_frac"] > 0:
+            explanation.append("The extra flow is explained by metered demand, so it is a demand change, not a leak.")
+    if feats["pump_drop"] > 0.5:
+        explanation.append("A pump has lost most of its flow.")
+    if feats["rise_ratio"] > 5 and feats["frac_rise"] > 0:
+        explanation.append("Some junctions show a pressure rise as well as drops, as when a pipe is blocked or a tank/source changes.")
+    if is_leak and predictions:
+        explanation.append("Ranking = unaccounted flow plus pressure drop per node. It is a heuristic score, not a probability.")
+    if not use_demand_meters:
+        explanation.append("Running without demand meters: demand changes are harder to separate from leaks.")
+
     node_metrics = {}
-    for col in common_nodes:
+    top_ids = {p.node_id for p in predictions}
+    common = [c for c in base.P.columns if c in test.P.columns]
+    residual_all = base.P[common] - test.P[common]
+    for col in common:
         node = str(col)
-        drop_series = residuals[col]
-        drop = float(drop_series.max())
-        div = next((p.flow_divergence for p in predictions if p.node_id == node), 0.0)
-        node_type, elevation, connected = "Junction", 0.0, []
-        if wn and node in wn.node_name_list:
-            obj = wn.get_node(node)
-            node_type = str(obj.node_type)
-            elevation = float(getattr(obj, "elevation", 0.0) or 0.0)
-            connected = [str(x) for x in wn.get_links_for_node(node)]
-        status = "Top leak candidate" if node in top_ids else ("Pressure drop" if drop > detector.threshold_drop else "Normal")
+        peak_drop = float(max(residual_all[col].max(), 0.0))
+        obj = nd.wn.get_node(node)
+        status = "Top leak candidate" if node in top_ids else ("Pressure drop" if node in affected else "Normal")
         node_metrics[node] = NodeMetric(
-            node_id=node, node_type=node_type, elevation=elevation,
-            baseline_pressure=round(float(baseline[col].mean()), 2),
-            current_pressure=round(float(test[col].mean()), 2), pressure_drop=round(drop, 2),
-            flow_divergence=round(div, 4), composite_score=round(float(ranked.get(node, drop)), 2),
-            status=status, connected_pipes=connected,
-            baseline_series=[round(float(x), 2) for x in baseline[col]],
-            current_series=[round(float(x), 2) for x in test[col]],
-        )
+            node_id=node, node_type=str(obj.node_type), elevation=float(getattr(obj, "elevation", 0.0) or 0.0),
+            baseline_pressure=round(float(base.P[col].mean()), 2), current_pressure=round(float(test.P[col].mean()), 2),
+            pressure_drop=round(peak_drop, 2), flow_divergence=round(float(u_peak.get(node, 0.0)), 5),
+            composite_score=round(float(ranking.get(node, drop.get(node, 0.0))), 3), status=status,
+            connected_pipes=[str(x) for x in nd.wn.get_links_for_node(node)],
+            baseline_series=[round(float(x), 2) for x in base.P[col]],
+            current_series=[round(float(x), 2) for x in test.P[col]])
 
     flow_metrics = {}
-    if baseline_flow is not None and test_flow is not None:
-        common_links = [x for x in baseline_flow.columns if x in test_flow.columns]
-        common_flow_times = baseline_flow.index.intersection(test_flow.index)
-        for col in common_links:
-            b = baseline_flow.loc[common_flow_times, col]
-            c = test_flow.loc[common_flow_times, col]
-            flow_metrics[str(col)] = FlowMetric(link_id=str(col), baseline_flow=round(float(b.mean()), 4),
-                current_flow=round(float(c.mean()), 4), flow_change=round(float((c-b).mean()), 4))
+    for col in [c for c in base.F.columns if c in test.F.columns]:
+        b, c = base.F[col], test.F[col]
+        flow_metrics[str(col)] = FlowMetric(link_id=str(col), baseline_flow=round(float(b.mean()), 4),
+                                            current_flow=round(float(c.mean()), 4),
+                                            flow_change=round(float((c - b).mean()), 4))
 
-    scenario_truth = {}
-    manifest = os.path.join(DATA_DIR, "scenarios.csv")
-    if os.path.isfile(manifest):
-        rows = pd.read_csv(manifest).fillna("")
-        match = rows[rows["scenario_id"].astype(str) == scenario_name]
-        if not match.empty:
-            truth = match.iloc[0]
-            scenario_truth = {k: str(truth[k]) for k in ("type", "node", "pump", "factor", "leak_area", "start_hour")
-                              if k in truth and str(truth[k]) != ""}
-
-    return AnalysisResponse(has_anomaly=has_anomaly, event_assessment=event_assessment,
-        scenario_truth=scenario_truth,
-        explanation=explanation, peak_time=peak_time, max_pressure_drop=round(peak_drop, 2),
+    max_drop = float(drop.max() * thr)
+    return AnalysisResponse(
+        network=network, split=split, event_class=event_class, event_label=label, probabilities=probabilities,
+        features={k: round(float(v), 4) for k, v in feats.items()},
+        detection={"pressure_threshold_m": round(thr, 3), "adaptive_detector_flag": float(result["has_anomaly"])},
+        worst_node=str(drop.idxmax()) if float(drop.max()) > 0 else None,
+        candidate_region=region, affected_nodes=affected, localization_error_hops=error_hops,
+        has_anomaly=has_anomaly, event_assessment=label or "cause not classified", scenario_truth=truth,
+        explanation=explanation, peak_time=None, max_pressure_drop=round(max_drop, 2),
         predicted_leaks=predictions, node_metrics=node_metrics, flow_metrics=flow_metrics)
+
+
+@router.get("/evaluation")
+def evaluation():
+    path = os.path.join(RESULTS_DIR, "evaluation_summary.json")
+    if not os.path.isfile(path):
+        raise HTTPException(status_code=404, detail="Run ml_pipeline/evaluate.py first")
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)

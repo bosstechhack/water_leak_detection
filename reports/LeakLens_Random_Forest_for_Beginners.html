@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LeakLens: the random forest explained for beginners</title>
+<style>
+:root{--bg:#f5f8fc;--panel:#fff;--panel2:#eef3f9;--line:#d6dfeb;--ink:#0e1a2b;--muted:#566882;--accent:#1566d6;--aink:#fff;--soft:#e2edfc;--ok:#12804f;--oksoft:#e2f5ec;--warn:#a85f00;--warnsoft:#fff1d6;--bad:#cf2f2f;--badsoft:#fdeaea;--code:#f0f4fa}
+[data-theme=dark]{--bg:#0b1220;--panel:#121c2f;--panel2:#18243a;--line:#27364f;--ink:#e8eef8;--muted:#9bacc4;--accent:#5b9bff;--aink:#06142b;--soft:#162c52;--ok:#4fd69c;--oksoft:#123226;--warn:#ffb54a;--warnsoft:#3a2a0d;--bad:#ff6b6b;--badsoft:#3a1a1f;--code:#0e1626}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+header{position:sticky;top:0;z-index:50;background:var(--panel);border-bottom:1px solid var(--line)}
+.hb{display:flex;align-items:center;gap:12px;padding:10px 18px}
+.logo{width:36px;height:36px;border-radius:10px;background:var(--accent);color:var(--aink);display:flex;align-items:center;justify-content:center;font-weight:800}
+header h1{font-size:17px;margin:0;line-height:1.1}header small{display:block;color:var(--muted);font-size:12px;font-weight:400}
+.sp{flex:1}.btn{font:inherit;font-size:14px;font-weight:650;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:9px;padding:7px 12px;cursor:pointer}.btn:hover{background:var(--panel2)}.btn.pri{background:var(--accent);color:var(--aink);border-color:var(--accent)}
+.prog{height:4px;background:var(--panel2)}.prog i{display:block;height:4px;width:0;background:var(--accent)}
+.wrap{max-width:1180px;margin:0 auto;display:flex;gap:26px;padding:0 18px}
+aside{width:250px;flex:none;position:sticky;top:76px;align-self:flex-start;max-height:calc(100vh - 90px);overflow:auto;padding:18px 0}
+aside a{display:flex;gap:9px;padding:7px 8px;border-radius:9px;color:var(--ink);text-decoration:none;font-size:14px;line-height:1.3}aside a:hover{background:var(--panel2)}aside a.on{background:var(--soft);color:var(--accent);font-weight:700}
+aside a b{flex:none;width:22px;height:22px;border-radius:50%;background:var(--panel2);display:flex;align-items:center;justify-content:center;font-size:12px}aside a.on b{background:var(--accent);color:var(--aink)}
+main{flex:1;min-width:0;padding:22px 0 90px}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px 26px;margin:0 0 26px}
+.step h2{margin:0 0 4px;font-size:25px;display:flex;gap:12px;align-items:center}
+.step h2 .num{flex:none;width:38px;height:38px;border-radius:50%;background:var(--accent);color:var(--aink);display:flex;align-items:center;justify-content:center;font-size:19px}
+.step h3{font-size:18px;margin:18px 0 4px}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:1px 9px;border-radius:99px;background:var(--soft);color:var(--accent)}
+.say{font-size:19px;background:var(--soft);border-radius:12px;padding:10px 14px;margin:10px 0 14px}
+.beg,.real,.warn,.good{border-left:5px solid var(--accent);border-radius:10px;padding:9px 14px;margin:12px 0;background:var(--panel2)}
+.real,.good{border-color:var(--ok);background:var(--oksoft)}.warn{border-color:var(--warn);background:var(--warnsoft)}
+.t{display:block;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border:1px solid var(--line);border-radius:5px;padding:0 5px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:10px;overflow:auto;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;margin:8px 0}
+.eq{margin:10px 0;padding:10px 14px;background:var(--code);border:1px solid var(--line);border-radius:10px;font:17px/1.7 "Cambria Math",Georgia,serif;text-align:center}.eq small{display:block;font:13px system-ui;color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:15px;margin:10px 0;background:var(--panel)}th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}th{background:var(--panel2)}.tw{overflow-x:auto}
+details{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:12px 0}details>summary{cursor:pointer;padding:10px 14px;font-weight:700;color:var(--accent)}details>div{padding:0 14px 12px}details.q>summary{color:var(--ink)}
+.grid2{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}.card{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--panel)}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0}.flow span.b{padding:8px 12px;border:2px solid var(--accent);border-radius:10px;background:var(--panel);font-size:14px;font-weight:650;text-align:center}.flow span.a{color:var(--accent);font-weight:800}
+svg text{fill:var(--ink);font-family:system-ui,sans-serif}
+.dots{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}.dot{width:62px;height:62px;border-radius:12px;border:2px solid var(--line);background:var(--panel2);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:18px;position:relative}
+.dot small{font-weight:600;font-size:11px;color:var(--muted)}.dot.in{border-color:var(--accent);background:var(--soft)}.dot.out{opacity:.45}.dot .x{position:absolute;top:-8px;right:-6px;background:var(--accent);color:var(--aink);font-size:11px;border-radius:99px;padding:0 6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.chip{padding:3px 10px;border-radius:99px;border:1px solid var(--line);background:var(--panel2);font-size:13px;font-family:ui-monospace,Menlo,monospace}.chip.pick{background:var(--accent);color:var(--aink);border-color:var(--accent)}
+.vgrid{display:grid;grid-template-columns:repeat(30,1fr);gap:3px;margin:10px 0}.vgrid i{display:block;aspect-ratio:1;border-radius:3px}
+.prow{display:flex;gap:10px;align-items:center;margin:5px 0}.pl{width:150px;font-size:14px}.pb{flex:1;height:14px;background:var(--panel2);border-radius:7px;overflow:hidden}.pb i{display:block;height:14px}.pv{width:44px;text-align:right;font-weight:700}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:13px}.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+@media(max-width:900px){aside{display:none}.step{padding:16px}.vgrid{grid-template-columns:repeat(20,1fr)}}
+@media print{header,aside,button{display:none}.step{break-inside:avoid;border:none}details>*{display:block!important}}
+</style>
+</head>
+<body>
+<header><div class="hb"><div class="logo">LL</div><h1>LeakLens <small>The random forest, explained for beginners</small></h1><span class="sp"></span><button class="btn" id="theme">🌓 Theme</button><button class="btn pri" onclick="window.print()">Print / Save PDF</button></div><div class="prog"><i id="bar"></i></div></header>
+<div class="wrap">
+<aside id="side">
+<a href="#s0"><b>0</b>Where the forest fits</a>
+<a href="#s1"><b>1</b>What is a decision tree?</a>
+<a href="#s2"><b>2</b>What the forest learns from</a>
+<a href="#s3"><b>3</b>Why one tree is not enough</a>
+<a href="#s4"><b>4</b>How 300 trees differ</a>
+<a href="#s5"><b>5</b>How a tree is grown</a>
+<a href="#s6"><b>6</b>The forest votes</a>
+<a href="#s7"><b>7</b>From votes to the verdict</a>
+<a href="#s8"><b>8</b>Does it really help?</a>
+<a href="#s9"><b>9</b>Settings used here</a>
+<a href="#s10"><b>10</b>Which numbers matter</a>
+<a href="#s11"><b>11</b>Train, save, use, test</a>
+<a href="#s12"><b>12</b>Honest notes</a>
+<a href="#s13"><b>13</b>Self-check</a>
+</aside>
+<main>
+
+<div class="step" id="s0">
+<h2><span class="num">0</span>Where the forest fits</h2>
+<p class="say">The random forest answers one question: <b>what kind of event is this?</b></p>
+<div class="flow"><span class="b">Saved data for a scenario</span><span class="a">→</span><span class="b">14 numbers</span><span class="a">→</span><span class="b">Quiet check</span><span class="a">→</span><span class="b" style="background:var(--soft)">Random forest</span><span class="a">→</span><span class="b">Verdict + confidence</span><span class="a">→</span><span class="b">(if leak) rank nodes</span></div>
+<ul><li><b>Input:</b> 14 numbers that summarise a whole scenario (for example, “how much water vanishes at the worst node?”).</li>
+<li><b>Output:</b> a probability for each of 7 kinds: <em>normal day, leak, demand change, pump/reservoir, tank change, blocked pipe, pipe ageing</em>.</li>
+<li><b>It is the only “learned” step.</b> The noise levels, the unaccounted-flow calculation and the node ranking are calculations, not learning.</li></ul>
+<div class="warn"><b class="t">Important</b>The forest does <b>not</b> find <em>where</em> a leak is. It only names the kind of event. The location comes from a separate formula (score = A + 0.3·D).</div>
+<p>This page uses the project’s real, trained forest. Its numbers (tree counts, depths, votes) were read from the saved model.</p>
+</div>
+
+<div class="step" id="s1">
+<h2><span class="num">1</span>What is a decision tree?</h2>
+<p class="say">A decision tree is a list of yes/no questions that ends in an answer.</p>
+<p>Like the game “20 questions”: each answer sends you down a different branch until you reach an end-point. Here is the top of a real tree from our forest (tree #1):</p>
+<pre>unacc_ratio ≤ 1.21 ?
+   yes: flow_frac ≤ 0.04 ?
+   yes:    yes: → normal …(tree continues)
+   yes:    no:  → demand_change …(tree continues)
+   no:  tank_change ≤ 0.02 ?
+   no:     yes: → valve_block …(tree continues)
+   no:     no:  → leak</pre>
+<p>Reading it: “Is <code>unacc_ratio</code> (water vanishing at one node, in noise units) at most 1.21? If <b>no</b>, ask the next question…”. The tree ends in answers such as <b>leak</b>.</p>
+<div class="beg"><b class="t">A beginner’s picture</b>Imagine a doctor’s checklist: “fever? → yes → cough? → no → …”. Each question splits the patients into groups that are more alike. A tree is built so each split makes the groups as <em>pure</em> as possible, for example all “leaks” on one side.</div>
+</div>
+
+<div class="step" id="s2">
+<h2><span class="num">2</span>What the forest learns from</h2>
+<p class="say">One <b>row per scenario</b>: 14 numbers plus the true answer.</p>
+<p>Every simulated scenario was boiled down to one row. The forest is trained on <b>478 rows</b> (the training scenarios) and is tested on 139 rows it never saw. It never sees the hourly data, only these rows.</p>
+<div class="tw"><table><tr><th>Scenario</th><th>True kind (the label)</th><th>drop_ratio</th><th>frac_hit</th><th>median_ratio</th><th>conc_drop</th><th>unacc_ratio</th><th>pump_drop</th></tr><tr><td><code>net3_leak_161</code></td><td>Leak</td><td>0.61</td><td>0.0</td><td>0.5</td><td>0.01</td><td>0.57</td><td>0.0</td></tr><tr><td><code>net3_leak_129</code></td><td>Leak</td><td>0.38</td><td>0.0</td><td>0.26</td><td>0.02</td><td>17.73</td><td>0.0</td></tr><tr><td><code>net1_leak_10_area0.001</code></td><td>Leak</td><td>5.37</td><td>1.0</td><td>3.99</td><td>0.15</td><td>5.38</td><td>0.0</td></tr><tr><td><code>net3_hydrant_253</code></td><td>Demand change</td><td>0.84</td><td>0.0</td><td>0.14</td><td>0.04</td><td>0.0</td><td>0.0</td></tr><tr><td><code>net3_leak_109_with_blockage</code></td><td>Leak</td><td>77.05</td><td>0.9</td><td>71.77</td><td>0.01</td><td>4.17</td><td>0.48</td></tr><tr><td><code>net3_leak_40_area0.003</code></td><td>Leak</td><td>3.36</td><td>0.01</td><td>0.42</td><td>0.09</td><td>7.89</td><td>0.01</td></tr></table></div>
+<p>(Only 6 of the 14 numbers are shown, for six real training rows.) The labels are not equally common:</p>
+<div class="card"><svg viewBox="0 0 620 230" width="100%"><line x1="40" x2="610" y1="170.0" y2="170.0" stroke="var(--line)"/><text x="34" y="174.0" font-size="11" text-anchor="end">0</text><line x1="40" x2="610" y1="130.5" y2="130.5" stroke="var(--line)"/><text x="34" y="134.5" font-size="11" text-anchor="end">65</text><line x1="40" x2="610" y1="91.0" y2="91.0" stroke="var(--line)"/><text x="34" y="95.0" font-size="11" text-anchor="end">130</text><line x1="40" x2="610" y1="51.5" y2="51.5" stroke="var(--line)"/><text x="34" y="55.5" font-size="11" text-anchor="end">195</text><line x1="40" x2="610" y1="12.0" y2="12.0" stroke="var(--line)"/><text x="34" y="16.0" font-size="11" text-anchor="end">260</text><rect x="52.2" y="28.9" width="57.0" height="141.1" rx="3" fill="#1566d6"/><text x="80.7" y="25.9" font-size="10" text-anchor="middle">232</text><text transform="rotate(-35 80.7 182)" x="80.7" y="182" font-size="10" text-anchor="end">Leak</text><rect x="133.6" y="140.8" width="57.0" height="29.2" rx="3" fill="#1566d6"/><text x="162.1" y="137.8" font-size="10" text-anchor="middle">48</text><text transform="rotate(-35 162.1 182)" x="162.1" y="182" font-size="10" text-anchor="end">Demand change</text><rect x="215.1" y="140.8" width="57.0" height="29.2" rx="3" fill="#1566d6"/><text x="243.6" y="137.8" font-size="10" text-anchor="middle">48</text><text transform="rotate(-35 243.6 182)" x="243.6" y="182" font-size="10" text-anchor="end">Tank change</text><rect x="296.5" y="144.5" width="57.0" height="25.5" rx="3" fill="#1566d6"/><text x="325.0" y="141.5" font-size="10" text-anchor="middle">42</text><text transform="rotate(-35 325.0 182)" x="325.0" y="182" font-size="10" text-anchor="end">Normal day</text><rect x="377.9" y="144.5" width="57.0" height="25.5" rx="3" fill="#1566d6"/><text x="406.4" y="141.5" font-size="10" text-anchor="middle">42</text><text transform="rotate(-35 406.4 182)" x="406.4" y="182" font-size="10" text-anchor="end">Pump / reservoir</text><rect x="459.4" y="148.1" width="57.0" height="21.9" rx="3" fill="#1566d6"/><text x="487.9" y="145.1" font-size="10" text-anchor="middle">36</text><text transform="rotate(-35 487.9 182)" x="487.9" y="182" font-size="10" text-anchor="end">Blocked pipe</text><rect x="540.8" y="151.8" width="57.0" height="18.2" rx="3" fill="#1566d6"/><text x="569.3" y="148.8" font-size="10" text-anchor="middle">30</text><text transform="rotate(-35 569.3 182)" x="569.3" y="182" font-size="10" text-anchor="end">Pipe ageing</text></svg></div>
+<p>Leaks are 48.5% of the training rows. That imbalance matters in step 4.</p>
+</div>
+
+<div class="step" id="s3">
+<h2><span class="num">3</span>Why one tree is not enough</h2>
+<p class="say">A single tree can memorise its training data, and then stumble on new data.</p>
+<p>If you let one tree grow until every training row is classified perfectly, it learns the quirks of those rows, not just the pattern. We tried it on our data:</p>
+<table><tr><th>One decision tree</th><th>On training rows</th><th>On unseen test rows</th></tr>
+<tr><td>Grown fully (depth 15, 51 end-points)</td><td><b>100.0%</b> (perfect: memorised)</td><td>82.0%</td></tr>
+<tr><td>Kept short (depth 4, for readability)</td><td>—</td><td>69.1%</td></tr></table>
+<p>The idea of a <b>forest</b>: build many different trees, so their individual quirks differ, and let them <b>vote</b>. Quirks cancel; the real pattern stays. This is “the wisdom of the crowd”.</p>
+</div>
+
+<div class="step" id="s4">
+<h2><span class="num">4</span>How exactly are the 300 trees different?</h2>
+<p class="say">Same recipe, but each tree sees <b>different rows</b> and asks <b>different questions</b>. There are two sources of randomness, and both are real settings in this project.</p>
+
+<h3>Difference 1: each tree gets its own sample of the rows</h3>
+<p>This is called <b>bootstrap sampling</b>. For each tree, the computer draws 478 rows <b>with replacement</b>: it picks a row at random, notes it, puts it back, and picks again, 478 times. Result: some rows are picked several times, and some are never picked.</p>
+<p><b>Try it.</b> Twelve toy scenarios, A to L. Press the button to give a tree its own sample:</p>
+<div class="dots" id="boot"></div>
+<button class="btn pri" id="bootbtn">🎲 Draw a sample for the next tree</button> <span id="bootmsg" class="tag">press the button</span>
+<p>Cards drawn twice or more show a badge. Faded cards were left out: this tree never sees them.</p>
+<div class="real"><b class="t">Real numbers from our forest</b>Each tree draws 478 rows, but ends up using only about <b>54%</b> of the distinct rows (between 49% and 58% depending on the tree); the rest are repeated. The left-out rows are called <b>out-of-bag</b>.</div>
+<div class="beg"><b class="t">A twist in our version: balanced sampling</b>We set <code>class_weight="balanced"</code> because leaks are 48.5% of the rows. In the scikit-learn version used here, this also changes the drawing: every tree’s sample contains <b>about 14.3% of each of the 7 kinds</b> (7 kinds × 14.3% = 100%), instead of 48.5% leaks. So rare kinds such as “pipe ageing” (6% of the rows) are drawn more often and repeated, and leaks are drawn less often. This stops the forest from simply favouring “leak”. (We measured this on the saved model.)</div>
+
+<h3>Difference 2: each question only considers a few random numbers</h3>
+<p>When a tree needs to pick its next question, it does <b>not</b> look at all 14 numbers. It looks at a random subset of <b>3</b> (that is √14, rounded down) and picks the best question among those. A new random subset is drawn at <b>every</b> question.</p>
+<p><b>Try it.</b> The 14 numbers; press the button to see which 3 a tree may use for its next question:</p>
+<div class="chips" id="feats"></div>
+<button class="btn pri" id="featbtn">🎲 Pick 3 for the next question</button> <span id="featmsg" class="tag">question 1</span>
+<p>Because of this, even trees given the <em>same</em> rows would ask different questions. It stops every tree from always using the one strongest number first.</p>
+<div class="real"><b class="t">Real numbers from our forest</b>The first question of each of the 300 trees (the “root”) is not always the same. Across the forest the root question uses 12 different numbers. The most common are <code>unacc_conc</code> (67 trees) and <code>unacc_ratio</code> (52 trees).</div>
+<div class="card"><b>Which number is the first question, across the 300 trees</b><svg viewBox="0 0 620 230" width="100%"><line x1="40" x2="610" y1="170.0" y2="170.0" stroke="var(--line)"/><text x="34" y="174.0" font-size="11" text-anchor="end">0</text><line x1="40" x2="610" y1="130.5" y2="130.5" stroke="var(--line)"/><text x="34" y="134.5" font-size="11" text-anchor="end">19</text><line x1="40" x2="610" y1="91.0" y2="91.0" stroke="var(--line)"/><text x="34" y="95.0" font-size="11" text-anchor="end">38</text><line x1="40" x2="610" y1="51.5" y2="51.5" stroke="var(--line)"/><text x="34" y="55.5" font-size="11" text-anchor="end">56</text><line x1="40" x2="610" y1="12.0" y2="12.0" stroke="var(--line)"/><text x="34" y="16.0" font-size="11" text-anchor="end">75</text><rect x="47.1" y="28.9" width="33.2" height="141.1" rx="3" fill="#1566d6"/><text x="63.8" y="25.9" font-size="10" text-anchor="middle">67</text><text transform="rotate(-35 63.8 182)" x="63.8" y="182" font-size="10" text-anchor="end">unacc_conc</text><rect x="94.6" y="60.5" width="33.2" height="109.5" rx="3" fill="#1566d6"/><text x="111.2" y="57.5" font-size="10" text-anchor="middle">52</text><text transform="rotate(-35 111.2 182)" x="111.2" y="182" font-size="10" text-anchor="end">unacc_ratio</text><rect x="142.1" y="68.9" width="33.2" height="101.1" rx="3" fill="#1566d6"/><text x="158.8" y="65.9" font-size="10" text-anchor="middle">48</text><text transform="rotate(-35 158.8 182)" x="158.8" y="182" font-size="10" text-anchor="end">demand_frac</text><rect x="189.6" y="100.5" width="33.2" height="69.5" rx="3" fill="#1566d6"/><text x="206.2" y="97.5" font-size="10" text-anchor="middle">33</text><text transform="rotate(-35 206.2 182)" x="206.2" y="182" font-size="10" text-anchor="end">flow_frac</text><rect x="237.1" y="104.7" width="33.2" height="65.3" rx="3" fill="#1566d6"/><text x="253.8" y="101.7" font-size="10" text-anchor="middle">31</text><text transform="rotate(-35 253.8 182)" x="253.8" y="182" font-size="10" text-anchor="end">frac_rise</text><rect x="284.6" y="130.0" width="33.2" height="40.0" rx="3" fill="#1566d6"/><text x="301.2" y="127.0" font-size="10" text-anchor="middle">19</text><text transform="rotate(-35 301.2 182)" x="301.2" y="182" font-size="10" text-anchor="end">rise_ratio</text><rect x="332.1" y="140.5" width="33.2" height="29.5" rx="3" fill="#1566d6"/><text x="348.8" y="137.5" font-size="10" text-anchor="middle">14</text><text transform="rotate(-35 348.8 182)" x="348.8" y="182" font-size="10" text-anchor="end">demand_total</text><rect x="379.6" y="148.9" width="33.2" height="21.1" rx="3" fill="#1566d6"/><text x="396.2" y="145.9" font-size="10" text-anchor="middle">10</text><text transform="rotate(-35 396.2 182)" x="396.2" y="182" font-size="10" text-anchor="end">median_ratio</text><rect x="427.1" y="153.2" width="33.2" height="16.8" rx="3" fill="#1566d6"/><text x="443.8" y="150.2" font-size="10" text-anchor="middle">8</text><text transform="rotate(-35 443.8 182)" x="443.8" y="182" font-size="10" text-anchor="end">pump_drop</text><rect x="474.6" y="155.3" width="33.2" height="14.7" rx="3" fill="#1566d6"/><text x="491.2" y="152.3" font-size="10" text-anchor="middle">7</text><text transform="rotate(-35 491.2 182)" x="491.2" y="182" font-size="10" text-anchor="end">tank_change</text><rect x="522.1" y="157.4" width="33.2" height="12.6" rx="3" fill="#1566d6"/><text x="538.8" y="154.4" font-size="10" text-anchor="middle">6</text><text transform="rotate(-35 538.8 182)" x="538.8" y="182" font-size="10" text-anchor="end">drop_ratio</text><rect x="569.6" y="159.5" width="33.2" height="10.5" rx="3" fill="#1566d6"/><text x="586.2" y="156.5" font-size="10" text-anchor="middle">5</text><text transform="rotate(-35 586.2 182)" x="586.2" y="182" font-size="10" text-anchor="end">frac_hit</text></svg></div>
+
+<h3>Difference 3 (a result, not a setting): different shapes</h3>
+<p>Because of the two differences above, the trees come out different sizes. In our forest, tree depth ranges from <b>10 to 18</b> questions (average 12.9), and the number of end-points from <b>45 to 82</b> (average 63). Here are three real trees. Look at their first questions:</p>
+<div class="grid2"><div class="card"><b>Tree #1</b> <span class="tag">depth 12 · 63.0 end-points</span><pre>unacc_ratio ≤ 1.21 ?
+   yes: flow_frac ≤ 0.04 ?
+   yes:    yes: → normal …(tree continues)
+   yes:    no:  → demand_change …(tree continues)
+   no:  tank_change ≤ 0.02 ?
+   no:     yes: → valve_block …(tree continues)
+   no:     no:  → leak</pre><small>Uses 53% of the distinct training rows, some of them counted several times. Rows it drew, by kind: Demand change 78, Blocked pipe 71, Normal day 69, Pump / reservoir 68, Tank change 68, Pipe ageing 66, Leak 58.</small></div><div class="card"><b>Tree #2</b> <span class="tag">depth 14 · 66.0 end-points</span><pre>frac_rise ≤ 0.05 ?
+   yes: demand_total ≤ 0.01 ?
+   yes:    yes: → leak …(tree continues)
+   yes:    no:  → demand_change …(tree continues)
+   no:  unacc_ratio ≤ 2.93 ?
+   no:     yes: → ageing …(tree continues)
+   no:     no:  → leak</pre><small>Uses 54% of the distinct training rows, some of them counted several times. Rows it drew, by kind: Demand change 73, Leak 72, Tank change 72, Pump / reservoir 72, Normal day 68, Pipe ageing 66, Blocked pipe 55.</small></div><div class="card"><b>Tree #3</b> <span class="tag">depth 11 · 71.0 end-points</span><pre>frac_rise ≤ 0.05 ?
+   yes: demand_frac ≤ 0.01 ?
+   yes:    yes: → normal …(tree continues)
+   yes:    no:  → demand_change …(tree continues)
+   no:  source_change ≤ 0.36 ?
+   no:     yes: → ageing …(tree continues)
+   no:     no:  → tank_event …(tree continues)</pre><small>Uses 54% of the distinct training rows, some of them counted several times. Rows it drew, by kind: Blocked pipe 75, Pump / reservoir 75, Pipe ageing 70, Tank change 70, Normal day 67, Demand change 63, Leak 58.</small></div></div>
+
+<h3>What is the same for every tree?</h3>
+<table><tr><th>The same for all 300 trees</th><th>Different for each tree</th></tr>
+<tr><td>The 14 numbers and the label kinds</td><td>Which rows it is trained on (bootstrap)</td></tr>
+<tr><td>The method of growing (gini, step 5)</td><td>Which 3 numbers are allowed at each question</td></tr>
+<tr><td>Settings: 300 trees, balanced classes, no depth limit</td><td>The resulting questions, depth and end-points</td></tr>
+<tr><td>The random seed (<code>random_state=0</code>)</td><td>—</td></tr></table>
+<div class="good"><b class="t">Random, but repeatable</b>“Random” here uses a fixed seed. Re-training on the same rows reproduces the same forest: we re-trained it and got the same predictions on the test set (yes). That is what makes the results repeatable.</div>
+</div>
+
+<div class="step" id="s5">
+<h2><span class="num">5</span>How a single tree is grown</h2>
+<p class="say">A tree is built from the top, one best question at a time.</p>
+<ol>
+<li>Start with all the rows given to this tree (its bootstrap sample), mixed together.</li>
+<li>Consider the 3 randomly allowed numbers. For each, try possible cut-off values (for example <code>unacc_ratio ≤ 1.21</code>).</li>
+<li>Pick the question that makes the two groups <b>purest</b>, meaning each group contains mostly one kind. Purity is measured by <b>gini</b>: 0 for a perfectly pure group, higher when kinds are mixed.</li>
+<li>Split the rows into “yes” and “no”, and repeat steps 2–3 on each group with a fresh random choice of 3 numbers.</li>
+<li><b>Stop</b> when a group is pure (all one kind) or cannot be split. Each end-point answers with the kind of the rows that reached it.</li></ol>
+<div class="eq">gini = 1 − Σ (share of each kind)²<small>Example: a group with 9 leaks and 1 normal: 1 − (0.9² + 0.1²) = 0.18 (nearly pure). 5 leaks and 5 normal: 0.5 (very mixed).</small></div>
+<p>No depth limit is set, so trees keep growing until the groups are pure. That is why single trees memorise (step 3); the voting in step 6 fixes it.</p>
+</div>
+
+<div class="step" id="s6">
+<h2><span class="num">6</span>The forest votes</h2>
+<p class="say">For a new scenario, all 300 trees answer, and the answers are combined.</p>
+<p>Follow <b>one</b> real tree for the leak at node 15 (an unseen test scenario). Its numbers: <code>unacc_ratio</code> ≈ 10 and <code>tank_change</code> ≈ 0.03:</p>
+<ol><li>Is <code>unacc_ratio</code> ≤ 1.21? This scenario has <b>9.99</b>, so the answer is <b>no</b>.</li><li>Is <code>tank_change</code> ≤ 0.02? This scenario has <b>0.03</b>, so the answer is <b>no</b>.</li><li><b>End-point reached:</b> the tree answers <b>Leak</b>.</li></ol>
+<p>That is one tree’s vote: <b>Leak</b>. Now all 300 trees do the same. Each square is a tree, coloured by its answer (hover for details):</p>
+<div class="vgrid" id="vgrid"></div>
+<div class="legend" id="legend"></div>
+<div class="card"><b>The 300 votes for this scenario</b><div class="prow"><span class="pl">Leak</span><span class="pb"><i style="width:94.0%;background:#cf2f2f"></i></span><span class="pv">282</span></div><div class="prow"><span class="pl">Normal day</span><span class="pb"><i style="width:2.0%;background:#12804f"></i></span><span class="pv">6</span></div><div class="prow"><span class="pl">Blocked pipe</span><span class="pb"><i style="width:2.0%;background:#0e8f9b"></i></span><span class="pv">6</span></div><div class="prow"><span class="pl">Tank change</span><span class="pb"><i style="width:1.0%;background:#8b5cf6"></i></span><span class="pv">3</span></div><div class="prow"><span class="pl">Pump / reservoir</span><span class="pb"><i style="width:0.7%;background:#a85f00"></i></span><span class="pv">2</span></div><div class="prow"><span class="pl">Demand change</span><span class="pb"><i style="width:0.3%;background:#1566d6"></i></span><span class="pv">1</span></div><div class="prow"><span class="pl">Pipe ageing</span><span class="pb"><i style="width:0.0%;background:#7a6a55"></i></span><span class="pv">0</span></div></div>
+<div class="real"><b class="t">Result</b>282 of 300 trees say leak. The forest’s probability for leak is <b>94%</b>.</div>
+<details><summary>A small technical detail</summary><div><p>Strictly, scikit-learn does not count hard votes. Each tree reports the share of each kind in the end-point it reached, and the forest <b>averages</b> these shares over the 300 trees. Because our trees are grown until their end-points are pure, each tree’s share is almost always 100% for one kind, so the average is effectively the vote share.</p></div></details>
+</div>
+
+<div class="step" id="s7">
+<h2><span class="num">7</span>From votes to the verdict you see</h2>
+<ol>
+<li><b>Probabilities:</b> the forest gives one number per kind, adding to 100%.</li>
+<li><b>Verdict:</b> the kind with the highest probability.</li>
+<li><b>Confidence label on the dashboard:</b> High if the top probability is 85% or more, Medium from 60%, otherwise Low. It is a vote share, not a guaranteed accuracy.</li>
+<li><b>Quiet check can override:</b> before this, if all 14 signals were within noise, the answer was already set to “Normal day” and the forest’s answer is replaced.</li>
+<li><b>If the verdict is leak</b>, the separate node ranking runs. Otherwise the dashboard shows the kind of event and the reasons.</li></ol>
+</div>
+
+<div class="step" id="s8">
+<h2><span class="num">8</span>Does the forest really help? Real numbers</h2>
+<p class="say">Individually, the trees are weaker than the whole forest. Voting lifts the result.</p>
+<p>We scored each of the 300 trees on the 139 unseen test scenarios:</p>
+<div class="card"><b>Test accuracy of the 300 individual trees</b><svg viewBox="0 0 620 230" width="100%"><line x1="40" x2="610" y1="170.0" y2="170.0" stroke="var(--line)"/><text x="34" y="174.0" font-size="11" text-anchor="end">0</text><line x1="40" x2="610" y1="130.5" y2="130.5" stroke="var(--line)"/><text x="34" y="134.5" font-size="11" text-anchor="end">33</text><line x1="40" x2="610" y1="91.0" y2="91.0" stroke="var(--line)"/><text x="34" y="95.0" font-size="11" text-anchor="end">66</text><line x1="40" x2="610" y1="51.5" y2="51.5" stroke="var(--line)"/><text x="34" y="55.5" font-size="11" text-anchor="end">99</text><line x1="40" x2="610" y1="12.0" y2="12.0" stroke="var(--line)"/><text x="34" y="16.0" font-size="11" text-anchor="end">132</text><rect x="48.5" y="170.0" width="39.9" height="0.0" rx="3" fill="#a85f00"/><text x="68.5" y="167.0" font-size="10" text-anchor="middle">0</text><text transform="rotate(-35 68.5 182)" x="68.5" y="182" font-size="10" text-anchor="end">40–45%</text><rect x="105.5" y="170.0" width="39.9" height="0.0" rx="3" fill="#a85f00"/><text x="125.5" y="167.0" font-size="10" text-anchor="middle">0</text><text transform="rotate(-35 125.5 182)" x="125.5" y="182" font-size="10" text-anchor="end">45–50%</text><rect x="162.6" y="170.0" width="39.9" height="0.0" rx="3" fill="#a85f00"/><text x="182.5" y="167.0" font-size="10" text-anchor="middle">0</text><text transform="rotate(-35 182.5 182)" x="182.5" y="182" font-size="10" text-anchor="end">50–55%</text><rect x="219.6" y="167.6" width="39.9" height="2.4" rx="3" fill="#a85f00"/><text x="239.5" y="164.6" font-size="10" text-anchor="middle">2</text><text transform="rotate(-35 239.5 182)" x="239.5" y="182" font-size="10" text-anchor="end">55–60%</text><rect x="276.6" y="160.4" width="39.9" height="9.6" rx="3" fill="#a85f00"/><text x="296.5" y="157.4" font-size="10" text-anchor="middle">8</text><text transform="rotate(-35 296.5 182)" x="296.5" y="182" font-size="10" text-anchor="end">60–65%</text><rect x="333.6" y="135.3" width="39.9" height="34.7" rx="3" fill="#a85f00"/><text x="353.5" y="132.3" font-size="10" text-anchor="middle">29</text><text transform="rotate(-35 353.5 182)" x="353.5" y="182" font-size="10" text-anchor="end">65–70%</text><rect x="390.6" y="36.1" width="39.9" height="133.9" rx="3" fill="#a85f00"/><text x="410.5" y="33.1" font-size="10" text-anchor="middle">112</text><text transform="rotate(-35 410.5 182)" x="410.5" y="182" font-size="10" text-anchor="end">70–75%</text><rect x="447.6" y="28.9" width="39.9" height="141.1" rx="3" fill="#a85f00"/><text x="467.5" y="25.9" font-size="10" text-anchor="middle">118</text><text transform="rotate(-35 467.5 182)" x="467.5" y="182" font-size="10" text-anchor="end">75–80%</text><rect x="504.6" y="135.3" width="39.9" height="34.7" rx="3" fill="#a85f00"/><text x="524.5" y="132.3" font-size="10" text-anchor="middle">29</text><text transform="rotate(-35 524.5 182)" x="524.5" y="182" font-size="10" text-anchor="end">80–85%</text><rect x="561.5" y="167.6" width="39.9" height="2.4" rx="3" fill="#a85f00"/><text x="581.5" y="164.6" font-size="10" text-anchor="middle">2</text><text transform="rotate(-35 581.5 182)" x="581.5" y="182" font-size="10" text-anchor="end">85–90%</text></svg><small>Number of trees (vertical) in each accuracy band (horizontal).</small></div>
+<table><tr><th>Model (unseen test scenarios)</th><th>Accuracy</th></tr>
+<tr><td>A single tree inside the forest (average of 300)</td><td>74.9% (worst 59.0%, best 87.1%)</td></tr>
+<tr><td>One fully grown decision tree trained on all 478 rows</td><td>82.0%</td></tr>
+<tr><td>Depth-4 decision tree</td><td>69.1%</td></tr>
+<tr><td><b>The forest of 300 trees (forest alone)</b></td><td><b>84.2%</b></td></tr>
+<tr><td><b>Whole system (forest + quiet check), as reported</b></td><td><b>82.7%</b> (macro-F1 76.4%)</td></tr></table>
+<div class="warn"><b class="t">Be honest about this</b>The forest beats the average single tree by about 9 points and the short tree by a lot, but only by about 2 points over <em>one fully grown tree</em> (82.0%). With only 139 test scenarios, that small gap is within the noise: we cannot claim the forest is clearly better than a single full tree here. The forest’s advantage is that its answers are steadier and it gives a vote share you can use as a confidence. The whole-system number is slightly lower than the forest alone because the quiet check sometimes calls small events “normal”.</div>
+</div>
+
+<div class="step" id="s9">
+<h2><span class="num">9</span>The settings used in this project</h2>
+<div class="tw"><table><tr><th>Setting</th><th>Value</th><th>Plain meaning</th></tr>
+<tr><td><code>n_estimators</code></td><td>300</td><td>Number of trees.</td></tr>
+<tr><td><code>bootstrap</code></td><td>True</td><td>Each tree gets its own sample of rows, drawn with replacement.</td></tr>
+<tr><td><code>max_features</code></td><td>sqrt → 3 of 14</td><td>Numbers allowed at each question.</td></tr>
+<tr><td><code>class_weight</code></td><td>balanced</td><td>Rare kinds count as much as common ones (and are drawn more often).</td></tr>
+<tr><td><code>criterion</code></td><td>gini</td><td>How the “best” question is judged (purity).</td></tr>
+<tr><td><code>max_depth</code></td><td>None</td><td>No limit: trees grow until pure.</td></tr>
+<tr><td><code>min_samples_split / leaf</code></td><td>2 / 1</td><td>Splitting continues down to tiny groups.</td></tr>
+<tr><td><code>random_state</code></td><td>0</td><td>Fixed seed so training is repeatable.</td></tr></table></div>
+<p><b>None of these were tuned.</b> They are sensible defaults plus the class balancing. A better choice may exist.</p>
+</div>
+
+<div class="step" id="s10">
+<h2><span class="num">10</span>Which of the 14 numbers matter most?</h2>
+<p>A forest can report how much it relies on each number. For every question in every tree it records how much the question made the groups purer, adds it up per number, and averages over the 300 trees.</p>
+<div class="card"><b>Importance of each number (%)</b><svg viewBox="0 0 620 230" width="100%"><line x1="40" x2="610" y1="170.0" y2="170.0" stroke="var(--line)"/><text x="34" y="174.0" font-size="11" text-anchor="end">0</text><line x1="40" x2="610" y1="130.5" y2="130.5" stroke="var(--line)"/><text x="34" y="134.5" font-size="11" text-anchor="end">3</text><line x1="40" x2="610" y1="91.0" y2="91.0" stroke="var(--line)"/><text x="34" y="95.0" font-size="11" text-anchor="end">7</text><line x1="40" x2="610" y1="51.5" y2="51.5" stroke="var(--line)"/><text x="34" y="55.5" font-size="11" text-anchor="end">10</text><line x1="40" x2="610" y1="12.0" y2="12.0" stroke="var(--line)"/><text x="34" y="16.0" font-size="11" text-anchor="end">13</text><rect x="46.1" y="28.9" width="28.5" height="141.1" rx="3" fill="#12804f"/><text x="60.4" y="25.9" font-size="10" text-anchor="middle">12.0%</text><text transform="rotate(-35 60.4 182)" x="60.4" y="182" font-size="10" text-anchor="end">unacc_conc</text><rect x="86.8" y="61.0" width="28.5" height="109.0" rx="3" fill="#12804f"/><text x="101.1" y="58.0" font-size="10" text-anchor="middle">9.3%</text><text transform="rotate(-35 101.1 182)" x="101.1" y="182" font-size="10" text-anchor="end">unacc_ratio</text><rect x="127.5" y="62.9" width="28.5" height="107.1" rx="3" fill="#12804f"/><text x="141.8" y="59.9" font-size="10" text-anchor="middle">9.1%</text><text transform="rotate(-35 141.8 182)" x="141.8" y="182" font-size="10" text-anchor="end">demand_frac</text><rect x="168.2" y="65.4" width="28.5" height="104.6" rx="3" fill="#12804f"/><text x="182.5" y="62.4" font-size="10" text-anchor="middle">8.9%</text><text transform="rotate(-35 182.5 182)" x="182.5" y="182" font-size="10" text-anchor="end">rise_ratio</text><rect x="209.0" y="66.1" width="28.5" height="103.9" rx="3" fill="#12804f"/><text x="223.2" y="63.1" font-size="10" text-anchor="middle">8.8%</text><text transform="rotate(-35 223.2 182)" x="223.2" y="182" font-size="10" text-anchor="end">flow_frac</text><rect x="249.7" y="74.3" width="28.5" height="95.7" rx="3" fill="#12804f"/><text x="263.9" y="71.3" font-size="10" text-anchor="middle">8.1%</text><text transform="rotate(-35 263.9 182)" x="263.9" y="182" font-size="10" text-anchor="end">conc_drop</text><rect x="290.4" y="84.4" width="28.5" height="85.6" rx="3" fill="#12804f"/><text x="304.6" y="81.4" font-size="10" text-anchor="middle">7.3%</text><text transform="rotate(-35 304.6 182)" x="304.6" y="182" font-size="10" text-anchor="end">tank_change</text><rect x="331.1" y="90.5" width="28.5" height="79.5" rx="3" fill="#12804f"/><text x="345.4" y="87.5" font-size="10" text-anchor="middle">6.8%</text><text transform="rotate(-35 345.4 182)" x="345.4" y="182" font-size="10" text-anchor="end">median_ratio</text><rect x="371.8" y="94.1" width="28.5" height="75.9" rx="3" fill="#12804f"/><text x="386.1" y="91.1" font-size="10" text-anchor="middle">6.5%</text><text transform="rotate(-35 386.1 182)" x="386.1" y="182" font-size="10" text-anchor="end">drop_ratio</text><rect x="412.5" y="106.7" width="28.5" height="63.3" rx="3" fill="#12804f"/><text x="426.8" y="103.7" font-size="10" text-anchor="middle">5.4%</text><text transform="rotate(-35 426.8 182)" x="426.8" y="182" font-size="10" text-anchor="end">frac_rise</text><rect x="453.2" y="111.0" width="28.5" height="59.0" rx="3" fill="#12804f"/><text x="467.5" y="108.0" font-size="10" text-anchor="middle">5.0%</text><text transform="rotate(-35 467.5 182)" x="467.5" y="182" font-size="10" text-anchor="end">source_change</text><rect x="494.0" y="116.9" width="28.5" height="53.1" rx="3" fill="#12804f"/><text x="508.2" y="113.9" font-size="10" text-anchor="middle">4.5%</text><text transform="rotate(-35 508.2 182)" x="508.2" y="182" font-size="10" text-anchor="end">pump_drop</text><rect x="534.7" y="119.6" width="28.5" height="50.4" rx="3" fill="#12804f"/><text x="548.9" y="116.6" font-size="10" text-anchor="middle">4.3%</text><text transform="rotate(-35 548.9 182)" x="548.9" y="182" font-size="10" text-anchor="end">demand_total</text><rect x="575.4" y="123.8" width="28.5" height="46.2" rx="3" fill="#12804f"/><text x="589.6" y="120.8" font-size="10" text-anchor="middle">3.9%</text><text transform="rotate(-35 589.6 182)" x="589.6" y="182" font-size="10" text-anchor="end">frac_hit</text></svg></div>
+<p>The unaccounted-flow numbers and the demand-evidence numbers are near the top, which makes sense: they separate leaks from demand changes. But the importance is fairly evenly spread, so no single number does everything. Note importance means “used a lot”, not “causes the event”.</p>
+</div>
+
+<div class="step" id="s11">
+<h2><span class="num">11</span>Train, save, use, test: end to end in the project</h2>
+<ol>
+<li><b>Build the table.</b> <code>train.py</code> computes the 14 numbers for every scenario and saves <code>features.csv</code> (one row per scenario, with a train/test tag).</li>
+<li><b>Train.</b> Only the 478 training rows go into <code>RandomForestClassifier(n_estimators=300, class_weight="balanced", random_state=0)</code>. A depth-4 tree is trained alongside, only so its rules can be read.</li>
+<li><b>Save.</b> The trained forest is saved to a file (with joblib). Its readable tree rules go to <code>decision_rules.txt</code>.</li>
+<li><b>Use.</b> When someone presses Analyse, the backend loads the saved forest once, builds the 14 numbers for that scenario, calls <code>predict_proba</code>, and gets the 7 probabilities (step 6–7).</li>
+<li><b>Test.</b> <code>evaluate.py</code> runs the forest on the 139 test rows it never saw and records accuracy, precision, recall, F1 and the confusion matrix. Those test numbers are the ones we report.</li></ol>
+<div class="good"><b class="t">Two accuracy numbers, do not mix them</b>On the training rows the system scores 95.6% (it has seen them); on the unseen test rows 82.7%. Quote the test number.</div>
+</div>
+
+<div class="step" id="s12">
+<h2><span class="num">12</span>Honest notes</h2>
+<ul>
+<li><b>No tuning.</b> Number of trees, depth limit and other settings were not optimised.</li>
+<li><b>Small data.</b> 478 training rows and 139 test rows: results have wide margins of error, and the split was made once.</li>
+<li><b>Out-of-bag check is optimistic.</b> A forest can score itself on each tree’s left-out rows. We measured 96.9% that way, but it is higher than the test result because near-copies of a scenario (the same leak node at other sizes, noisy twins) sit in other trees’ samples. That is why we trust only the held-out test.</li>
+<li><b>Hard cases.</b> Pump, tank, blockage and ageing are sometimes confused with each other; small events can look normal.</li>
+<li><b>Single tree is close.</b> On this small test, one fully grown tree is nearly as accurate as the forest (step 8).</li>
+<li><b>Confidence is not calibrated.</b> 94% means 94% of trees agreed, not “right 94% of the time”.</li></ul>
+</div>
+
+<div class="step" id="s13">
+<h2><span class="num">13</span>Self-check</h2>
+<details class="q"><summary>What does the random forest decide, and what does it not decide?</summary><div>It decides the kind of event (7 kinds). It does not decide where a leak is: that is the separate score A + 0.3·D.</div></details>
+<details class="q"><summary>In what two ways do the 300 trees differ?</summary><div>(1) Each is trained on its own bootstrap sample of the training rows (drawn with replacement, balanced by kind). (2) At each question it may only use a random subset of 3 of the 14 numbers. This makes their depth, questions and end-points differ.</div></details>
+<details class="q"><summary>What is bootstrap sampling?</summary><div>Drawing rows at random <em>with replacement</em> until you have as many as the original. Some rows repeat, about half are never picked (here about 54% of distinct rows are used).</div></details>
+<details class="q"><summary>Why only 3 numbers per question?</summary><div>So trees do not all copy the single strongest number; it makes them less alike, and voting works best when the voters are different. 3 = √14 rounded down.</div></details>
+<details class="q"><summary>How does the forest turn 300 answers into one verdict?</summary><div>It averages the trees’ answers into a probability per kind (effectively the vote share) and picks the highest. The top probability is the confidence.</div></details>
+<details class="q"><summary>Is the forest’s advantage over a single tree large here?</summary><div>No. Against the average tree in the forest it is about 9 points; against one fully grown tree it is about 2 points, which is within the noise of 139 test scenarios.</div></details>
+<details class="q"><summary>What was it trained on, and what tested?</summary><div>Trained on one row of 14 numbers for each of the 478 training scenarios; tested on the 139 unseen test scenarios.</div></details>
+<details class="q"><summary>Why is the result the same every time we re-train?</summary><div>The randomness uses a fixed seed (random_state=0), so the same rows give the same forest.</div></details>
+<div class="warn"><b class="t">Remember</b>All data are simulated. The forest was not tuned, and the test set is small.</div>
+</div>
+</main>
+</div>
+<script>
+(function(){
+var root=document.documentElement;
+try{var t=localStorage.getItem('leaklens-rf-theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}root.setAttribute('data-theme',t);}catch(e){}
+document.getElementById('theme').onclick=function(){var n=root.getAttribute('data-theme')==='dark'?'light':'dark';root.setAttribute('data-theme',n);try{localStorage.setItem('leaklens-rf-theme',n);}catch(e){}};
+var links=[].slice.call(document.querySelectorAll('#side a'));var steps=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+function spy(){var y=window.scrollY+120,cur=0;steps.forEach(function(s,i){if(s&&s.offsetTop<=y)cur=i;});links.forEach(function(a,i){a.classList.toggle('on',i===cur);});var h=document.documentElement.scrollHeight-window.innerHeight;document.getElementById('bar').style.width=(h>0?Math.min(100,window.scrollY/h*100):0)+'%';}
+window.addEventListener('scroll',spy);spy();
+/* bootstrap demo */
+var letters='ABCDEFGHIJKL'.split(''),boot=document.getElementById('boot'),tree=0;
+function drawBoot(){tree++;var c={};letters.forEach(function(l){c[l]=0;});for(var i=0;i<12;i++){c[letters[Math.floor(Math.random()*12)]]++;}
+ boot.innerHTML='';var uniq=0;letters.forEach(function(l){var d=document.createElement('div');d.className='dot '+(c[l]>0?'in':'out');d.innerHTML=l+'<small>'+(c[l]>0?'used':'left out')+'</small>'+(c[l]>1?'<span class="x">×'+c[l]+'</span>':'');boot.appendChild(d);if(c[l]>0)uniq++;});
+ document.getElementById('bootmsg').textContent='Tree '+tree+': drew 12 times, used '+uniq+' different scenarios, left out '+(12-uniq);}
+document.getElementById('bootbtn').onclick=drawBoot;drawBoot();
+/* feature subset demo */
+var feats=['drop_ratio','frac_hit','median_ratio','conc_drop','rise_ratio','frac_rise','flow_frac','source_change','tank_change','pump_drop','unacc_ratio','unacc_conc','demand_frac','demand_total'],fc=document.getElementById('feats'),q=0;
+function pick(){q++;var idx=[];while(idx.length<3){var r=Math.floor(Math.random()*14);if(idx.indexOf(r)<0)idx.push(r);}
+ fc.innerHTML='';feats.forEach(function(f,i){var s=document.createElement('span');s.className='chip'+(idx.indexOf(i)>=0?' pick':'');s.textContent=f;fc.appendChild(s);});
+ document.getElementById('featmsg').textContent='question '+q+': only the 3 highlighted numbers are allowed';}
+document.getElementById('featbtn').onclick=pick;pick();
+/* vote grid */
+var votes=["leak", "leak", "normal", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "normal", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "normal", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "tank_event", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "valve_block", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "normal", "leak", "leak", "leak", "leak", "leak", "demand_change", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "normal", "leak", "leak", "leak", "leak", "normal", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "tank_event", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "source_event", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "valve_block", "leak", "leak", "leak", "leak", "leak", "valve_block", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "tank_event", "leak", "leak", "leak", "leak", "leak", "leak", "valve_block", "valve_block", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "source_event", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "valve_block", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak", "leak"],colors={"normal": "#12804f", "leak": "#cf2f2f", "demand_change": "#1566d6", "source_event": "#a85f00", "tank_event": "#8b5cf6", "valve_block": "#0e8f9b", "ageing": "#7a6a55"},names={"normal": "Normal day", "leak": "Leak", "demand_change": "Demand change", "source_event": "Pump / reservoir", "tank_event": "Tank change", "valve_block": "Blocked pipe", "ageing": "Pipe ageing"},vg=document.getElementById('vgrid');
+votes.forEach(function(v,i){var e=document.createElement('i');e.style.background=colors[v];e.title='Tree '+(i+1)+': '+names[v];vg.appendChild(e);});
+var seen={};votes.forEach(function(v){seen[v]=1;});
+document.getElementById('legend').innerHTML=Object.keys(names).filter(function(k){return seen[k];}).map(function(k){return '<span><i style="background:'+colors[k]+'"></i>'+names[k]+'</span>';}).join('');
+})();
+</script>
+</body>
+</html>

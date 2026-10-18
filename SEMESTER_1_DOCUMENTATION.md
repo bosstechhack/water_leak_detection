@@ -1,4 +1,6 @@
-# 🌊 AquaGuard ML — Semester 1 Comprehensive Technical Documentation
+# 🌊 LeakLens — Semester 1 Comprehensive Technical Documentation
+
+> **Note:** this document describes the original two-scenario prototype (Algorithms 1-3 below). The final Semester 1 system, scenarios and results are in `SEMESTER_1_COMPLETION.md`; the run instructions are in `README.md`.
 **Project Title:** Intelligent Water Network Leak Detection and Localization  
 **Course:** B.Tech Project (BTP) — Semester 1 Final Deliverable  
 **Institution:** Indian Institute of Information Technology (IIIT) Kottayam  
@@ -29,12 +31,12 @@
 
 Water Distribution Networks (WDNs) lose substantial treated drinking water—often 30% to 40% in municipal systems—due to hidden pipe bursts and background leakage (Non-Revenue Water). Traditional field search methods (such as acoustic listening sticks) are labor-intensive, slow, and cannot monitor underground pipelines in real time.
 
-For **Semester 1**, we have built **AquaGuard ML**, a complete software prototype that combines:
+For **Semester 1**, we have built **LeakLens**, a complete software prototype that combines:
 1. **Hydraulic Simulation:** EPANET / WNTR extended-period simulation on the 97-node benchmark network.
 2. **Dual-Signal Machine Learning & Physics-Informed Analytics:** Uses **both pressure head residuals and pipe flow divergence** based on physical mass conservation.
 3. **Interactive Web Dashboard:** A Next.js + React Flow + FastAPI platform displaying live network topology, real-time node inspection cards, 24-hour pressure time-series graphs, and Top-$K$ candidate leak localization.
 
-The system achieves **100% Top-1 Accuracy** across tested benchmark scenarios, localizing the leak and providing a contiguous physical cluster of Top-5 candidate nodes.
+The first version of the system reached 100% Top-1 on two large-leak scenarios. That was a small test. The extended evaluation (about 590 scenarios on three networks) is in `SEMESTER_1_COMPLETION.md`; use those numbers, not the 100% figure.
 
 ---
 

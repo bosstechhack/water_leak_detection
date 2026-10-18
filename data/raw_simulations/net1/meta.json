@@ -1,0 +1,7 @@
+{
+ "network": "net1",
+ "file": "Net1.inp",
+ "duration_hours": 24,
+ "unstable_nodes": [],
+ "unstable_times": []
+}

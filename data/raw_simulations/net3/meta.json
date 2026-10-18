@@ -1,0 +1,12 @@
+{
+ "network": "net3",
+ "file": "Net3.inp",
+ "duration_hours": 24,
+ "unstable_nodes": [
+  "601",
+  "61"
+ ],
+ "unstable_times": [
+  75600
+ ]
+}

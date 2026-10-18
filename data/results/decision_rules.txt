@@ -1,0 +1,25 @@
+|--- unacc_conc <= 0.37
+|   |--- demand_frac <= 0.01
+|   |   |--- rise_ratio <= 0.94
+|   |   |   |--- flow_frac <= 0.09
+|   |   |   |   |--- class: normal
+|   |   |   |--- flow_frac >  0.09
+|   |   |   |   |--- class: valve_block
+|   |   |--- rise_ratio >  0.94
+|   |   |   |--- conc_drop <= 0.03
+|   |   |   |   |--- class: tank_event
+|   |   |   |--- conc_drop >  0.03
+|   |   |   |   |--- class: ageing
+|   |--- demand_frac >  0.01
+|   |   |--- unacc_ratio <= 0.48
+|   |   |   |--- median_ratio <= 37.92
+|   |   |   |   |--- class: demand_change
+|   |   |   |--- median_ratio >  37.92
+|   |   |   |   |--- class: tank_event
+|   |   |--- unacc_ratio >  0.48
+|   |   |   |--- conc_drop <= 0.02
+|   |   |   |   |--- class: valve_block
+|   |   |   |--- conc_drop >  0.02
+|   |   |   |   |--- class: normal
+|--- unacc_conc >  0.37
+|   |--- class: leak

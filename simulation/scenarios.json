@@ -1,12 +1,7942 @@
 {
-  "duration_hours": 24,
-  "scenarios": [
-    {"id": "leak_3", "type": "leak", "node": "3", "leak_area": 0.03, "start_hour": 12},
-    {"id": "leak_15", "type": "leak", "node": "15", "leak_area": 0.05, "start_hour": 12},
-    {"id": "leak_115", "type": "leak", "node": "115", "leak_area": 0.03, "start_hour": 12},
-    {"id": "leak_121", "type": "leak", "node": "121", "leak_area": 0.03, "start_hour": 12},
-    {"id": "demand_up_15", "type": "demand_change", "node": "15", "factor": 1.3, "start_hour": 12},
-    {"id": "demand_down_15", "type": "demand_change", "node": "15", "factor": 0.7, "start_hour": 12},
-    {"id": "pump_outage_335", "type": "pump_outage", "pump": "335", "start_hour": 12, "end_hour": 18}
-  ]
+ "duration_hours": 24,
+ "networks": {
+  "net1": {
+   "file": "Net1.inp",
+   "scenarios": [
+    {
+     "id": "net1_normal_low_0",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 0,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_normal_low_1",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 1,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_normal_low_2",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 2,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_normal_low_3",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 3,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_normal_low_4",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 4,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_normal_low_5",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 5,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_normal_low_6",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 6,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_normal_low_7",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 7,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_normal_high_8",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 8,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net1_normal_high_9",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 9,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net1_normal_high_10",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net1_normal_high_11",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 11,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net1_normal_high_12",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net1_normal_high_13",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 13,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net1_normal_high_14",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 14,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net1_normal_high_15",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 15,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net1_normal_clean",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_normal_vlow",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 9,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.01,
+      "flow_rel": 0.001,
+      "demand_rel": 0.001
+     }
+    },
+    {
+     "id": "net1_leak_10",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "10",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net1_leak_11",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "11",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "11"
+     ]
+    },
+    {
+     "id": "net1_leak_12",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "12",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "12"
+     ]
+    },
+    {
+     "id": "net1_leak_13",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "13",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "13"
+     ]
+    },
+    {
+     "id": "net1_leak_21",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "21",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "21"
+     ]
+    },
+    {
+     "id": "net1_leak_22",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "22",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "22"
+     ]
+    },
+    {
+     "id": "net1_leak_23",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "23",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "23"
+     ]
+    },
+    {
+     "id": "net1_leak_31",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "31",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "31"
+     ]
+    },
+    {
+     "id": "net1_leak_32",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "32",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "32"
+     ]
+    },
+    {
+     "id": "net1_leak_12_area0.0001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "12",
+     "leak_area": 0.0001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "12"
+     ]
+    },
+    {
+     "id": "net1_leak_12_area0.0003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "12",
+     "leak_area": 0.0003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "12"
+     ]
+    },
+    {
+     "id": "net1_leak_12_area0.001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "12",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "12"
+     ]
+    },
+    {
+     "id": "net1_leak_12_area0.003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "12",
+     "leak_area": 0.003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "12"
+     ]
+    },
+    {
+     "id": "net1_leak_12_area0.01",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "12",
+     "leak_area": 0.01,
+     "start_hour": 12,
+     "truth_nodes": [
+      "12"
+     ]
+    },
+    {
+     "id": "net1_leak_22_area0.0001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "22",
+     "leak_area": 0.0001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "22"
+     ]
+    },
+    {
+     "id": "net1_leak_22_area0.0003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "22",
+     "leak_area": 0.0003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "22"
+     ]
+    },
+    {
+     "id": "net1_leak_22_area0.001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "22",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "22"
+     ]
+    },
+    {
+     "id": "net1_leak_22_area0.003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "22",
+     "leak_area": 0.003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "22"
+     ]
+    },
+    {
+     "id": "net1_leak_22_area0.01",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "22",
+     "leak_area": 0.01,
+     "start_hour": 12,
+     "truth_nodes": [
+      "22"
+     ]
+    },
+    {
+     "id": "net1_leak_32_area0.0001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "32",
+     "leak_area": 0.0001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "32"
+     ]
+    },
+    {
+     "id": "net1_leak_32_area0.0003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "32",
+     "leak_area": 0.0003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "32"
+     ]
+    },
+    {
+     "id": "net1_leak_32_area0.001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "32",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "32"
+     ]
+    },
+    {
+     "id": "net1_leak_32_area0.003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "32",
+     "leak_area": 0.003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "32"
+     ]
+    },
+    {
+     "id": "net1_leak_32_area0.01",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "32",
+     "leak_area": 0.01,
+     "start_hour": 12,
+     "truth_nodes": [
+      "32"
+     ]
+    },
+    {
+     "id": "net1_leak_10_area0.0001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "10",
+     "leak_area": 0.0001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net1_leak_10_area0.0003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "10",
+     "leak_area": 0.0003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net1_leak_10_area0.001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "10",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net1_leak_10_area0.003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "10",
+     "leak_area": 0.003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net1_leak_10_area0.01",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "10",
+     "leak_area": 0.01,
+     "start_hour": 12,
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net1_leak_12_start2",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "12",
+     "leak_area": 0.001,
+     "start_hour": 2,
+     "truth_nodes": [
+      "12"
+     ]
+    },
+    {
+     "id": "net1_leak_12_start8",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "12",
+     "leak_area": 0.001,
+     "start_hour": 8,
+     "truth_nodes": [
+      "12"
+     ]
+    },
+    {
+     "id": "net1_leak_12_start12",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "12",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "12"
+     ]
+    },
+    {
+     "id": "net1_leak_12_start20",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "12",
+     "leak_area": 0.001,
+     "start_hour": 20,
+     "truth_nodes": [
+      "12"
+     ]
+    },
+    {
+     "id": "net1_leak_22_start2",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "22",
+     "leak_area": 0.001,
+     "start_hour": 2,
+     "truth_nodes": [
+      "22"
+     ]
+    },
+    {
+     "id": "net1_leak_22_start8",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "22",
+     "leak_area": 0.001,
+     "start_hour": 8,
+     "truth_nodes": [
+      "22"
+     ]
+    },
+    {
+     "id": "net1_leak_22_start12",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "22",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "22"
+     ]
+    },
+    {
+     "id": "net1_leak_22_start20",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "22",
+     "leak_area": 0.001,
+     "start_hour": 20,
+     "truth_nodes": [
+      "22"
+     ]
+    },
+    {
+     "id": "net1_leak_12_noisy",
+     "group": "leak_noisy",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "12",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "12"
+     ],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_leak_22_noisy",
+     "group": "leak_noisy",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "22",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "22"
+     ],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_leak_32_noisy",
+     "group": "leak_noisy",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "32",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "32"
+     ],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_leak_10_noisy",
+     "group": "leak_noisy",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "10",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "10"
+     ],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_demand_up_12",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "12",
+     "factor": 1.5,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_demand_down_12",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "12",
+     "factor": 0.5,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_demand_up_22",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "22",
+     "factor": 1.5,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_demand_down_22",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "22",
+     "factor": 0.5,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_demand_up_32",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "32",
+     "factor": 1.5,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_demand_down_32",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "32",
+     "factor": 0.5,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_demand_global_up",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "global_demand",
+     "factor": 1.3,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_demand_global_down",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "global_demand",
+     "factor": 0.7,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_hydrant_12",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "hydrant",
+     "node": "12",
+     "flow": 0.01,
+     "start_hour": 10,
+     "end_hour": 14,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_hydrant_22",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "hydrant",
+     "node": "22",
+     "flow": 0.01,
+     "start_hour": 10,
+     "end_hour": 14,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_pump_outage_9_2h",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "pump_outage",
+     "pump": "9",
+     "start_hour": 1,
+     "end_hour": 3,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_pump_outage_9_4h",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "pump_outage",
+     "pump": "9",
+     "start_hour": 1,
+     "end_hour": 5,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_pump_outage_9_6h",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "pump_outage",
+     "pump": "9",
+     "start_hour": 1,
+     "end_hour": 7,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_reservoir_head_9_-10m",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "9",
+     "delta_m": -10.0,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_reservoir_head_9_-5m",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "9",
+     "delta_m": -5.0,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_reservoir_head_9_-2m",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "9",
+     "delta_m": -2.0,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_reservoir_head_9_+2m",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "9",
+     "delta_m": 2.0,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_reservoir_head_9_+5m",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "9",
+     "delta_m": 5.0,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_reservoir_head_9_+10m",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "9",
+     "delta_m": 10.0,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_tank_2_level10",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.1,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_tank_2_level20",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.2,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_tank_2_level30",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.3,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_tank_2_level70",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.7,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_tank_2_level90",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.9,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_tank_2_isolate",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "pipe_close",
+     "pipe": "110",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_pipe_close_11",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "11",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_pipe_close_111",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "111",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_pipe_close_112",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "112",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_pipe_close_12",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "12",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_pipe_close_121",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "121",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_pipe_throttle_21",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_throttle",
+     "pipe": "21",
+     "minor_loss": 5000.0,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_pipe_throttle_22",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_throttle",
+     "pipe": "22",
+     "minor_loss": 5000.0,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_pipe_throttle_122",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_throttle",
+     "pipe": "122",
+     "minor_loss": 5000.0,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_ageing_roughness_60",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.6,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_ageing_roughness_70",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.7,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_ageing_roughness_75",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.75,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_ageing_roughness_80",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.8,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_ageing_roughness_85",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.85,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_ageing_roughness_90",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.9,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_ageing_roughness_95",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.95,
+     "truth_nodes": []
+    },
+    {
+     "id": "net1_leak_12_with_demand",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "12",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "global_demand",
+       "factor": 1.3,
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "12"
+     ]
+    },
+    {
+     "id": "net1_leak_12_with_hydrant",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "12",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "hydrant",
+       "node": "22",
+       "flow": 0.01,
+       "start_hour": 10,
+       "end_hour": 14
+      }
+     ],
+     "truth_nodes": [
+      "12"
+     ]
+    },
+    {
+     "id": "net1_leak_12_with_blockage",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "12",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "pipe_close",
+       "pipe": "11",
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "12"
+     ]
+    },
+    {
+     "id": "net1_leak_12_with_pump_outage",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "12",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "pump_outage",
+       "pump": "9",
+       "start_hour": 1,
+       "end_hour": 5
+      }
+     ],
+     "truth_nodes": [
+      "12"
+     ]
+    },
+    {
+     "id": "net1_leak_22_with_demand",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "22",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "global_demand",
+       "factor": 1.3,
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "22"
+     ]
+    },
+    {
+     "id": "net1_leak_22_with_hydrant",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "22",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "hydrant",
+       "node": "12",
+       "flow": 0.01,
+       "start_hour": 10,
+       "end_hour": 14
+      }
+     ],
+     "truth_nodes": [
+      "22"
+     ]
+    },
+    {
+     "id": "net1_leak_22_with_blockage",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "22",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "pipe_close",
+       "pipe": "11",
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "22"
+     ]
+    },
+    {
+     "id": "net1_leak_22_with_pump_outage",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "22",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "pump_outage",
+       "pump": "9",
+       "start_hour": 1,
+       "end_hour": 5
+      }
+     ],
+     "truth_nodes": [
+      "22"
+     ]
+    },
+    {
+     "id": "net1_leak_32_with_demand",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "32",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "global_demand",
+       "factor": 1.3,
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "32"
+     ]
+    },
+    {
+     "id": "net1_leak_32_with_hydrant",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "32",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "hydrant",
+       "node": "12",
+       "flow": 0.01,
+       "start_hour": 10,
+       "end_hour": 14
+      }
+     ],
+     "truth_nodes": [
+      "32"
+     ]
+    },
+    {
+     "id": "net1_leak_32_with_blockage",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "32",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "pipe_close",
+       "pipe": "11",
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "32"
+     ]
+    },
+    {
+     "id": "net1_leak_32_with_pump_outage",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "32",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "pump_outage",
+       "pump": "9",
+       "start_hour": 1,
+       "end_hour": 5
+      }
+     ],
+     "truth_nodes": [
+      "32"
+     ]
+    },
+    {
+     "id": "net1_leak_10_with_demand",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "10",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "global_demand",
+       "factor": 1.3,
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net1_leak_10_with_hydrant",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "10",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "hydrant",
+       "node": "12",
+       "flow": 0.01,
+       "start_hour": 10,
+       "end_hour": 14
+      }
+     ],
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net1_leak_10_with_blockage",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "10",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "pipe_close",
+       "pipe": "11",
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net1_leak_10_with_pump_outage",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "10",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "pump_outage",
+       "pump": "9",
+       "start_hour": 1,
+       "end_hour": 5
+      }
+     ],
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net1_demand_up_12_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "12",
+     "factor": 1.5,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_demand_down_12_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "12",
+     "factor": 0.5,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_demand_up_22_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "22",
+     "factor": 1.5,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_demand_down_22_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "22",
+     "factor": 0.5,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_demand_up_32_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "32",
+     "factor": 1.5,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_demand_down_32_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "32",
+     "factor": 0.5,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_demand_global_up_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "global_demand",
+     "factor": 1.3,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_demand_global_down_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "global_demand",
+     "factor": 0.7,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_hydrant_12_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "hydrant",
+     "node": "12",
+     "flow": 0.01,
+     "start_hour": 10,
+     "end_hour": 14,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_hydrant_22_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "hydrant",
+     "node": "22",
+     "flow": 0.01,
+     "start_hour": 10,
+     "end_hour": 14,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_pump_outage_9_2h_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "pump_outage",
+     "pump": "9",
+     "start_hour": 1,
+     "end_hour": 3,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_pump_outage_9_4h_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "pump_outage",
+     "pump": "9",
+     "start_hour": 1,
+     "end_hour": 5,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_pump_outage_9_6h_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "pump_outage",
+     "pump": "9",
+     "start_hour": 1,
+     "end_hour": 7,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_reservoir_head_9_-10m_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "9",
+     "delta_m": -10.0,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_reservoir_head_9_-5m_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "9",
+     "delta_m": -5.0,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_reservoir_head_9_-2m_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "9",
+     "delta_m": -2.0,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_reservoir_head_9_+2m_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "9",
+     "delta_m": 2.0,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_reservoir_head_9_+5m_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "9",
+     "delta_m": 5.0,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_reservoir_head_9_+10m_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "9",
+     "delta_m": 10.0,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_tank_2_level10_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.1,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_tank_2_level20_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.2,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_tank_2_level30_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.3,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_tank_2_level70_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.7,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_tank_2_level90_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.9,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_tank_2_isolate_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "pipe_close",
+     "pipe": "110",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_pipe_close_11_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "11",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_pipe_close_111_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "111",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_pipe_close_112_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "112",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_pipe_close_12_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "12",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_pipe_close_121_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "121",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_pipe_throttle_21_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_throttle",
+     "pipe": "21",
+     "minor_loss": 5000.0,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_pipe_throttle_22_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_throttle",
+     "pipe": "22",
+     "minor_loss": 5000.0,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_pipe_throttle_122_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_throttle",
+     "pipe": "122",
+     "minor_loss": 5000.0,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_ageing_roughness_60_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.6,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_ageing_roughness_70_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.7,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_ageing_roughness_75_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.75,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_ageing_roughness_80_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.8,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_ageing_roughness_85_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.85,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_ageing_roughness_90_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.9,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net1_ageing_roughness_95_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.95,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    }
+   ]
+  },
+  "net2": {
+   "file": "Net2.inp",
+   "scenarios": [
+    {
+     "id": "net2_normal_low_0",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 0,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_normal_low_1",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 1,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_normal_low_2",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 2,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_normal_low_3",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 3,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_normal_low_4",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 4,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_normal_low_5",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 5,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_normal_low_6",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 6,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_normal_low_7",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 7,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_normal_high_8",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 8,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net2_normal_high_9",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 9,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net2_normal_high_10",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net2_normal_high_11",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 11,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net2_normal_high_12",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net2_normal_high_13",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 13,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net2_normal_high_14",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 14,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net2_normal_high_15",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 15,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net2_normal_clean",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_normal_vlow",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 9,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.01,
+      "flow_rel": 0.001,
+      "demand_rel": 0.001
+     }
+    },
+    {
+     "id": "net2_leak_1",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "1",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "1"
+     ]
+    },
+    {
+     "id": "net2_leak_2",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "2",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "2"
+     ]
+    },
+    {
+     "id": "net2_leak_3",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "3",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "3"
+     ]
+    },
+    {
+     "id": "net2_leak_4",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "4",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "4"
+     ]
+    },
+    {
+     "id": "net2_leak_5",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "5",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "5"
+     ]
+    },
+    {
+     "id": "net2_leak_6",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "6",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "6"
+     ]
+    },
+    {
+     "id": "net2_leak_7",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "7",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "7"
+     ]
+    },
+    {
+     "id": "net2_leak_8",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "8",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "8"
+     ]
+    },
+    {
+     "id": "net2_leak_9",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "9",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "9"
+     ]
+    },
+    {
+     "id": "net2_leak_10",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "10",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net2_leak_11",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "11",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "11"
+     ]
+    },
+    {
+     "id": "net2_leak_12",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "12",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "12"
+     ]
+    },
+    {
+     "id": "net2_leak_13",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "13",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "13"
+     ]
+    },
+    {
+     "id": "net2_leak_14",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "14",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "14"
+     ]
+    },
+    {
+     "id": "net2_leak_15",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "15",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "15"
+     ]
+    },
+    {
+     "id": "net2_leak_16",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "16",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "16"
+     ]
+    },
+    {
+     "id": "net2_leak_17",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "17",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "17"
+     ]
+    },
+    {
+     "id": "net2_leak_18",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "18",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "18"
+     ]
+    },
+    {
+     "id": "net2_leak_19",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "19",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "19"
+     ]
+    },
+    {
+     "id": "net2_leak_20",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "20",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "20"
+     ]
+    },
+    {
+     "id": "net2_leak_21",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "21",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "21"
+     ]
+    },
+    {
+     "id": "net2_leak_22",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "22",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "22"
+     ]
+    },
+    {
+     "id": "net2_leak_23",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "23",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "23"
+     ]
+    },
+    {
+     "id": "net2_leak_24",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "24",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "24"
+     ]
+    },
+    {
+     "id": "net2_leak_25",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "25",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "25"
+     ]
+    },
+    {
+     "id": "net2_leak_27",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "27",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "27"
+     ]
+    },
+    {
+     "id": "net2_leak_28",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "28",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "28"
+     ]
+    },
+    {
+     "id": "net2_leak_29",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "29",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "29"
+     ]
+    },
+    {
+     "id": "net2_leak_30",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "30",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "30"
+     ]
+    },
+    {
+     "id": "net2_leak_31",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "31",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "31"
+     ]
+    },
+    {
+     "id": "net2_leak_32",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "32",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "32"
+     ]
+    },
+    {
+     "id": "net2_leak_33",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "33",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "33"
+     ]
+    },
+    {
+     "id": "net2_leak_34",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "34",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "34"
+     ]
+    },
+    {
+     "id": "net2_leak_35",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "35",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "35"
+     ]
+    },
+    {
+     "id": "net2_leak_36",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "36",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "36"
+     ]
+    },
+    {
+     "id": "net2_leak_1_area0.0001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "1",
+     "leak_area": 0.0001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "1"
+     ]
+    },
+    {
+     "id": "net2_leak_1_area0.0003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "1",
+     "leak_area": 0.0003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "1"
+     ]
+    },
+    {
+     "id": "net2_leak_1_area0.001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "1",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "1"
+     ]
+    },
+    {
+     "id": "net2_leak_1_area0.003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "1",
+     "leak_area": 0.003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "1"
+     ]
+    },
+    {
+     "id": "net2_leak_1_area0.01",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "1",
+     "leak_area": 0.01,
+     "start_hour": 12,
+     "truth_nodes": [
+      "1"
+     ]
+    },
+    {
+     "id": "net2_leak_10_area0.0001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "10",
+     "leak_area": 0.0001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net2_leak_10_area0.0003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "10",
+     "leak_area": 0.0003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net2_leak_10_area0.001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "10",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net2_leak_10_area0.003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "10",
+     "leak_area": 0.003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net2_leak_10_area0.01",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "10",
+     "leak_area": 0.01,
+     "start_hour": 12,
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net2_leak_2_area0.0001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "2",
+     "leak_area": 0.0001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "2"
+     ]
+    },
+    {
+     "id": "net2_leak_2_area0.0003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "2",
+     "leak_area": 0.0003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "2"
+     ]
+    },
+    {
+     "id": "net2_leak_2_area0.001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "2",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "2"
+     ]
+    },
+    {
+     "id": "net2_leak_2_area0.003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "2",
+     "leak_area": 0.003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "2"
+     ]
+    },
+    {
+     "id": "net2_leak_2_area0.01",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "2",
+     "leak_area": 0.01,
+     "start_hour": 12,
+     "truth_nodes": [
+      "2"
+     ]
+    },
+    {
+     "id": "net2_leak_11_area0.0001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "11",
+     "leak_area": 0.0001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "11"
+     ]
+    },
+    {
+     "id": "net2_leak_11_area0.0003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "11",
+     "leak_area": 0.0003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "11"
+     ]
+    },
+    {
+     "id": "net2_leak_11_area0.001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "11",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "11"
+     ]
+    },
+    {
+     "id": "net2_leak_11_area0.003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "11",
+     "leak_area": 0.003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "11"
+     ]
+    },
+    {
+     "id": "net2_leak_11_area0.01",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "11",
+     "leak_area": 0.01,
+     "start_hour": 12,
+     "truth_nodes": [
+      "11"
+     ]
+    },
+    {
+     "id": "net2_leak_25_area0.0001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "25",
+     "leak_area": 0.0001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "25"
+     ]
+    },
+    {
+     "id": "net2_leak_25_area0.0003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "25",
+     "leak_area": 0.0003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "25"
+     ]
+    },
+    {
+     "id": "net2_leak_25_area0.001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "25",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "25"
+     ]
+    },
+    {
+     "id": "net2_leak_25_area0.003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "25",
+     "leak_area": 0.003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "25"
+     ]
+    },
+    {
+     "id": "net2_leak_25_area0.01",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "25",
+     "leak_area": 0.01,
+     "start_hour": 12,
+     "truth_nodes": [
+      "25"
+     ]
+    },
+    {
+     "id": "net2_leak_3_area0.0001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "3",
+     "leak_area": 0.0001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "3"
+     ]
+    },
+    {
+     "id": "net2_leak_3_area0.0003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "3",
+     "leak_area": 0.0003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "3"
+     ]
+    },
+    {
+     "id": "net2_leak_3_area0.001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "3",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "3"
+     ]
+    },
+    {
+     "id": "net2_leak_3_area0.003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "3",
+     "leak_area": 0.003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "3"
+     ]
+    },
+    {
+     "id": "net2_leak_3_area0.01",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "3",
+     "leak_area": 0.01,
+     "start_hour": 12,
+     "truth_nodes": [
+      "3"
+     ]
+    },
+    {
+     "id": "net2_leak_1_start2",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "1",
+     "leak_area": 0.001,
+     "start_hour": 2,
+     "truth_nodes": [
+      "1"
+     ]
+    },
+    {
+     "id": "net2_leak_1_start8",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "1",
+     "leak_area": 0.001,
+     "start_hour": 8,
+     "truth_nodes": [
+      "1"
+     ]
+    },
+    {
+     "id": "net2_leak_1_start12",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "1",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "1"
+     ]
+    },
+    {
+     "id": "net2_leak_1_start20",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "1",
+     "leak_area": 0.001,
+     "start_hour": 20,
+     "truth_nodes": [
+      "1"
+     ]
+    },
+    {
+     "id": "net2_leak_10_start2",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "10",
+     "leak_area": 0.001,
+     "start_hour": 2,
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net2_leak_10_start8",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "10",
+     "leak_area": 0.001,
+     "start_hour": 8,
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net2_leak_10_start12",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "10",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net2_leak_10_start20",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "10",
+     "leak_area": 0.001,
+     "start_hour": 20,
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net2_leak_1_noisy",
+     "group": "leak_noisy",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "1",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "1"
+     ],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_leak_10_noisy",
+     "group": "leak_noisy",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "10",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "10"
+     ],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_leak_2_noisy",
+     "group": "leak_noisy",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "2",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "2"
+     ],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_leak_11_noisy",
+     "group": "leak_noisy",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "11",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "11"
+     ],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_leak_25_noisy",
+     "group": "leak_noisy",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "25",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "25"
+     ],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_leak_3_noisy",
+     "group": "leak_noisy",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "3",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "3"
+     ],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_demand_up_1",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "1",
+     "factor": 1.5,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_demand_down_1",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "1",
+     "factor": 0.5,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_demand_up_10",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "10",
+     "factor": 1.5,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_demand_down_10",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "10",
+     "factor": 0.5,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_demand_up_2",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "2",
+     "factor": 1.5,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_demand_down_2",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "2",
+     "factor": 0.5,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_demand_global_up",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "global_demand",
+     "factor": 1.3,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_demand_global_down",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "global_demand",
+     "factor": 0.7,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_hydrant_1",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "hydrant",
+     "node": "1",
+     "flow": 0.01,
+     "start_hour": 10,
+     "end_hour": 14,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_hydrant_10",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "hydrant",
+     "node": "10",
+     "flow": 0.01,
+     "start_hour": 10,
+     "end_hour": 14,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_tank_26_level10",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "26",
+     "fraction": 0.1,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_tank_26_level20",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "26",
+     "fraction": 0.2,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_tank_26_level30",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "26",
+     "fraction": 0.3,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_tank_26_level70",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "26",
+     "fraction": 0.7,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_tank_26_level90",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "26",
+     "fraction": 0.9,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_tank_26_isolate",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "pipe_close",
+     "pipe": "29",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_pipe_close_15",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "15",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_pipe_close_14",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "14",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_pipe_close_2",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "2",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_pipe_close_16",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "16",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_pipe_close_3",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "3",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_pipe_throttle_4",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_throttle",
+     "pipe": "4",
+     "minor_loss": 5000.0,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_pipe_throttle_5",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_throttle",
+     "pipe": "5",
+     "minor_loss": 5000.0,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_pipe_throttle_17",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_throttle",
+     "pipe": "17",
+     "minor_loss": 5000.0,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_ageing_roughness_60",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.6,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_ageing_roughness_70",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.7,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_ageing_roughness_75",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.75,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_ageing_roughness_80",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.8,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_ageing_roughness_85",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.85,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_ageing_roughness_90",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.9,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_ageing_roughness_95",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.95,
+     "truth_nodes": []
+    },
+    {
+     "id": "net2_leak_1_with_demand",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "1",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "global_demand",
+       "factor": 1.3,
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "1"
+     ]
+    },
+    {
+     "id": "net2_leak_1_with_hydrant",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "1",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "hydrant",
+       "node": "10",
+       "flow": 0.01,
+       "start_hour": 10,
+       "end_hour": 14
+      }
+     ],
+     "truth_nodes": [
+      "1"
+     ]
+    },
+    {
+     "id": "net2_leak_1_with_blockage",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "1",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "pipe_close",
+       "pipe": "15",
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "1"
+     ]
+    },
+    {
+     "id": "net2_leak_10_with_demand",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "10",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "global_demand",
+       "factor": 1.3,
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net2_leak_10_with_hydrant",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "10",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "hydrant",
+       "node": "1",
+       "flow": 0.01,
+       "start_hour": 10,
+       "end_hour": 14
+      }
+     ],
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net2_leak_10_with_blockage",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "10",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "pipe_close",
+       "pipe": "15",
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net2_leak_2_with_demand",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "2",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "global_demand",
+       "factor": 1.3,
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "2"
+     ]
+    },
+    {
+     "id": "net2_leak_2_with_hydrant",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "2",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "hydrant",
+       "node": "1",
+       "flow": 0.01,
+       "start_hour": 10,
+       "end_hour": 14
+      }
+     ],
+     "truth_nodes": [
+      "2"
+     ]
+    },
+    {
+     "id": "net2_leak_2_with_blockage",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "2",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "pipe_close",
+       "pipe": "15",
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "2"
+     ]
+    },
+    {
+     "id": "net2_leak_11_with_demand",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "11",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "global_demand",
+       "factor": 1.3,
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "11"
+     ]
+    },
+    {
+     "id": "net2_leak_11_with_hydrant",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "11",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "hydrant",
+       "node": "1",
+       "flow": 0.01,
+       "start_hour": 10,
+       "end_hour": 14
+      }
+     ],
+     "truth_nodes": [
+      "11"
+     ]
+    },
+    {
+     "id": "net2_leak_11_with_blockage",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "11",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "pipe_close",
+       "pipe": "15",
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "11"
+     ]
+    },
+    {
+     "id": "net2_demand_up_1_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "1",
+     "factor": 1.5,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_demand_down_1_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "1",
+     "factor": 0.5,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_demand_up_10_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "10",
+     "factor": 1.5,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_demand_down_10_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "10",
+     "factor": 0.5,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_demand_up_2_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "2",
+     "factor": 1.5,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_demand_down_2_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "2",
+     "factor": 0.5,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_demand_global_up_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "global_demand",
+     "factor": 1.3,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_demand_global_down_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "global_demand",
+     "factor": 0.7,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_hydrant_1_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "hydrant",
+     "node": "1",
+     "flow": 0.01,
+     "start_hour": 10,
+     "end_hour": 14,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_hydrant_10_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "hydrant",
+     "node": "10",
+     "flow": 0.01,
+     "start_hour": 10,
+     "end_hour": 14,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_tank_26_level10_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "26",
+     "fraction": 0.1,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_tank_26_level20_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "26",
+     "fraction": 0.2,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_tank_26_level30_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "26",
+     "fraction": 0.3,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_tank_26_level70_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "26",
+     "fraction": 0.7,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_tank_26_level90_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "26",
+     "fraction": 0.9,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_tank_26_isolate_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "pipe_close",
+     "pipe": "29",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_pipe_close_15_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "15",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_pipe_close_14_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "14",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_pipe_close_2_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "2",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_pipe_close_16_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "16",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_pipe_close_3_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "3",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_pipe_throttle_4_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_throttle",
+     "pipe": "4",
+     "minor_loss": 5000.0,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_pipe_throttle_5_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_throttle",
+     "pipe": "5",
+     "minor_loss": 5000.0,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_pipe_throttle_17_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_throttle",
+     "pipe": "17",
+     "minor_loss": 5000.0,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_ageing_roughness_60_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.6,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_ageing_roughness_70_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.7,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_ageing_roughness_75_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.75,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_ageing_roughness_80_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.8,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_ageing_roughness_85_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.85,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_ageing_roughness_90_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.9,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net2_ageing_roughness_95_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.95,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    }
+   ]
+  },
+  "net3": {
+   "file": "Net3.inp",
+   "scenarios": [
+    {
+     "id": "net3_normal_low_0",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 0,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_normal_low_1",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 1,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_normal_low_2",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 2,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_normal_low_3",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 3,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_normal_low_4",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 4,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_normal_low_5",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 5,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_normal_low_6",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 6,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_normal_low_7",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 7,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_normal_high_8",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 8,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net3_normal_high_9",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 9,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net3_normal_high_10",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net3_normal_high_11",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 11,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net3_normal_high_12",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net3_normal_high_13",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 13,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net3_normal_high_14",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 14,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net3_normal_high_15",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 15,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.2,
+      "flow_rel": 0.02,
+      "demand_rel": 0.02
+     }
+    },
+    {
+     "id": "net3_normal_clean",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_normal_vlow",
+     "group": "normal",
+     "event_class": "normal",
+     "type": "baseline",
+     "noise_seed": 9,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.01,
+      "flow_rel": 0.001,
+      "demand_rel": 0.001
+     }
+    },
+    {
+     "id": "net3_leak_10",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "10",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "10"
+     ]
+    },
+    {
+     "id": "net3_leak_15",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "15",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "15"
+     ]
+    },
+    {
+     "id": "net3_leak_20",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "20",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "20"
+     ]
+    },
+    {
+     "id": "net3_leak_35",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "35",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "35"
+     ]
+    },
+    {
+     "id": "net3_leak_40",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "40",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "40"
+     ]
+    },
+    {
+     "id": "net3_leak_50",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "50",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "50"
+     ]
+    },
+    {
+     "id": "net3_leak_60",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "60",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "60"
+     ]
+    },
+    {
+     "id": "net3_leak_601",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "601",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "601"
+     ]
+    },
+    {
+     "id": "net3_leak_61",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "61",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "61"
+     ]
+    },
+    {
+     "id": "net3_leak_101",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "101",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "101"
+     ]
+    },
+    {
+     "id": "net3_leak_103",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "103",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "103"
+     ]
+    },
+    {
+     "id": "net3_leak_105",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "105",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "105"
+     ]
+    },
+    {
+     "id": "net3_leak_107",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "107",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "107"
+     ]
+    },
+    {
+     "id": "net3_leak_109",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "109",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "109"
+     ]
+    },
+    {
+     "id": "net3_leak_111",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "111",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "111"
+     ]
+    },
+    {
+     "id": "net3_leak_113",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "113",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "113"
+     ]
+    },
+    {
+     "id": "net3_leak_115",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "115",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "115"
+     ]
+    },
+    {
+     "id": "net3_leak_117",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "117",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "117"
+     ]
+    },
+    {
+     "id": "net3_leak_119",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "119",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "119"
+     ]
+    },
+    {
+     "id": "net3_leak_120",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "120",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "120"
+     ]
+    },
+    {
+     "id": "net3_leak_121",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "121",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "121"
+     ]
+    },
+    {
+     "id": "net3_leak_123",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "123",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "123"
+     ]
+    },
+    {
+     "id": "net3_leak_125",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "125",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "125"
+     ]
+    },
+    {
+     "id": "net3_leak_127",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "127",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "127"
+     ]
+    },
+    {
+     "id": "net3_leak_129",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "129",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "129"
+     ]
+    },
+    {
+     "id": "net3_leak_131",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "131",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "131"
+     ]
+    },
+    {
+     "id": "net3_leak_139",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "139",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "139"
+     ]
+    },
+    {
+     "id": "net3_leak_141",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "141",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "141"
+     ]
+    },
+    {
+     "id": "net3_leak_143",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "143",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "143"
+     ]
+    },
+    {
+     "id": "net3_leak_145",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "145",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "145"
+     ]
+    },
+    {
+     "id": "net3_leak_147",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "147",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "147"
+     ]
+    },
+    {
+     "id": "net3_leak_149",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "149",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "149"
+     ]
+    },
+    {
+     "id": "net3_leak_151",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "151",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "151"
+     ]
+    },
+    {
+     "id": "net3_leak_153",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "153",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "153"
+     ]
+    },
+    {
+     "id": "net3_leak_157",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "157",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "157"
+     ]
+    },
+    {
+     "id": "net3_leak_159",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "159",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "159"
+     ]
+    },
+    {
+     "id": "net3_leak_161",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "161",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "161"
+     ]
+    },
+    {
+     "id": "net3_leak_163",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "163",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "163"
+     ]
+    },
+    {
+     "id": "net3_leak_164",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "164",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "164"
+     ]
+    },
+    {
+     "id": "net3_leak_166",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "166",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "166"
+     ]
+    },
+    {
+     "id": "net3_leak_167",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "167",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "167"
+     ]
+    },
+    {
+     "id": "net3_leak_169",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "169",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "169"
+     ]
+    },
+    {
+     "id": "net3_leak_171",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "171",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "171"
+     ]
+    },
+    {
+     "id": "net3_leak_173",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "173",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "173"
+     ]
+    },
+    {
+     "id": "net3_leak_177",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "177",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "177"
+     ]
+    },
+    {
+     "id": "net3_leak_179",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "179",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "179"
+     ]
+    },
+    {
+     "id": "net3_leak_181",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "181",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "181"
+     ]
+    },
+    {
+     "id": "net3_leak_183",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "183",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "183"
+     ]
+    },
+    {
+     "id": "net3_leak_184",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "184",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "184"
+     ]
+    },
+    {
+     "id": "net3_leak_185",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "185",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "185"
+     ]
+    },
+    {
+     "id": "net3_leak_187",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "187",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "187"
+     ]
+    },
+    {
+     "id": "net3_leak_189",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "189",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "189"
+     ]
+    },
+    {
+     "id": "net3_leak_191",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "191",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "191"
+     ]
+    },
+    {
+     "id": "net3_leak_193",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "193",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "193"
+     ]
+    },
+    {
+     "id": "net3_leak_195",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "195",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "195"
+     ]
+    },
+    {
+     "id": "net3_leak_197",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "197",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "197"
+     ]
+    },
+    {
+     "id": "net3_leak_199",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "199",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "199"
+     ]
+    },
+    {
+     "id": "net3_leak_201",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "201",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "201"
+     ]
+    },
+    {
+     "id": "net3_leak_203",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "203",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "203"
+     ]
+    },
+    {
+     "id": "net3_leak_204",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "204",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "204"
+     ]
+    },
+    {
+     "id": "net3_leak_205",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "205",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "205"
+     ]
+    },
+    {
+     "id": "net3_leak_206",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "206",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "206"
+     ]
+    },
+    {
+     "id": "net3_leak_207",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "207",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "207"
+     ]
+    },
+    {
+     "id": "net3_leak_208",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "208",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "208"
+     ]
+    },
+    {
+     "id": "net3_leak_209",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "209",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "209"
+     ]
+    },
+    {
+     "id": "net3_leak_211",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "211",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "211"
+     ]
+    },
+    {
+     "id": "net3_leak_213",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "213",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "213"
+     ]
+    },
+    {
+     "id": "net3_leak_215",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "215",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "215"
+     ]
+    },
+    {
+     "id": "net3_leak_217",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "217",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "217"
+     ]
+    },
+    {
+     "id": "net3_leak_219",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "219",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "219"
+     ]
+    },
+    {
+     "id": "net3_leak_225",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "225",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "225"
+     ]
+    },
+    {
+     "id": "net3_leak_229",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "229",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "229"
+     ]
+    },
+    {
+     "id": "net3_leak_231",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "231",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "231"
+     ]
+    },
+    {
+     "id": "net3_leak_237",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "237",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "237"
+     ]
+    },
+    {
+     "id": "net3_leak_239",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "239",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "239"
+     ]
+    },
+    {
+     "id": "net3_leak_241",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "241",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "241"
+     ]
+    },
+    {
+     "id": "net3_leak_243",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "243",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "243"
+     ]
+    },
+    {
+     "id": "net3_leak_247",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "247",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "247"
+     ]
+    },
+    {
+     "id": "net3_leak_249",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "249",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "249"
+     ]
+    },
+    {
+     "id": "net3_leak_251",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "251",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "251"
+     ]
+    },
+    {
+     "id": "net3_leak_253",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "253",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "253"
+     ]
+    },
+    {
+     "id": "net3_leak_255",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "255",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "255"
+     ]
+    },
+    {
+     "id": "net3_leak_257",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "257",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "257"
+     ]
+    },
+    {
+     "id": "net3_leak_259",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "259",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "259"
+     ]
+    },
+    {
+     "id": "net3_leak_261",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "261",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "261"
+     ]
+    },
+    {
+     "id": "net3_leak_263",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "263",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "263"
+     ]
+    },
+    {
+     "id": "net3_leak_265",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "265",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "265"
+     ]
+    },
+    {
+     "id": "net3_leak_267",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "267",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "267"
+     ]
+    },
+    {
+     "id": "net3_leak_269",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "269",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "269"
+     ]
+    },
+    {
+     "id": "net3_leak_271",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "271",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "271"
+     ]
+    },
+    {
+     "id": "net3_leak_273",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "273",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "273"
+     ]
+    },
+    {
+     "id": "net3_leak_275",
+     "group": "leak_sweep",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "275",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "275"
+     ]
+    },
+    {
+     "id": "net3_leak_15_area0.0001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "15",
+     "leak_area": 0.0001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "15"
+     ]
+    },
+    {
+     "id": "net3_leak_15_area0.0003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "15",
+     "leak_area": 0.0003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "15"
+     ]
+    },
+    {
+     "id": "net3_leak_15_area0.001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "15",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "15"
+     ]
+    },
+    {
+     "id": "net3_leak_15_area0.003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "15",
+     "leak_area": 0.003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "15"
+     ]
+    },
+    {
+     "id": "net3_leak_15_area0.01",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "15",
+     "leak_area": 0.01,
+     "start_hour": 12,
+     "truth_nodes": [
+      "15"
+     ]
+    },
+    {
+     "id": "net3_leak_253_area0.0001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "253",
+     "leak_area": 0.0001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "253"
+     ]
+    },
+    {
+     "id": "net3_leak_253_area0.0003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "253",
+     "leak_area": 0.0003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "253"
+     ]
+    },
+    {
+     "id": "net3_leak_253_area0.001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "253",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "253"
+     ]
+    },
+    {
+     "id": "net3_leak_253_area0.003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "253",
+     "leak_area": 0.003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "253"
+     ]
+    },
+    {
+     "id": "net3_leak_253_area0.01",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "253",
+     "leak_area": 0.01,
+     "start_hour": 12,
+     "truth_nodes": [
+      "253"
+     ]
+    },
+    {
+     "id": "net3_leak_111_area0.0001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "111",
+     "leak_area": 0.0001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "111"
+     ]
+    },
+    {
+     "id": "net3_leak_111_area0.0003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "111",
+     "leak_area": 0.0003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "111"
+     ]
+    },
+    {
+     "id": "net3_leak_111_area0.001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "111",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "111"
+     ]
+    },
+    {
+     "id": "net3_leak_111_area0.003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "111",
+     "leak_area": 0.003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "111"
+     ]
+    },
+    {
+     "id": "net3_leak_111_area0.01",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "111",
+     "leak_area": 0.01,
+     "start_hour": 12,
+     "truth_nodes": [
+      "111"
+     ]
+    },
+    {
+     "id": "net3_leak_109_area0.0001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "109",
+     "leak_area": 0.0001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "109"
+     ]
+    },
+    {
+     "id": "net3_leak_109_area0.0003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "109",
+     "leak_area": 0.0003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "109"
+     ]
+    },
+    {
+     "id": "net3_leak_109_area0.001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "109",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "109"
+     ]
+    },
+    {
+     "id": "net3_leak_109_area0.003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "109",
+     "leak_area": 0.003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "109"
+     ]
+    },
+    {
+     "id": "net3_leak_109_area0.01",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "109",
+     "leak_area": 0.01,
+     "start_hour": 12,
+     "truth_nodes": [
+      "109"
+     ]
+    },
+    {
+     "id": "net3_leak_40_area0.0001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "40",
+     "leak_area": 0.0001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "40"
+     ]
+    },
+    {
+     "id": "net3_leak_40_area0.0003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "40",
+     "leak_area": 0.0003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "40"
+     ]
+    },
+    {
+     "id": "net3_leak_40_area0.001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "40",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "40"
+     ]
+    },
+    {
+     "id": "net3_leak_40_area0.003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "40",
+     "leak_area": 0.003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "40"
+     ]
+    },
+    {
+     "id": "net3_leak_40_area0.01",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "40",
+     "leak_area": 0.01,
+     "start_hour": 12,
+     "truth_nodes": [
+      "40"
+     ]
+    },
+    {
+     "id": "net3_leak_601_area0.0001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "601",
+     "leak_area": 0.0001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "601"
+     ]
+    },
+    {
+     "id": "net3_leak_601_area0.0003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "601",
+     "leak_area": 0.0003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "601"
+     ]
+    },
+    {
+     "id": "net3_leak_601_area0.001",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "601",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "601"
+     ]
+    },
+    {
+     "id": "net3_leak_601_area0.003",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "601",
+     "leak_area": 0.003,
+     "start_hour": 12,
+     "truth_nodes": [
+      "601"
+     ]
+    },
+    {
+     "id": "net3_leak_601_area0.01",
+     "group": "leak_size",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "601",
+     "leak_area": 0.01,
+     "start_hour": 12,
+     "truth_nodes": [
+      "601"
+     ]
+    },
+    {
+     "id": "net3_leak_15_start2",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "15",
+     "leak_area": 0.001,
+     "start_hour": 2,
+     "truth_nodes": [
+      "15"
+     ]
+    },
+    {
+     "id": "net3_leak_15_start8",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "15",
+     "leak_area": 0.001,
+     "start_hour": 8,
+     "truth_nodes": [
+      "15"
+     ]
+    },
+    {
+     "id": "net3_leak_15_start12",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "15",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "15"
+     ]
+    },
+    {
+     "id": "net3_leak_15_start20",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "15",
+     "leak_area": 0.001,
+     "start_hour": 20,
+     "truth_nodes": [
+      "15"
+     ]
+    },
+    {
+     "id": "net3_leak_253_start2",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "253",
+     "leak_area": 0.001,
+     "start_hour": 2,
+     "truth_nodes": [
+      "253"
+     ]
+    },
+    {
+     "id": "net3_leak_253_start8",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "253",
+     "leak_area": 0.001,
+     "start_hour": 8,
+     "truth_nodes": [
+      "253"
+     ]
+    },
+    {
+     "id": "net3_leak_253_start12",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "253",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "253"
+     ]
+    },
+    {
+     "id": "net3_leak_253_start20",
+     "group": "leak_start",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "253",
+     "leak_area": 0.001,
+     "start_hour": 20,
+     "truth_nodes": [
+      "253"
+     ]
+    },
+    {
+     "id": "net3_leak_15_noisy",
+     "group": "leak_noisy",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "15",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "15"
+     ],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_leak_253_noisy",
+     "group": "leak_noisy",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "253",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "253"
+     ],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_leak_111_noisy",
+     "group": "leak_noisy",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "111",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "111"
+     ],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_leak_109_noisy",
+     "group": "leak_noisy",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "109",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "109"
+     ],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_leak_40_noisy",
+     "group": "leak_noisy",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "40",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "40"
+     ],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_leak_601_noisy",
+     "group": "leak_noisy",
+     "event_class": "leak",
+     "type": "leak",
+     "node": "601",
+     "leak_area": 0.001,
+     "start_hour": 12,
+     "truth_nodes": [
+      "601"
+     ],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_demand_up_15",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "15",
+     "factor": 1.5,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_demand_down_15",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "15",
+     "factor": 0.5,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_demand_up_253",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "253",
+     "factor": 1.5,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_demand_down_253",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "253",
+     "factor": 0.5,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_demand_up_111",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "111",
+     "factor": 1.5,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_demand_down_111",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "111",
+     "factor": 0.5,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_demand_global_up",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "global_demand",
+     "factor": 1.3,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_demand_global_down",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "global_demand",
+     "factor": 0.7,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_hydrant_15",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "hydrant",
+     "node": "15",
+     "flow": 0.01,
+     "start_hour": 10,
+     "end_hour": 14,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_hydrant_253",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "hydrant",
+     "node": "253",
+     "flow": 0.01,
+     "start_hour": 10,
+     "end_hour": 14,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_pump_outage_10_2h",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "pump_outage",
+     "pump": "10",
+     "start_hour": 1,
+     "end_hour": 3,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_pump_outage_10_4h",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "pump_outage",
+     "pump": "10",
+     "start_hour": 1,
+     "end_hour": 5,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_pump_outage_10_6h",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "pump_outage",
+     "pump": "10",
+     "start_hour": 1,
+     "end_hour": 7,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_pump_outage_335_2h",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "pump_outage",
+     "pump": "335",
+     "start_hour": 1,
+     "end_hour": 3,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_pump_outage_335_4h",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "pump_outage",
+     "pump": "335",
+     "start_hour": 1,
+     "end_hour": 5,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_pump_outage_335_6h",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "pump_outage",
+     "pump": "335",
+     "start_hour": 1,
+     "end_hour": 7,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_reservoir_head_River_-10m",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "River",
+     "delta_m": -10.0,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_reservoir_head_River_-5m",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "River",
+     "delta_m": -5.0,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_reservoir_head_River_-2m",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "River",
+     "delta_m": -2.0,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_reservoir_head_River_+2m",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "River",
+     "delta_m": 2.0,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_reservoir_head_River_+5m",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "River",
+     "delta_m": 5.0,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_reservoir_head_River_+10m",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "River",
+     "delta_m": 10.0,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_reservoir_head_Lake_-10m",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "Lake",
+     "delta_m": -10.0,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_reservoir_head_Lake_-5m",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "Lake",
+     "delta_m": -5.0,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_reservoir_head_Lake_-2m",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "Lake",
+     "delta_m": -2.0,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_reservoir_head_Lake_+2m",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "Lake",
+     "delta_m": 2.0,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_reservoir_head_Lake_+5m",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "Lake",
+     "delta_m": 5.0,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_reservoir_head_Lake_+10m",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "Lake",
+     "delta_m": 10.0,
+     "start_hour": 12,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_tank_1_level10",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "1",
+     "fraction": 0.1,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_tank_1_level20",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "1",
+     "fraction": 0.2,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_tank_1_level30",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "1",
+     "fraction": 0.3,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_tank_1_level70",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "1",
+     "fraction": 0.7,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_tank_1_level90",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "1",
+     "fraction": 0.9,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_tank_1_isolate",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "pipe_close",
+     "pipe": "40",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_tank_2_level10",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.1,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_tank_2_level20",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.2,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_tank_2_level30",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.3,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_tank_2_level70",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.7,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_tank_2_level90",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.9,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_tank_2_isolate",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "pipe_close",
+     "pipe": "50",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_tank_3_level10",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "3",
+     "fraction": 0.1,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_tank_3_level20",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "3",
+     "fraction": 0.2,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_tank_3_level30",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "3",
+     "fraction": 0.3,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_tank_3_level70",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "3",
+     "fraction": 0.7,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_tank_3_level90",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "3",
+     "fraction": 0.9,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_tank_3_isolate",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "pipe_close",
+     "pipe": "20",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_pipe_close_123",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "123",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_pipe_close_183",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "183",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_pipe_close_187",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "187",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_pipe_close_330",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "330",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_pipe_close_333",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "333",
+     "start_hour": 10,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_pipe_throttle_179",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_throttle",
+     "pipe": "179",
+     "minor_loss": 5000.0,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_pipe_throttle_321",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_throttle",
+     "pipe": "321",
+     "minor_loss": 5000.0,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_pipe_throttle_189",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_throttle",
+     "pipe": "189",
+     "minor_loss": 5000.0,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_ageing_roughness_60",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.6,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_ageing_roughness_70",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.7,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_ageing_roughness_75",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.75,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_ageing_roughness_80",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.8,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_ageing_roughness_85",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.85,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_ageing_roughness_90",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.9,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_ageing_roughness_95",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.95,
+     "truth_nodes": []
+    },
+    {
+     "id": "net3_leak_15_with_demand",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "15",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "global_demand",
+       "factor": 1.3,
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "15"
+     ]
+    },
+    {
+     "id": "net3_leak_15_with_hydrant",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "15",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "hydrant",
+       "node": "253",
+       "flow": 0.01,
+       "start_hour": 10,
+       "end_hour": 14
+      }
+     ],
+     "truth_nodes": [
+      "15"
+     ]
+    },
+    {
+     "id": "net3_leak_15_with_pump_outage",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "15",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "pump_outage",
+       "pump": "10",
+       "start_hour": 1,
+       "end_hour": 5
+      }
+     ],
+     "truth_nodes": [
+      "15"
+     ]
+    },
+    {
+     "id": "net3_leak_253_with_demand",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "253",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "global_demand",
+       "factor": 1.3,
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "253"
+     ]
+    },
+    {
+     "id": "net3_leak_253_with_hydrant",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "253",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "hydrant",
+       "node": "15",
+       "flow": 0.01,
+       "start_hour": 10,
+       "end_hour": 14
+      }
+     ],
+     "truth_nodes": [
+      "253"
+     ]
+    },
+    {
+     "id": "net3_leak_253_with_blockage",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "253",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "pipe_close",
+       "pipe": "123",
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "253"
+     ]
+    },
+    {
+     "id": "net3_leak_253_with_pump_outage",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "253",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "pump_outage",
+       "pump": "10",
+       "start_hour": 1,
+       "end_hour": 5
+      }
+     ],
+     "truth_nodes": [
+      "253"
+     ]
+    },
+    {
+     "id": "net3_leak_111_with_demand",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "111",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "global_demand",
+       "factor": 1.3,
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "111"
+     ]
+    },
+    {
+     "id": "net3_leak_111_with_hydrant",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "111",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "hydrant",
+       "node": "15",
+       "flow": 0.01,
+       "start_hour": 10,
+       "end_hour": 14
+      }
+     ],
+     "truth_nodes": [
+      "111"
+     ]
+    },
+    {
+     "id": "net3_leak_111_with_blockage",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "111",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "pipe_close",
+       "pipe": "123",
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "111"
+     ]
+    },
+    {
+     "id": "net3_leak_111_with_pump_outage",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "111",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "pump_outage",
+       "pump": "10",
+       "start_hour": 1,
+       "end_hour": 5
+      }
+     ],
+     "truth_nodes": [
+      "111"
+     ]
+    },
+    {
+     "id": "net3_leak_109_with_demand",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "109",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "global_demand",
+       "factor": 1.3,
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "109"
+     ]
+    },
+    {
+     "id": "net3_leak_109_with_hydrant",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "109",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "hydrant",
+       "node": "15",
+       "flow": 0.01,
+       "start_hour": 10,
+       "end_hour": 14
+      }
+     ],
+     "truth_nodes": [
+      "109"
+     ]
+    },
+    {
+     "id": "net3_leak_109_with_blockage",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "109",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "pipe_close",
+       "pipe": "123",
+       "start_hour": 8
+      }
+     ],
+     "truth_nodes": [
+      "109"
+     ]
+    },
+    {
+     "id": "net3_leak_109_with_pump_outage",
+     "group": "leak_confounded",
+     "event_class": "leak",
+     "type": "combined",
+     "events": [
+      {
+       "type": "leak",
+       "node": "109",
+       "leak_area": 0.001,
+       "start_hour": 12
+      },
+      {
+       "type": "pump_outage",
+       "pump": "10",
+       "start_hour": 1,
+       "end_hour": 5
+      }
+     ],
+     "truth_nodes": [
+      "109"
+     ]
+    },
+    {
+     "id": "net3_demand_up_15_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "15",
+     "factor": 1.5,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_demand_down_15_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "15",
+     "factor": 0.5,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_demand_up_253_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "253",
+     "factor": 1.5,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_demand_down_253_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "253",
+     "factor": 0.5,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_demand_up_111_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "111",
+     "factor": 1.5,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_demand_down_111_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "demand_change",
+     "node": "111",
+     "factor": 0.5,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_demand_global_up_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "global_demand",
+     "factor": 1.3,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_demand_global_down_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "global_demand",
+     "factor": 0.7,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_hydrant_15_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "hydrant",
+     "node": "15",
+     "flow": 0.01,
+     "start_hour": 10,
+     "end_hour": 14,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_hydrant_253_noisy",
+     "group": "demand",
+     "event_class": "demand_change",
+     "type": "hydrant",
+     "node": "253",
+     "flow": 0.01,
+     "start_hour": 10,
+     "end_hour": 14,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_pump_outage_10_2h_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "pump_outage",
+     "pump": "10",
+     "start_hour": 1,
+     "end_hour": 3,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_pump_outage_10_4h_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "pump_outage",
+     "pump": "10",
+     "start_hour": 1,
+     "end_hour": 5,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_pump_outage_10_6h_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "pump_outage",
+     "pump": "10",
+     "start_hour": 1,
+     "end_hour": 7,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_pump_outage_335_2h_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "pump_outage",
+     "pump": "335",
+     "start_hour": 1,
+     "end_hour": 3,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_pump_outage_335_4h_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "pump_outage",
+     "pump": "335",
+     "start_hour": 1,
+     "end_hour": 5,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_pump_outage_335_6h_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "pump_outage",
+     "pump": "335",
+     "start_hour": 1,
+     "end_hour": 7,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_reservoir_head_River_-10m_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "River",
+     "delta_m": -10.0,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_reservoir_head_River_-5m_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "River",
+     "delta_m": -5.0,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_reservoir_head_River_-2m_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "River",
+     "delta_m": -2.0,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_reservoir_head_River_+2m_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "River",
+     "delta_m": 2.0,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_reservoir_head_River_+5m_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "River",
+     "delta_m": 5.0,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_reservoir_head_River_+10m_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "River",
+     "delta_m": 10.0,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_reservoir_head_Lake_-10m_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "Lake",
+     "delta_m": -10.0,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_reservoir_head_Lake_-5m_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "Lake",
+     "delta_m": -5.0,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_reservoir_head_Lake_-2m_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "Lake",
+     "delta_m": -2.0,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_reservoir_head_Lake_+2m_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "Lake",
+     "delta_m": 2.0,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_reservoir_head_Lake_+5m_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "Lake",
+     "delta_m": 5.0,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_reservoir_head_Lake_+10m_noisy",
+     "group": "source",
+     "event_class": "source_event",
+     "type": "reservoir_head",
+     "reservoir": "Lake",
+     "delta_m": 10.0,
+     "start_hour": 12,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_tank_1_level10_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "1",
+     "fraction": 0.1,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_tank_1_level20_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "1",
+     "fraction": 0.2,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_tank_1_level30_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "1",
+     "fraction": 0.3,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_tank_1_level70_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "1",
+     "fraction": 0.7,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_tank_1_level90_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "1",
+     "fraction": 0.9,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_tank_1_isolate_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "pipe_close",
+     "pipe": "40",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_tank_2_level10_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.1,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_tank_2_level20_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.2,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_tank_2_level30_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.3,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_tank_2_level70_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.7,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_tank_2_level90_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "2",
+     "fraction": 0.9,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_tank_2_isolate_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "pipe_close",
+     "pipe": "50",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_tank_3_level10_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "3",
+     "fraction": 0.1,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_tank_3_level20_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "3",
+     "fraction": 0.2,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_tank_3_level30_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "3",
+     "fraction": 0.3,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_tank_3_level70_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "3",
+     "fraction": 0.7,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_tank_3_level90_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "tank_level",
+     "tank": "3",
+     "fraction": 0.9,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_tank_3_isolate_noisy",
+     "group": "tank",
+     "event_class": "tank_event",
+     "type": "pipe_close",
+     "pipe": "20",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_pipe_close_123_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "123",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_pipe_close_183_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "183",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_pipe_close_187_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "187",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_pipe_close_330_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "330",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_pipe_close_333_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_close",
+     "pipe": "333",
+     "start_hour": 10,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_pipe_throttle_179_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_throttle",
+     "pipe": "179",
+     "minor_loss": 5000.0,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_pipe_throttle_321_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_throttle",
+     "pipe": "321",
+     "minor_loss": 5000.0,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_pipe_throttle_189_noisy",
+     "group": "blockage",
+     "event_class": "valve_block",
+     "type": "pipe_throttle",
+     "pipe": "189",
+     "minor_loss": 5000.0,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_ageing_roughness_60_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.6,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_ageing_roughness_70_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.7,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_ageing_roughness_75_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.75,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_ageing_roughness_80_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.8,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_ageing_roughness_85_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.85,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_ageing_roughness_90_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.9,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    },
+    {
+     "id": "net3_ageing_roughness_95_noisy",
+     "group": "ageing",
+     "event_class": "ageing",
+     "type": "roughness",
+     "factor": 0.95,
+     "truth_nodes": [],
+     "sensor_noise": {
+      "pressure_std": 0.05,
+      "flow_rel": 0.005,
+      "demand_rel": 0.005
+     }
+    }
+   ]
+  }
+ }
 }

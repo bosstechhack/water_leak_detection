@@ -1,9 +1,0 @@
-scenario_id,id,type,network,duration_hours,node,leak_area,start_hour,factor,pump,end_hour
-baseline,baseline,baseline,Net3.inp,24,,,,,,
-leak_3,leak_3,leak,Net3.inp,24,3,0.03,12.0,,,
-leak_15,leak_15,leak,Net3.inp,24,15,0.05,12.0,,,
-leak_115,leak_115,leak,Net3.inp,24,115,0.03,12.0,,,
-leak_121,leak_121,leak,Net3.inp,24,121,0.03,12.0,,,
-demand_up_15,demand_up_15,demand_change,Net3.inp,24,15,,12.0,1.3,,
-demand_down_15,demand_down_15,demand_change,Net3.inp,24,15,,12.0,0.7,,
-pump_outage_335,pump_outage_335,pump_outage,Net3.inp,24,,,12.0,,335,18.0

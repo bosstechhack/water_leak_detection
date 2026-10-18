@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LeakLens: what happens when you press Analyse (beginner guide)</title>
+<style>
+:root{--bg:#f5f8fc;--panel:#fff;--panel2:#eef3f9;--line:#d6dfeb;--ink:#0e1a2b;--muted:#566882;--accent:#1566d6;--aink:#fff;--soft:#e2edfc;--ok:#12804f;--oksoft:#e2f5ec;--warn:#a85f00;--warnsoft:#fff1d6;--bad:#cf2f2f;--badsoft:#fdeaea;--code:#f0f4fa}
+[data-theme=dark]{--bg:#0b1220;--panel:#121c2f;--panel2:#18243a;--line:#27364f;--ink:#e8eef8;--muted:#9bacc4;--accent:#5b9bff;--aink:#06142b;--soft:#162c52;--ok:#4fd69c;--oksoft:#123226;--warn:#ffb54a;--warnsoft:#3a2a0d;--bad:#ff6b6b;--badsoft:#3a1a1f;--code:#0e1626}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+a{color:var(--accent)}
+header{position:sticky;top:0;z-index:50;background:var(--panel);border-bottom:1px solid var(--line)}
+.hb{display:flex;align-items:center;gap:12px;padding:10px 18px}
+.logo{width:36px;height:36px;border-radius:10px;background:var(--accent);color:var(--aink);display:flex;align-items:center;justify-content:center;font-weight:800}
+header h1{font-size:17px;margin:0;line-height:1.1}header small{display:block;color:var(--muted);font-size:12px;font-weight:400}
+.sp{flex:1}.btn{font:inherit;font-size:14px;font-weight:650;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:9px;padding:7px 12px;cursor:pointer}.btn:hover{background:var(--panel2)}.btn.pri{background:var(--accent);color:var(--aink);border-color:var(--accent)}
+.prog{height:4px;background:var(--panel2)}.prog i{display:block;height:4px;width:0;background:var(--accent);transition:width .15s}
+.wrap{max-width:1180px;margin:0 auto;display:flex;gap:26px;padding:0 18px}
+aside{width:250px;flex:none;position:sticky;top:76px;align-self:flex-start;max-height:calc(100vh - 90px);overflow:auto;padding:18px 0}
+aside a{display:flex;gap:9px;align-items:flex-start;padding:7px 8px;border-radius:9px;color:var(--ink);text-decoration:none;font-size:14px;line-height:1.3}
+aside a:hover{background:var(--panel2)}aside a.on{background:var(--soft);color:var(--accent);font-weight:700}
+aside a b{flex:none;width:22px;height:22px;border-radius:50%;background:var(--panel2);display:flex;align-items:center;justify-content:center;font-size:12px}
+aside a.on b{background:var(--accent);color:var(--aink)}
+main{flex:1;min-width:0;padding:22px 0 90px}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px 26px;margin:0 0 26px}
+.step h2{margin:0 0 4px;font-size:25px;display:flex;gap:12px;align-items:center}
+.step h2 .num{flex:none;width:38px;height:38px;border-radius:50%;background:var(--accent);color:var(--aink);display:flex;align-items:center;justify-content:center;font-size:19px}
+.step h3{font-size:18px;margin:18px 0 4px}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:1px 9px;border-radius:99px;background:var(--soft);color:var(--accent)}
+.say{font-size:19px;color:var(--ink);background:var(--soft);border-radius:12px;padding:10px 14px;margin:10px 0 14px}
+.beg,.real,.warn,.good{border-left:5px solid var(--accent);border-radius:10px;padding:9px 14px;margin:12px 0;background:var(--panel2)}
+.real{border-color:var(--ok);background:var(--oksoft)}.warn{border-color:var(--warn);background:var(--warnsoft)}.good{border-color:var(--ok);background:var(--oksoft)}
+.beg b.t,.real b.t,.warn b.t,.good b.t{display:block;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;background:var(--code);border:1px solid var(--line);border-radius:5px;padding:0 5px}
+.eq{margin:10px 0;padding:10px 14px;background:var(--code);border:1px solid var(--line);border-radius:10px;font:17px/1.7 "Cambria Math",Georgia,serif;text-align:center;overflow-x:auto}
+.eq small{display:block;font:13px system-ui;color:var(--muted)}
+details{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:12px 0}
+details>summary{cursor:pointer;padding:10px 14px;font-weight:700;color:var(--accent)}details>div{padding:0 14px 12px}
+table{border-collapse:collapse;width:100%;font-size:15px;margin:10px 0;background:var(--panel)}th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}th{background:var(--panel2)}
+.tw{overflow-x:auto}small.m{color:var(--muted)}td.val{font-weight:800;color:var(--accent);white-space:nowrap}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0}
+.flow span.b{padding:8px 12px;border:2px solid var(--accent);border-radius:10px;background:var(--panel);font-size:14px;font-weight:650;text-align:center}
+.flow span.a{color:var(--accent);font-weight:800}
+.grid2{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--panel)}
+svg text{fill:var(--ink);font-family:system-ui,sans-serif}
+.toy{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+.toy .box{border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--panel2)}
+.toy .big{font-size:30px;font-weight:800}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.tabs button.on{background:var(--accent);color:var(--aink);border-color:var(--accent)}
+.prow{display:flex;gap:10px;align-items:center;margin:5px 0}.pl{width:190px;font-size:14px}.pb{flex:1;height:14px;background:var(--panel2);border-radius:7px;overflow:hidden}.pb i{display:block;height:14px;background:var(--accent)}.pv{width:44px;text-align:right;font-weight:700}
+.nav2{display:flex;justify-content:space-between;margin-top:16px}
+details.q>summary{color:var(--ink)}
+.menu{display:none}
+@media(max-width:900px){aside{display:none}.menu{display:inline-block}.toy{grid-template-columns:1fr}.step{padding:16px}}
+@media print{header,aside,.nav2,.tabs{display:none}.step{break-inside:avoid;border:none}details>*{display:block!important}}
+</style>
+</head>
+<body>
+<header>
+ <div class="hb"><div class="logo">LL</div><h1>LeakLens <small>What happens when you press “Analyse”: a beginner’s guide</small></h1><span class="sp"></span>
+ <button class="btn" id="theme">🌓 Theme</button><button class="btn pri" onclick="window.print()">Print / Save PDF</button></div>
+ <div class="prog"><i id="bar"></i></div>
+</header>
+<div class="wrap">
+<aside id="side">
+ <a href="#s0"><b>0</b>Before we start</a>
+ <a href="#s1"><b>1</b>Meet the network</a>
+ <a href="#s2"><b>2</b>You choose and press Analyse</a>
+ <a href="#s3"><b>3</b>The data was recorded earlier</a>
+ <a href="#s4"><b>4</b>Compare with a normal day</a>
+ <a href="#s5"><b>5</b>Follow the water</a>
+ <a href="#s6"><b>6</b>Do it for every node</a>
+ <a href="#s7"><b>7</b>Squeeze into 14 numbers</a>
+ <a href="#s8"><b>8</b>Is anything above the noise?</a>
+ <a href="#s9"><b>9</b>Which kind of event?</a>
+ <a href="#s10"><b>10</b>Where is the leak?</a>
+ <a href="#s11"><b>11</b>Build the screen</a>
+ <a href="#s12"><b>12</b>Other kinds of event</a>
+ <a href="#s13"><b>13</b>Recap and self-check</a>
+</aside>
+<main>
+
+<div class="step" id="s0">
+<h2><span class="num">0</span>Before we start</h2>
+<p class="say">You click a spot on the map, press <b>Analyse</b>, and a few milliseconds later the dashboard says “Probable leak near node 15”. What happened in between?</p>
+<div class="warn"><b class="t">The most common misunderstanding</b>The system does <b>not</b> simulate the water network when you press Analyse. The simulation was done <b>earlier</b>, for hundreds of situations, and the results were saved in files. Pressing Analyse makes the computer <b>read the saved results for one situation and think about them</b>. Think of a hospital: the patient charts were recorded earlier, and the doctor reads one chart and gives a diagnosis.</div>
+<p>When you click a node on the map (using <em>Pick on map</em>), you are not creating a leak there. You are choosing <b>which saved situation to look at</b>, for example “a leak at node 15”. There is one saved leak situation for every junction in every network.</p>
+<h3>The whole journey in one line</h3>
+<div class="flow"><span class="b">You choose a situation</span><span class="a">→</span><span class="b">Read saved data</span><span class="a">→</span><span class="b">Compare with a normal day</span><span class="a">→</span><span class="b">Follow the water</span><span class="a">→</span><span class="b">14 numbers</span><span class="a">→</span><span class="b">Which kind of event?</span><span class="a">→</span><span class="b">Where?</span><span class="a">→</span><span class="b">Show the answer</span></div>
+<p>We will follow one real example all the way: <b>a leak at node 15 in the network called Net3</b>. It is an <em>unseen test</em> scenario, meaning the system never learned from it. All numbers in green boxes are real numbers from the project.</p>
+</div>
+
+<div class="step" id="s1">
+<h2><span class="num">1</span>Meet the network</h2>
+<p class="say">A water network is a set of points joined by pipes.</p>
+<table><tr><th>Word</th><th>Plain meaning</th></tr>
+<tr><td><b>Junction (node)</b></td><td>A point where pipes meet and customers take water. Net3 has 92 of them.</td></tr>
+<tr><td><b>Pipe</b></td><td>Carries water between two points. Water can flow either way.</td></tr>
+<tr><td><b>Reservoir</b> / <b>Tank</b> / <b>Pump</b></td><td>A source of water / a storage tank / a machine that pushes water and adds pressure.</td></tr>
+<tr><td><b>Pressure</b></td><td>How hard the water pushes inside the pipe. We write it in metres.</td></tr>
+<tr><td><b>Flow</b></td><td>How much water moves through a pipe each second (litres per second).</td></tr>
+<tr><td><b>Demand</b></td><td>How much water the customers at a node use.</td></tr></table>
+<div class="real"><b class="t">Real numbers</b>Net3 has 97 points in total (90 junctions are analysed) and 119 pipes and pumps. Our leak is at node 15. Node 15 is a <b>dead end</b>: it has just one pipe (pipe 151, which joins node 15 to node 143), and almost no customers.</div>
+</div>
+
+<div class="step" id="s2">
+<h2><span class="num">2</span>You choose and press Analyse</h2>
+<p class="say">Your clicks decide which saved situation is analysed.</p>
+<ol>
+<li>You pick the network (<b>NET3</b>) and “what happened” (<b>Leak</b>).</li>
+<li>You click <b>Pick on map</b>, then click node 15 (or type 15). The dashboard now filters the list to the leak scenario at node 15. Its name is <code>net3_leak_15</code>.</li>
+<li>You press <b>Analyse this scenario</b>.</li></ol>
+<p>The browser then sends one small message to the server (the “backend”):</p>
+<div class="eq">GET /api/analyze/net3_leak_15?use_demand_meters=true</div>
+<p>“Please analyse the saved scenario net3_leak_15, and assume customers have smart meters.” The button shows “Analysing…” while it waits.</p>
+<div class="beg"><b class="t">Why “smart meters”?</b>The whole method depends on knowing how much water customers use at each node. That is what lets us spot water that goes missing. You can untick the option to see how much worse the system does without it.</div>
+</div>
+
+<div class="step" id="s3">
+<h2><span class="num">3</span>The data was recorded earlier</h2>
+<p class="say">For every saved situation, the simulator wrote three tables, one row for each hour of a 24-hour day.</p>
+<div class="grid2">
+<div class="card"><b>Pressure table</b><br>Pressure (m) at every node, every hour.</div>
+<div class="card"><b>Flow table</b><br>Flow (litres per second) in every pipe, every hour.</div>
+<div class="card"><b>Demand table</b><br>Water customers actually received at every node, every hour.</div></div>
+<p>The same three tables also exist for the <b>normal day</b> (the “baseline”: nothing wrong). That is what we compare against.</p>
+<h3>How was the leak created in the simulation?</h3>
+<p>A hole of 0.001 m² was opened at node 15 at 12:00. Water escapes through a hole at a speed that depends on the pressure:</p>
+<div class="eq">Q<sub>leak</sub> = 0.75 × A × √( 2 × 9.81 × P )<small>A = hole area (m²), P = pressure at the node (m)</small></div>
+<div class="real"><b class="t">Real numbers</b>At 16:00 the pressure at node 15 is 35.92 m, so the leak loses 0.75 × 0.001 × √(2 × 9.81 × 35.92) = <b>19.9 litres per second</b>. Keep this number in mind: the system will find it again from the data alone.</div>
+<p><b>Sensor noise:</b> real sensors are never exact. Some scenarios have small random errors added to the saved numbers. The normal-day reference is kept clean.</p>
+</div>
+
+<div class="step" id="s4">
+<h2><span class="num">4</span>Compare with a normal day</h2>
+<p class="say">First question: did the pressure drop compared with a normal day?</p>
+<p>The server reads the files (about 25 rows each) and subtracts, node by node and hour by hour:</p>
+<div class="eq">residual = normal pressure − scenario pressure<small>a positive residual means the pressure is lower than normal</small></div>
+<div class="card"><svg viewBox="0 0 640 260" width="100%" role="img"><line x1="48" x2="626" y1="226.0" y2="226.0" stroke="var(--line)"/><text x="42" y="230.0" font-size="11" text-anchor="end">26</text><line x1="48" x2="626" y1="173.0" y2="173.0" stroke="var(--line)"/><text x="42" y="177.0" font-size="11" text-anchor="end">30</text><line x1="48" x2="626" y1="120.0" y2="120.0" stroke="var(--line)"/><text x="42" y="124.0" font-size="11" text-anchor="end">34</text><line x1="48" x2="626" y1="67.0" y2="67.0" stroke="var(--line)"/><text x="42" y="71.0" font-size="11" text-anchor="end">38</text><line x1="48" x2="626" y1="14.0" y2="14.0" stroke="var(--line)"/><text x="42" y="18.0" font-size="11" text-anchor="end">42</text><text x="48.0" y="248" font-size="11" text-anchor="middle">0:00</text><text x="144.3" y="248" font-size="11" text-anchor="middle">4:00</text><text x="240.7" y="248" font-size="11" text-anchor="middle">8:00</text><text x="337.0" y="248" font-size="11" text-anchor="middle">12:00</text><text x="433.3" y="248" font-size="11" text-anchor="middle">16:00</text><text x="529.7" y="248" font-size="11" text-anchor="middle">20:00</text><text x="626.0" y="248" font-size="11" text-anchor="middle">24:00</text><line x1="337.0" x2="337.0" y1="14" y2="226" stroke="#a85f00" stroke-dasharray="4 4"/><text x="341.0" y="26" font-size="11" fill="#a85f00">leak starts</text><polyline points="48.0,191.6 72.1,187.7 96.2,173.0 120.2,167.5 144.3,146.9 168.4,92.6 192.5,90.9 216.6,43.7 240.7,41.6 264.8,43.2 288.8,43.9 312.9,93.8 337.0,94.7 361.1,95.1 385.2,94.8 409.2,100.9 433.3,56.9 457.4,58.8 481.5,60.2 505.6,62.2 529.7,66.0 577.8,108.4 601.9,113.1 626.0,182.8" fill="none" stroke="#1566d6" stroke-width="2.6"/><polyline points="48.0,191.6 72.1,187.7 96.2,173.0 120.2,167.5 144.3,146.9 168.4,92.6 192.5,90.9 216.6,43.7 240.7,41.6 264.8,43.2 288.8,43.9 312.9,93.8 337.0,183.3 361.1,183.6 385.2,183.2 409.2,188.7 433.3,94.6 457.4,96.6 481.5,97.9 505.6,100.0 529.7,104.4 577.8,194.5 601.9,199.7 626.0,287.2" fill="none" stroke="#cf2f2f" stroke-width="2.6"/><text x="12" y="130.0" font-size="11" transform="rotate(-90 12 130.0)" text-anchor="middle">pressure (m)</text><rect x="58" y="200" width="12" height="4" fill="#1566d6"/><text x="75" y="205" font-size="11">normal day</text><rect x="208" y="200" width="12" height="4" fill="#cf2f2f"/><text x="225" y="205" font-size="11">this scenario</text></svg></div>
+<p>The blue line is a normal day; the red line is the leak scenario. Both are the same until 12:00, then the red line drops by about 6 to 7 metres. The size of the gap changes through the afternoon, but it stays far above the normal jitter.</p>
+<div class="card"><b>Residual (drop) by hour</b><svg viewBox="0 0 640 240" width="100%" role="img"><line x1="44" x2="630" y1="206.0" y2="206.0" stroke="var(--line)"/><text x="38" y="210.0" font-size="11" text-anchor="end">0</text><line x1="44" x2="630" y1="157.0" y2="157.0" stroke="var(--line)"/><text x="38" y="161.0" font-size="11" text-anchor="end">2</text><line x1="44" x2="630" y1="108.0" y2="108.0" stroke="var(--line)"/><text x="38" y="112.0" font-size="11" text-anchor="end">4</text><line x1="44" x2="630" y1="59.0" y2="59.0" stroke="var(--line)"/><text x="38" y="63.0" font-size="11" text-anchor="end">6</text><line x1="44" x2="630" y1="10.0" y2="10.0" stroke="var(--line)"/><text x="38" y="14.0" font-size="11" text-anchor="end">8</text><rect x="52.1" y="206.0" width="28.8" height="0.0" rx="3" fill="#1566d6"/><text x="66.5" y="221" font-size="11" text-anchor="middle">8h</text><text x="66.5" y="203.0" font-size="10" text-anchor="middle">0.0</text><rect x="97.2" y="206.0" width="28.8" height="0.0" rx="3" fill="#1566d6"/><text x="111.6" y="221" font-size="11" text-anchor="middle">9h</text><text x="111.6" y="203.0" font-size="10" text-anchor="middle">0.0</text><rect x="142.3" y="206.0" width="28.8" height="0.0" rx="3" fill="#1566d6"/><text x="156.7" y="221" font-size="11" text-anchor="middle">10h</text><text x="156.7" y="203.0" font-size="10" text-anchor="middle">0.0</text><rect x="187.3" y="206.0" width="28.8" height="0.0" rx="3" fill="#1566d6"/><text x="201.8" y="221" font-size="11" text-anchor="middle">11h</text><text x="201.8" y="203.0" font-size="10" text-anchor="middle">0.0</text><rect x="232.4" y="42.2" width="28.8" height="163.8" rx="3" fill="#1566d6"/><text x="246.8" y="221" font-size="11" text-anchor="middle">12h</text><text x="246.8" y="39.2" font-size="10" text-anchor="middle">6.7</text><rect x="277.5" y="42.3" width="28.8" height="163.7" rx="3" fill="#1566d6"/><text x="291.9" y="221" font-size="11" text-anchor="middle">13h</text><text x="291.9" y="39.3" font-size="10" text-anchor="middle">6.7</text><rect x="322.6" y="42.4" width="28.8" height="163.6" rx="3" fill="#1566d6"/><text x="337.0" y="221" font-size="11" text-anchor="middle">14h</text><text x="337.0" y="39.4" font-size="10" text-anchor="middle">6.7</text><rect x="367.7" y="43.6" width="28.8" height="162.4" rx="3" fill="#1566d6"/><text x="382.1" y="221" font-size="11" text-anchor="middle">15h</text><text x="382.1" y="40.6" font-size="10" text-anchor="middle">6.6</text><rect x="412.7" y="136.2" width="28.8" height="69.8" rx="3" fill="#1566d6"/><text x="427.2" y="221" font-size="11" text-anchor="middle">16h</text><text x="427.2" y="133.2" font-size="10" text-anchor="middle">2.9</text><rect x="457.8" y="136.2" width="28.8" height="69.8" rx="3" fill="#1566d6"/><text x="472.2" y="221" font-size="11" text-anchor="middle">17h</text><text x="472.2" y="133.2" font-size="10" text-anchor="middle">2.8</text><rect x="502.9" y="136.4" width="28.8" height="69.6" rx="3" fill="#1566d6"/><text x="517.3" y="221" font-size="11" text-anchor="middle">18h</text><text x="517.3" y="133.4" font-size="10" text-anchor="middle">2.8</text><rect x="548.0" y="136.1" width="28.8" height="69.9" rx="3" fill="#1566d6"/><text x="562.4" y="221" font-size="11" text-anchor="middle">19h</text><text x="562.4" y="133.1" font-size="10" text-anchor="middle">2.9</text><rect x="593.0" y="135.0" width="28.8" height="71.0" rx="3" fill="#1566d6"/><text x="607.5" y="221" font-size="11" text-anchor="middle">20h</text><text x="607.5" y="132.0" font-size="10" text-anchor="middle">2.9</text></svg></div>
+<h3>Is that drop big or small? The “noise unit”</h3>
+<p>A drop of 0.3 m might just be sensor jitter. To judge, the system first learns how big normal jitter is. It uses <b>14 normal training days</b> (days with only sensor noise), measures the spread of the pressure differences (σ), and sets a limit:</p>
+<div class="eq">noise limit τ = max( 0.1 m , 4 × σ )<small>for Net3 this works out to 0.58 m</small></div>
+<p>Then every drop is divided by this limit. The answer is in <b>noise units</b>: <b>1 means “exactly at the limit”</b>, 10 means “ten times the limit”.</p>
+<div class="real"><b class="t">Real numbers</b>The largest drop at node 15 is 7.88 m. Divided by 0.58 m, that is <b>13.5 noise units</b>: about eleven times the normal jitter. Far too big to be noise.</div>
+<details><summary>Show the “two hours in a row” rule</summary><div><p>A drop only counts if it lasts at least <b>two hours in a row</b>, so one weird reading cannot fool the system. Rule: for each hour take the smaller of this hour and the next, then keep the biggest of those.</p>
+<p>Toy example: drops 0.1, 0.2, 6.5, 6.7, 6.6, 6.4, 0.3 → smaller-of-pairs: 0.1, 0.2, 6.5, 6.6, 6.4, 0.3 → biggest = <b>6.6</b> (counts). A single one-hour spike of 9.0 between 0.2 and 0.3 gives only 0.3 (ignored).</p></div></details>
+</div>
+
+<div class="step" id="s5">
+<h2><span class="num">5</span>Follow the water</h2>
+<p class="say">Second question: is any water disappearing without a customer using it?</p>
+<p>Water cannot appear from nowhere or vanish. At every node:</p>
+<div class="eq">water coming in − water going out = water customers use + water that leaks</div>
+<p>If we know what customers use (the demand table), then anything left over must be <b>leaking</b>. We call it <b>unaccounted flow</b>. Play with this toy node:</p>
+<div class="tabs"><button class="btn on" data-t="0">Normal day</button><button class="btn" data-t="1">A leak of 20 L/s</button><button class="btn" data-t="2">Customers use more</button></div>
+<div class="toy">
+<div class="box">Water coming in<div class="big" id="t_in">50</div></div>
+<div class="box">Water going out (to other nodes)<div class="big" id="t_out">30</div></div>
+<div class="box">Customers use<div class="big" id="t_cu">20</div></div>
+<div class="box">Leak (hidden from us)<div class="big" id="t_lk">0</div></div>
+<div class="box">Change in (in − out) vs normal day<div class="big" id="t_d1">0</div></div>
+<div class="box">Change in customer use vs normal day<div class="big" id="t_d2">0</div></div></div>
+<div class="good" style="margin-top:12px"><b class="t">Unaccounted flow = change in (in − out) − change in customer use</b><span id="t_res" style="font-size:20px;font-weight:800"></span> <span id="t_msg"></span></div>
+<p>Notice: when customers just use more water, the extra flow is explained by the meters, so <b>unaccounted flow stays 0</b>. Only a leak creates unaccounted flow. This is the key idea of the whole project.</p>
+<div class="real"><b class="t">Real numbers: node 15 at 16:00</b>
+Node 15 has one pipe (151). On a normal day almost no water moves through it (0 L/s), and customers use almost nothing. In the leak scenario, <b>19.9 L/s</b> flows <em>into</em> node 15 through that pipe, nothing flows out, and customers still use nothing. So 19.9 L/s vanishes at node 15: <b>unaccounted flow = 0.01991 m³/s = 19.9 L/s</b>. This matches the 19.9 L/s we calculated from the hole, found from the data alone.</div>
+<p>The unaccounted flow is also divided by its own noise level, so it too is in noise units. At node 15 it is <b>10.0 noise units</b>, again about ten times the noise.</p>
+<details><summary>Show the maths</summary><div>
+<div class="eq">div<sub>i</sub>(t) = Σ over pipes p of  sign(p,i) × Q<sub>p</sub>(t)<small>sign = +1 if the pipe ends at node i (water comes in), −1 if it starts there (water goes out)</small></div>
+<div class="eq">a<sub>i</sub>(t) = [ div<sub>i</sub>(scenario) − div<sub>i</sub>(normal) ] − [ D<sub>i</sub>(scenario) − D<sub>i</sub>(normal) ]</div>
+<p>In the computer this is one matrix multiplication for all nodes at once.</p></div></details>
+</div>
+
+<div class="step" id="s6">
+<h2><span class="num">6</span>Do it for every node</h2>
+<p class="say">Steps 4 and 5 were shown for node 15, but the computer does them for <b>every</b> junction.</p>
+<p>That gives two numbers for each of the 90 junctions: its <b>pressure drop</b> and its <b>unaccounted flow</b>, both in noise units. Here are the 10 most interesting nodes for our leak. The dashed red line is the noise limit (1).</p>
+<div class="grid2"><div class="card"><b>Pressure drop (noise units)</b><svg viewBox="0 0 640 240" width="100%" role="img"><line x1="44" x2="630" y1="206.0" y2="206.0" stroke="var(--line)"/><text x="38" y="210.0" font-size="11" text-anchor="end">0</text><line x1="44" x2="630" y1="157.0" y2="157.0" stroke="var(--line)"/><text x="38" y="161.0" font-size="11" text-anchor="end">3</text><line x1="44" x2="630" y1="108.0" y2="108.0" stroke="var(--line)"/><text x="38" y="112.0" font-size="11" text-anchor="end">6</text><line x1="44" x2="630" y1="59.0" y2="59.0" stroke="var(--line)"/><text x="38" y="63.0" font-size="11" text-anchor="end">10</text><line x1="44" x2="630" y1="10.0" y2="10.0" stroke="var(--line)"/><text x="38" y="14.0" font-size="11" text-anchor="end">13</text><rect x="54.5" y="32.8" width="37.5" height="173.2" rx="3" fill="#1566d6"/><text x="73.3" y="221" font-size="11" text-anchor="middle">15</text><text x="73.3" y="29.8" font-size="10" text-anchor="middle">11.5</text><rect x="113.1" y="102.5" width="37.5" height="103.5" rx="3" fill="#1566d6"/><text x="131.9" y="221" font-size="11" text-anchor="middle">143</text><text x="131.9" y="99.5" font-size="10" text-anchor="middle">6.9</text><rect x="171.7" y="162.3" width="37.5" height="43.7" rx="3" fill="#1566d6"/><text x="190.5" y="221" font-size="11" text-anchor="middle">141</text><text x="190.5" y="159.3" font-size="10" text-anchor="middle">2.9</text><rect x="230.3" y="169.8" width="37.5" height="36.2" rx="3" fill="#1566d6"/><text x="249.1" y="221" font-size="11" text-anchor="middle">145</text><text x="249.1" y="166.8" font-size="10" text-anchor="middle">2.4</text><rect x="288.9" y="174.9" width="37.5" height="31.1" rx="3" fill="#1566d6"/><text x="307.7" y="221" font-size="11" text-anchor="middle">147</text><text x="307.7" y="171.9" font-size="10" text-anchor="middle">2.1</text><rect x="347.5" y="177.0" width="37.5" height="29.0" rx="3" fill="#1566d6"/><text x="366.3" y="221" font-size="11" text-anchor="middle">149</text><text x="366.3" y="174.0" font-size="10" text-anchor="middle">1.9</text><rect x="406.1" y="180.1" width="37.5" height="25.9" rx="3" fill="#1566d6"/><text x="424.9" y="221" font-size="11" text-anchor="middle">139</text><text x="424.9" y="177.1" font-size="10" text-anchor="middle">1.7</text><rect x="464.7" y="196.1" width="37.5" height="9.9" rx="3" fill="#1566d6"/><text x="483.5" y="221" font-size="11" text-anchor="middle">151</text><text x="483.5" y="193.1" font-size="10" text-anchor="middle">0.7</text><rect x="523.3" y="196.3" width="37.5" height="9.7" rx="3" fill="#1566d6"/><text x="542.1" y="221" font-size="11" text-anchor="middle">153</text><text x="542.1" y="193.3" font-size="10" text-anchor="middle">0.6</text><rect x="581.9" y="199.8" width="37.5" height="6.2" rx="3" fill="#1566d6"/><text x="600.7" y="221" font-size="11" text-anchor="middle">119</text><text x="600.7" y="196.8" font-size="10" text-anchor="middle">0.4</text><line x1="44" x2="630" y1="190.9" y2="190.9" stroke="#cf2f2f" stroke-dasharray="5 4"/><text x="628" y="186.9" font-size="11" fill="#cf2f2f" text-anchor="end">noise limit = 1</text></svg></div><div class="card"><b>Unaccounted flow (noise units)</b><svg viewBox="0 0 640 240" width="100%" role="img"><line x1="44" x2="630" y1="206.0" y2="206.0" stroke="var(--line)"/><text x="38" y="210.0" font-size="11" text-anchor="end">0</text><line x1="44" x2="630" y1="157.0" y2="157.0" stroke="var(--line)"/><text x="38" y="161.0" font-size="11" text-anchor="end">3</text><line x1="44" x2="630" y1="108.0" y2="108.0" stroke="var(--line)"/><text x="38" y="112.0" font-size="11" text-anchor="end">6</text><line x1="44" x2="630" y1="59.0" y2="59.0" stroke="var(--line)"/><text x="38" y="63.0" font-size="11" text-anchor="end">9</text><line x1="44" x2="630" y1="10.0" y2="10.0" stroke="var(--line)"/><text x="38" y="14.0" font-size="11" text-anchor="end">12</text><rect x="54.5" y="42.7" width="37.5" height="163.3" rx="3" fill="#cf2f2f"/><text x="73.3" y="221" font-size="11" text-anchor="middle">15</text><text x="73.3" y="39.7" font-size="10" text-anchor="middle">10.0</text><rect x="113.1" y="206.0" width="37.5" height="0.0" rx="3" fill="#cf2f2f"/><text x="131.9" y="221" font-size="11" text-anchor="middle">143</text><text x="131.9" y="203.0" font-size="10" text-anchor="middle">0.0</text><rect x="171.7" y="206.0" width="37.5" height="0.0" rx="3" fill="#cf2f2f"/><text x="190.5" y="221" font-size="11" text-anchor="middle">141</text><text x="190.5" y="203.0" font-size="10" text-anchor="middle">0.0</text><rect x="230.3" y="206.0" width="37.5" height="0.0" rx="3" fill="#cf2f2f"/><text x="249.1" y="221" font-size="11" text-anchor="middle">145</text><text x="249.1" y="203.0" font-size="10" text-anchor="middle">0.0</text><rect x="288.9" y="206.0" width="37.5" height="0.0" rx="3" fill="#cf2f2f"/><text x="307.7" y="221" font-size="11" text-anchor="middle">147</text><text x="307.7" y="203.0" font-size="10" text-anchor="middle">0.0</text><rect x="347.5" y="206.0" width="37.5" height="0.0" rx="3" fill="#cf2f2f"/><text x="366.3" y="221" font-size="11" text-anchor="middle">149</text><text x="366.3" y="203.0" font-size="10" text-anchor="middle">0.0</text><rect x="406.1" y="206.0" width="37.5" height="0.0" rx="3" fill="#cf2f2f"/><text x="424.9" y="221" font-size="11" text-anchor="middle">139</text><text x="424.9" y="203.0" font-size="10" text-anchor="middle">0.0</text><rect x="464.7" y="206.0" width="37.5" height="0.0" rx="3" fill="#cf2f2f"/><text x="483.5" y="221" font-size="11" text-anchor="middle">151</text><text x="483.5" y="203.0" font-size="10" text-anchor="middle">0.0</text><rect x="523.3" y="206.0" width="37.5" height="0.0" rx="3" fill="#cf2f2f"/><text x="542.1" y="221" font-size="11" text-anchor="middle">153</text><text x="542.1" y="203.0" font-size="10" text-anchor="middle">0.0</text><rect x="581.9" y="206.0" width="37.5" height="0.0" rx="3" fill="#cf2f2f"/><text x="600.7" y="221" font-size="11" text-anchor="middle">119</text><text x="600.7" y="203.0" font-size="10" text-anchor="middle">0.0</text><line x1="44" x2="630" y1="189.7" y2="189.7" stroke="#cf2f2f" stroke-dasharray="5 4"/><text x="628" y="185.7" font-size="11" fill="#cf2f2f" text-anchor="end">noise limit = 1</text></svg></div></div>
+<div class="real"><b class="t">What to notice</b>Pressure dropped at several nodes near the leak, but the unaccounted flow is large at <b>one node only</b>: node 15. That is why unaccounted flow is the best clue to <em>where</em> the leak is, and pressure alone is blurry.</div>
+<p>Only 7 of the 90 junctions have a drop above the noise limit, so this event is <b>local</b>, not network-wide.</p>
+</div>
+
+<div class="step" id="s7">
+<h2><span class="num">7</span>Squeeze everything into 14 numbers</h2>
+<p class="say">Now we have hundreds of node values. To decide the <em>kind</em> of event, we summarise the whole network into 14 numbers.</p>
+<p>Each number looks at all the nodes or pipes together and gives one value: the biggest, the share above the limit, or “how concentrated is it in one place?”. They answer four simple questions:</p>
+<div class="grid2">
+<div class="card"><b>How much pressure was lost, and how widely?</b><br>drop_ratio, frac_hit, median_ratio, conc_drop</div>
+<div class="card"><b>Did some places gain pressure?</b><br>rise_ratio, frac_rise</div>
+<div class="card"><b>Did the sources and pipes change?</b><br>flow_frac, source_change, tank_change, pump_drop</div>
+<div class="card"><b>Is water vanishing? Do the meters explain the flow?</b><br>unacc_ratio, unacc_conc, demand_frac, demand_total</div></div>
+<p><b>The 14 numbers for our leak at node 15</b> (all are for the whole network):</p>
+<div class="tw"><table><tr><th>#</th><th>Name</th><th>How it is made</th><th>Value</th><th>What it tells us here</th></tr><tr><td>1</td><td><code>drop_ratio</code><br><small>Biggest pressure drop anywhere</small></td><td>Take every junction’s drop (in noise units) and keep the largest.<br><small class="m">max of d</small></td><td class="val">11.49</td><td>11 times the noise limit at one node: a real drop.</td></tr><tr><td>2</td><td><code>frac_hit</code><br><small>Share of junctions that lost pressure</small></td><td>Count junctions whose drop is above 1 noise unit, divide by all junctions.<br><small class="m">count(d>1) ÷ 90</small></td><td class="val">0.08</td><td>Only a few junctions are affected: local, not network-wide.</td></tr><tr><td>3</td><td><code>median_ratio</code><br><small>Typical junction drop</small></td><td>The middle value of all junction drops.<br><small class="m">median of d</small></td><td class="val">0.34</td><td>Most junctions barely changed.</td></tr><tr><td>4</td><td><code>conc_drop</code><br><small>Is the loss in one place?</small></td><td>Largest drop divided by the sum of all drops. Near 1 = one place; near 0 = spread out.<br><small class="m">max d ÷ sum d</small></td><td class="val">0.20</td><td>The loss is fairly concentrated.</td></tr><tr><td>5</td><td><code>rise_ratio</code><br><small>Biggest pressure rise anywhere</small></td><td>Same as the drop, but for pressure going up.<br><small class="m">max of g</small></td><td class="val">0.17</td><td>No junction gained pressure.</td></tr><tr><td>6</td><td><code>frac_rise</code><br><small>Share of junctions that gained pressure</small></td><td>Count junctions whose pressure rose above the noise limit.<br><small class="m">count(g>1) ÷ 90</small></td><td class="val">0.00</td><td>No junction gained pressure.</td></tr><tr><td>7</td><td><code>flow_frac</code><br><small>Share of pipes with changed flow</small></td><td>Count pipes whose flow changed more than 4 noise levels, divide by all pipes.<br><small class="m">count(z>1) ÷ pipes</small></td><td class="val">0.30</td><td>Some pipes near the leak carry different flow.</td></tr><tr><td>8</td><td><code>source_change</code><br><small>Change in reservoir supply</small></td><td>How much the total water drawn from reservoirs changed, as a share of total customer demand.<br><small class="m">max|ΔS| ÷ D_total</small></td><td class="val">0.01</td><td>Reservoirs barely changed.</td></tr><tr><td>9</td><td><code>tank_change</code><br><small>Change in tank flow</small></td><td>How much the tanks fill or empty differently, as a share of total demand.<br><small class="m">max|ΔT| ÷ D_total</small></td><td class="val">0.03</td><td>Tanks barely changed.</td></tr><tr><td>10</td><td><code>pump_drop</code><br><small>Pump flow lost</small></td><td>Largest fraction of a pump’s normal flow that disappeared (1 = pump off).<br><small class="m">max(Q0−Q1) ÷ max Q0</small></td><td class="val">0.00</td><td>Pumps unaffected.</td></tr><tr><td>11</td><td><code>unacc_ratio</code><br><small>Biggest unaccounted flow</small></td><td>Largest unaccounted flow at any junction, in noise units.<br><small class="m">max of a</small></td><td class="val">9.99</td><td>Water is vanishing at one node: the leak signature.</td></tr><tr><td>12</td><td><code>unacc_conc</code><br><small>Is the missing water in one place?</small></td><td>Largest unaccounted flow divided by the sum over all junctions.<br><small class="m">max a ÷ sum a</small></td><td class="val">1.00</td><td>All the missing water is at one node.</td></tr><tr><td>13</td><td><code>demand_frac</code><br><small>Share of nodes with changed customer use</small></td><td>Count junctions whose metered demand changed above noise.<br><small class="m">count(z_D>1) ÷ 90</small></td><td class="val">0.00</td><td>Customer use did not change.</td></tr><tr><td>14</td><td><code>demand_total</code><br><small>Total change in customer use</small></td><td>Sum of all demand changes as a share of total demand (can be negative).<br><small class="m">sum ΔD ÷ D_total</small></td><td class="val">-0.00</td><td>No change in total use.</td></tr></table></div>
+<div class="beg"><b class="t">One row per scenario</b>These 14 numbers are one row of a table. The cause model was trained on 478 such rows (one for each training scenario) and never sees the hourly data directly.</div>
+</div>
+
+<div class="step" id="s8">
+<h2><span class="num">8</span>Is anything above the noise?</h2>
+<p class="say">A quick check: if everything is within the normal jitter, there is nothing to explain.</p>
+<p>The system checks: all pressure drops and rises below 1 noise unit? unaccounted flow below 1? almost no pipes with changed flow? no change in customer use? If <b>all</b> are true, the answer is immediately <b>“Normal day”</b> and the analysis stops. That is why normal days do not cause false alarms. (The price: a leak smaller than the noise cannot be seen.)</p>
+<div class="real"><b class="t">Real numbers</b>For our leak, the biggest drop is about 13.5 and the unaccounted flow about 10.0: far above 1. So the check says “something is going on” and the analysis continues.</div>
+</div>
+
+<div class="step" id="s9">
+<h2><span class="num">9</span>Which kind of event is it?</h2>
+<p class="say">A “random forest” looks at the 14 numbers and votes.</p>
+<p>A <b>decision tree</b> is a short list of yes/no questions (for example, “is the unaccounted flow concentrated at one node?”). A <b>random forest</b> is 300 of them, each trained a little differently. They all look at the 14 numbers and each votes for one of seven kinds: <em>normal, leak, demand change, pump/reservoir, tank, blocked pipe, ageing</em>. The share of votes becomes the probability.</p>
+<div class="card"><b>The forest’s vote for this scenario</b><div class="prow"><span class="pl">Leak</span><span class="pb"><i style="width:94%"></i></span><span class="pv">94%</span></div><div class="prow"><span class="pl">Normal day</span><span class="pb"><i style="width:2%"></i></span><span class="pv">2%</span></div><div class="prow"><span class="pl">Blocked pipe</span><span class="pb"><i style="width:2%"></i></span><span class="pv">2%</span></div><div class="prow"><span class="pl">Tank change</span><span class="pb"><i style="width:1%"></i></span><span class="pv">1%</span></div><div class="prow"><span class="pl">Pump / reservoir change</span><span class="pb"><i style="width:1%"></i></span><span class="pv">1%</span></div><div class="prow"><span class="pl">Demand change</span><span class="pb"><i style="width:0%"></i></span><span class="pv">0%</span></div><div class="prow"><span class="pl">Pipe ageing</span><span class="pb"><i style="width:0%"></i></span><span class="pv">0%</span></div></div>
+<div class="real"><b class="t">Verdict</b>The top answer gets about 94% of the votes: <b>Leak</b>. That percentage is the “confidence” (High if 85% or more, Medium from 60%).</div>
+<p>The forest was trained <b>only</b> on training scenarios. Our node-15 scenario is an unseen test case, so this is an honest answer. Across all unseen test scenarios the forest names the right kind 82.7% of the time. Leaks and demand changes are the easiest to recognise; pump, tank, blockage and ageing are sometimes confused with each other.</p>
+</div>
+
+<div class="step" id="s10">
+<h2><span class="num">10</span>Where is the leak?</h2>
+<p class="say">Only now, because the verdict is “leak”, the system ranks the nodes.</p>
+<p>Each node gets a score from its two values, each first scaled so the biggest in the network equals 1:</p>
+<div class="eq">score = A + 0.3 × D<small>A = unaccounted flow ÷ the largest unaccounted flow;  D = pressure drop ÷ the largest pressure drop</small></div>
+<p>Unaccounted flow is the main clue (it points to one node). Pressure drop only breaks ties, because pressure also drops at neighbouring nodes.</p>
+<div class="tw"><table><tr><th>Rank</th><th>Node</th><th>A</th><th>D</th><th>Score</th><th>Pipes from the real leak</th></tr><tr><td>1</td><td><b>Node 15</b></td><td>1.00</td><td>1.00</td><td>1.00 + 0.3 × 1.00 = <b>1.30</b></td><td>0</td></tr><tr><td>2</td><td><b>Node 143</b></td><td>0.00</td><td>0.60</td><td>0.00 + 0.3 × 0.60 = <b>0.18</b></td><td>1</td></tr><tr><td>3</td><td><b>Node 141</b></td><td>0.00</td><td>0.25</td><td>0.00 + 0.3 × 0.25 = <b>0.08</b></td><td>2</td></tr><tr><td>4</td><td><b>Node 145</b></td><td>0.00</td><td>0.21</td><td>0.00 + 0.3 × 0.21 = <b>0.06</b></td><td>3</td></tr><tr><td>5</td><td><b>Node 147</b></td><td>0.00</td><td>0.18</td><td>0.00 + 0.3 × 0.18 = <b>0.05</b></td><td>4</td></tr></table></div>
+<div class="real"><b class="t">Real numbers</b>Node 15 scores 1.30 and is first. Its neighbours have almost no unaccounted flow, so they only get about 0.3 × D. The real leak is at node 15, so the first guess is exact: <b>0 pipes away</b>. The <b>search region</b> (the first guess and the nodes directly joined to it) is: 143, 15.</div>
+<p>Across all unseen test leaks, the exact node is ranked first 96.7% of the time.</p>
+</div>
+
+<div class="step" id="s11">
+<h2><span class="num">11</span>Build the answer and draw the screen</h2>
+<p class="say">The server packs everything into one reply; the browser turns it into the screen you see.</p>
+<table><tr><th>What the server sends</th><th>What you see on the dashboard</th></tr>
+<tr><td>The kind of event and its probability</td><td>The coloured <b>verdict box</b> and the “High confidence” label.</td></tr>
+<tr><td>The 14 numbers</td><td>Sentences under <b>“How do we know?”</b>. Each sentence is a fixed template that appears when a number passes a limit (for example, “Water is disappearing at node 15” appears when unaccounted flow ≥ 1).</td></tr>
+<tr><td>The top five nodes with scores</td><td><b>“Where to look, in order”</b> and the red nodes on the map.</td></tr>
+<tr><td>The search region and affected nodes</td><td>The ring on the map and the orange nodes (lost pressure).</td></tr>
+<tr><td>Per-node numbers and 24-hour pressure</td><td>The <b>Node tab</b>, ready before you click.</td></tr>
+<tr><td>Whether the scenario is training or test, and the true answer</td><td>The <b>“Unseen test”</b> tag and the <b>answer key</b> badges (cause correct? exact node found?).</td></tr></table>
+<p>The analysis itself takes roughly <b>22 milliseconds</b> (reading the files takes a little more). The first request after the server starts is slower because it loads the network and learns the noise levels once; after that these are remembered.</p>
+</div>
+
+<div class="step" id="s12">
+<h2><span class="num">12</span>The same pipeline for other kinds of event</h2>
+<p class="say">Every scenario goes through exactly the same steps. Only the 14 numbers differ.</p>
+<div class="tw"><table><tr><th>Number</th><th>Leak at node 15<br><small>unseen test</small></th><th>Demand change<br><small>unseen test</small></th><th>Pump outage<br><small>unseen test</small></th><th>Pipe throttled<br><small>unseen test</small></th></tr><tr><td><code>drop_ratio</code></td><td>11.49</td><td>0.03</td><td>50.59</td><td>13.33</td></tr><tr><td><code>frac_hit</code></td><td>0.08</td><td>0.00</td><td>0.99</td><td>0.62</td></tr><tr><td><code>rise_ratio</code></td><td>0.17</td><td>4.41</td><td>3.42</td><td>64.39</td></tr><tr><td><code>pump_drop</code></td><td>0.00</td><td>0.00</td><td>1.00</td><td>0.43</td></tr><tr><td><code>source_change</code></td><td>0.01</td><td>0.00</td><td>0.47</td><td>0.49</td></tr><tr><td><code>unacc_ratio</code></td><td>9.99</td><td>0.00</td><td>0.00</td><td>0.00</td></tr><tr><td><code>demand_frac</code></td><td>0.00</td><td>0.01</td><td>0.00</td><td>0.00</td></tr><tr><td><b>System says</b></td><td><b>Leak</b><br><small>94% sure</small></td><td><b>Demand change</b><br><small>59% sure</small></td><td><b>Pump / reservoir change</b><br><small>97% sure</small></td><td><b>Blocked pipe</b><br><small>90% sure</small></td></tr></table></div>
+<ul><li><b>Leak:</b> big <code>unacc_ratio</code> (water vanishing at one node), few junctions affected.</li>
+<li><b>Demand change:</b> no unaccounted flow (meters explain it), pressure changes small.</li>
+<li><b>Pump outage:</b> <code>pump_drop</code> = 1, nearly all junctions lose pressure, big reservoir change, no lost water.</li>
+<li><b>Throttled pipe:</b> large pressure <em>rise</em> next to drops, no lost water.</li></ul>
+<p>Only a verdict of “leak” triggers the node ranking (step 10). For the others the dashboard shows the kind of event, the reasons and the affected area, but no “Where to look” list.</p>
+</div>
+
+<div class="step" id="s13">
+<h2><span class="num">13</span>Recap and self-check</h2>
+<ol>
+<li>You choose a saved situation (clicking a node picks <em>which</em> one).</li>
+<li>The server reads its saved pressure, flow and demand tables.</li>
+<li>Compare with a normal day: pressure drops, in noise units, lasting two hours.</li>
+<li>Follow the water: unaccounted flow = vanishing water = leak.</li>
+<li>Do this for every node, then summarise into 14 numbers for the whole network.</li>
+<li>Quiet check: everything in the noise? then “normal”.</li>
+<li>A random forest votes on the kind of event.</li>
+<li>If it is a leak, rank nodes by score = A + 0.3 × D.</li>
+<li>The server replies; the dashboard draws the verdict, reasons, map and answer key.</li></ol>
+<h3>Test yourself (click to reveal)</h3>
+<details class="q"><summary>Is the network simulated when you press Analyse?</summary><div>No. It was simulated earlier. Analyse reads saved results and analyses them.</div></details>
+<details class="q"><summary>What is a “noise unit”?</summary><div>A measurement divided by the learned size of normal sensor jitter. 1 = exactly at the limit; 11 = eleven times the limit.</div></details>
+<details class="q"><summary>Why does a demand change not look like a leak?</summary><div>The extra water is recorded by the customer meters, so the change in flow minus the change in demand (unaccounted flow) stays near zero.</div></details>
+<details class="q"><summary>Do the 14 numbers come from one node or the whole network?</summary><div>The whole network: one set of 14 per scenario. Each number summarises all the nodes or pipes (the biggest value, the share above the limit, and so on).</div></details>
+<details class="q"><summary>What decides the “kind of event”, and what decides “where”?</summary><div>The 14 whole-network numbers, through the random forest, decide the kind. The per-node values (unaccounted flow and pressure drop), through score = A + 0.3 × D, decide where.</div></details>
+<details class="q"><summary>What was the forest trained on?</summary><div>One row of 14 numbers per scenario, for 478 training scenarios (about 78% of all scenarios). The 139 test scenarios were kept aside.</div></details>
+<div class="warn"><b class="t">Always remember</b>All of this is simulation, not real sensors. The test set is small, and the system relies on demand meters at the nodes.</div>
+</div>
+</main>
+</div>
+<script>
+(function(){
+var root=document.documentElement;
+try{var t=localStorage.getItem('leaklens-beg-theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}root.setAttribute('data-theme',t);}catch(e){}
+document.getElementById('theme').onclick=function(){var n=root.getAttribute('data-theme')==='dark'?'light':'dark';root.setAttribute('data-theme',n);try{localStorage.setItem('leaklens-beg-theme',n);}catch(e){}};
+var links=[].slice.call(document.querySelectorAll('#side a'));var steps=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+function spy(){var y=window.scrollY+120,cur=0;steps.forEach(function(s,i){if(s&&s.offsetTop<=y)cur=i;});links.forEach(function(a,i){a.classList.toggle('on',i===cur);});
+ var h=document.documentElement.scrollHeight-window.innerHeight;document.getElementById('bar').style.width=(h>0?Math.min(100,window.scrollY/h*100):0)+'%';}
+window.addEventListener('scroll',spy);spy();
+var data=[{i:50,o:30,c:20,l:0},{i:70,o:30,c:20,l:20},{i:65,o:30,c:35,l:0}];
+function show(k){var d=data[k],n=data[0];var d1=(d.i-d.o)-(n.i-n.o),d2=d.c-n.c,r=d1-d2;
+ ['i','o','c','l'].forEach(function(x){var m={i:'t_in',o:'t_out',c:'t_cu',l:'t_lk'}[x];document.getElementById(m).textContent=d[x];});
+ document.getElementById('t_d1').textContent=d1;document.getElementById('t_d2').textContent=d2;
+ document.getElementById('t_res').textContent=r+' L/s';
+ document.getElementById('t_msg').textContent=r>0?'← water is vanishing: a leak!':'← nothing unaccounted: no leak';}
+[].slice.call(document.querySelectorAll('.tabs button')).forEach(function(b){b.onclick=function(){[].slice.call(document.querySelectorAll('.tabs button')).forEach(function(x){x.classList.remove('on');});b.classList.add('on');show(+b.dataset.t);};});
+show(0);
+})();
+</script>
+</body>
+</html>

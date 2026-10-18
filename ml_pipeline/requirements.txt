@@ -1,0 +1,6 @@
+wntr>=1.1.0
+pandas
+numpy
+networkx
+scikit-learn
+joblib
