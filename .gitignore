@@ -22,3 +22,5 @@ dist/
 # OS
 .DS_Store
 Thumbs.db
+# Local backup of the former standalone frontend Git history
+.frontend_git_backup/
