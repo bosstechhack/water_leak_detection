@@ -20,6 +20,8 @@ class NetworkGraph(BaseModel):
 class PredictionResult(BaseModel):
     node_id: str
     confidence_score: float
+    pressure_drop: float = 0.0
+    flow_divergence: float = 0.0
 
 class NodeMetric(BaseModel):
     node_id: str
@@ -43,6 +45,11 @@ class FlowMetric(BaseModel):
 
 class AnalysisResponse(BaseModel):
     has_anomaly: bool
+    event_assessment: str = "cause uncertain"
+    scenario_truth: Dict[str, str] = {}
+    explanation: List[str] = []
+    peak_time: Optional[str] = None
+    max_pressure_drop: float = 0.0
     predicted_leaks: List[PredictionResult]
     node_metrics: Dict[str, NodeMetric] = {}
     flow_metrics: Dict[str, FlowMetric] = {}

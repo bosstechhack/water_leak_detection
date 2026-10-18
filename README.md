@@ -9,16 +9,22 @@ This repository contains the Semester 1 deliverable for the BTP Project. It prov
 ## Setup & Running the Project
 
 ### 1. Generate Simulation Data
-The system needs hydraulic data to run ML models. We use WNTR to simulate the EPANET Net3 benchmark.
+The system uses WNTR to simulate the EPANET Net3 benchmark. Edit `simulation/scenarios.json` to add or change a scenario, then run the generator once; each scenario is simulated from a fresh network model.
 ```bash
 cd simulation
 pip install -r requirements.txt
-python download_networks.py
 python generate_dataset.py
 ```
-*This will download `Net3.inp` and generate `baseline_pressures.csv` and `leak_15_pressures.csv` in `data/raw_simulations/`.*
+This writes pressure/flow CSV files and `data/raw_simulations/scenarios.csv`, which records the simulation ground truth. The configured cases include four leaks, demand increase/decrease, and a pump outage. Confirm the configured node and pump IDs against the chosen `.inp` model before relying on results.
 
-### 2. Start the Backend API (FastAPI)
+### 2. Evaluate the Detection Baseline
+From the project root, run:
+```bash
+venv/Scripts/python.exe ml_pipeline/evaluate.py
+```
+The script writes `data/raw_simulations/evaluation_results.csv` and reports leak Top-1/Top-5 localization and false alarms on non-leak scenarios. These are simulation results, not evidence of real-world sensor performance.
+
+### 3. Start the Backend API (FastAPI)
 The backend serves network topology and runs the ML inference on the simulation data.
 ```bash
 cd backend
@@ -27,7 +33,7 @@ uvicorn main:app --reload --port 8000
 ```
 *The API will be available at http://localhost:8000. You can view the docs at http://localhost:8000/docs.*
 
-### 3. Start the Frontend Dashboard (Next.js)
+### 4. Start the Frontend Dashboard (Next.js)
 The frontend is an interactive dashboard that visualizes the network and highlights predicted leaks.
 ```bash
 cd frontend

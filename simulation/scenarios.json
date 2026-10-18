@@ -1,0 +1,12 @@
+{
+  "duration_hours": 24,
+  "scenarios": [
+    {"id": "leak_3", "type": "leak", "node": "3", "leak_area": 0.03, "start_hour": 12},
+    {"id": "leak_15", "type": "leak", "node": "15", "leak_area": 0.05, "start_hour": 12},
+    {"id": "leak_115", "type": "leak", "node": "115", "leak_area": 0.03, "start_hour": 12},
+    {"id": "leak_121", "type": "leak", "node": "121", "leak_area": 0.03, "start_hour": 12},
+    {"id": "demand_up_15", "type": "demand_change", "node": "15", "factor": 1.3, "start_hour": 12},
+    {"id": "demand_down_15", "type": "demand_change", "node": "15", "factor": 0.7, "start_hour": 12},
+    {"id": "pump_outage_335", "type": "pump_outage", "pump": "335", "start_hour": 12, "end_hour": 18}
+  ]
+}

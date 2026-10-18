@@ -1,57 +1,54 @@
+import json
 import os
+import argparse
 import pandas as pd
 from simulator import Simulator
-from download_networks import download_network
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-NETWORK_FILE = os.path.abspath(os.path.join(BASE_DIR, '../data/networks/Net3.inp'))
-OUTPUT_DIR = os.path.abspath(os.path.join(BASE_DIR, '../data/raw_simulations'))
+PROJECT_DIR = os.path.abspath(os.path.join(BASE_DIR, ".."))
+NETWORK_FILE = os.path.join(PROJECT_DIR, "data", "networks", "Net3.inp")
+OUTPUT_DIR = os.path.join(PROJECT_DIR, "data", "raw_simulations")
+SCENARIO_FILE = os.path.join(BASE_DIR, "scenarios.json")
+
 
 def main():
+    parser = argparse.ArgumentParser(description="Generate hydraulic scenario CSVs")
+    parser.add_argument("--force", action="store_true", help="Regenerate and overwrite existing scenario CSVs")
+    args = parser.parse_args()
     if not os.path.exists(NETWORK_FILE):
-        print(f"{NETWORK_FILE} not found. Attempting automatic download/setup...")
-        download_network()
-
-    if not os.path.exists(NETWORK_FILE):
-        print(f"Error: Could not obtain {NETWORK_FILE}.")
-        return
+        raise FileNotFoundError(f"Network model not found: {NETWORK_FILE}")
+    with open(SCENARIO_FILE, encoding="utf-8") as f:
+        config = json.load(f)
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    sim = Simulator(NETWORK_FILE)
+    duration_hours = int(config.get("duration_hours", 24))
+    simulator = Simulator(NETWORK_FILE, duration_hours=duration_hours)
+    scenarios = [{"id": "baseline", "type": "baseline"}, *config["scenarios"]]
+    metadata = []
 
-    print("Running baseline simulation for Net3...")
-    baseline_results = sim.run_baseline()
-    
-    baseline_pressures = sim.extract_pressures(baseline_results)
-    baseline_flows = sim.extract_flows(baseline_results)
-    
-    baseline_pressures.to_csv(os.path.join(OUTPUT_DIR, 'baseline_pressures.csv'))
-    baseline_flows.to_csv(os.path.join(OUTPUT_DIR, 'baseline_flows.csv'))
-    print("Baseline saved.")
+    for scenario in scenarios:
+        scenario_id = scenario["id"]
+        pressure_path = os.path.join(OUTPUT_DIR, f"{scenario_id}_pressures.csv")
+        flow_path = os.path.join(OUTPUT_DIR, f"{scenario_id}_flows.csv")
+        if not args.force and os.path.isfile(pressure_path) and os.path.isfile(flow_path):
+            print(f"Keeping existing data for {scenario_id}; use --force to regenerate")
+            metadata.append({"scenario_id": scenario_id, **scenario,
+                             "network": os.path.basename(NETWORK_FILE),
+                             "duration_hours": duration_hours})
+            continue
+        print(f"Simulating {scenario_id}...")
+        results = simulator.run(scenario)
+        Simulator.extract_pressures(results).to_csv(
+            pressure_path)
+        Simulator.extract_flows(results).to_csv(
+            flow_path)
+        metadata.append({"scenario_id": scenario_id, **scenario,
+                         "network": os.path.basename(NETWORK_FILE),
+                         "duration_hours": duration_hours})
 
-    # Generate leak scenarios:
-    # 1. Node 15 (Branch / Outer Node)
-    # 2. Node 115 (Central 4-Way Intersection Node)
-    scenarios = [
-        {'node': '15', 'area': 0.05, 'start': 12 * 3600},
-        {'node': '115', 'area': 0.03, 'start': 12 * 3600},
-    ]
+    pd.DataFrame(metadata).to_csv(os.path.join(OUTPUT_DIR, "scenarios.csv"), index=False)
+    print(f"Saved {len(scenarios)} scenarios and metadata to {OUTPUT_DIR}")
 
-    for sc in scenarios:
-        leak_node = sc['node']
-        leak_area = sc['area']
-        leak_start = sc['start']
-
-        print(f"Running leak scenario at node {leak_node}...")
-        leak_results = sim.run_leak_scenario(leak_node, leak_area, leak_start)
-        
-        leak_pressures = sim.extract_pressures(leak_results)
-        leak_flows = sim.extract_flows(leak_results)
-        
-        leak_pressures.to_csv(os.path.join(OUTPUT_DIR, f'leak_{leak_node}_pressures.csv'))
-        leak_flows.to_csv(os.path.join(OUTPUT_DIR, f'leak_{leak_node}_flows.csv'))
-        print(f"Leak scenario at node {leak_node} saved.")
 
 if __name__ == "__main__":
     main()
-

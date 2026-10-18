@@ -1,168 +1,145 @@
-from fastapi import APIRouter
-import pandas as pd
-import sys
+from fastapi import APIRouter, HTTPException
 import os
-from schemas import AnalysisResponse, PredictionResult, NodeMetric, FlowMetric
+import sys
+import pandas as pd
 import wntr
+from schemas import AnalysisResponse, PredictionResult, NodeMetric, FlowMetric
 
-# Add ml_pipeline to path so we can import models
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../ml_pipeline')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../ml_pipeline")))
 from detector import AnomalyDetector
 from localizer import Localizer
 
 router = APIRouter()
-
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.abspath(os.path.join(BASE_DIR, "../../data/raw_simulations"))
 NETWORK_FILE = os.path.abspath(os.path.join(BASE_DIR, "../../data/networks/Net3.inp"))
+FLOW_WEIGHT = 50.0
+
+
+def _link_directions(wn):
+    mapping = {}
+    for node_name in wn.node_name_list:
+        mapping[str(node_name)] = [
+            (str(link_name), 1.0 if wn.get_link(link_name).end_node_name == node_name else -1.0)
+            for link_name in wn.get_links_for_node(node_name)
+        ]
+    return mapping
+
 
 @router.get("/analyze/{scenario_name}", response_model=AnalysisResponse)
 def analyze_scenario(scenario_name: str):
-    data_dir = os.path.abspath(os.path.join(BASE_DIR, "../../data/raw_simulations"))
-    baseline_csv = os.path.join(data_dir, "baseline_pressures.csv")
-    test_csv = os.path.join(data_dir, f"{scenario_name}_pressures.csv")
-    baseline_flow_csv = os.path.join(data_dir, "baseline_flows.csv")
-    test_flow_csv = os.path.join(data_dir, f"{scenario_name}_flows.csv")
-    
-    if not os.path.exists(baseline_csv) or not os.path.exists(test_csv):
-        return AnalysisResponse(has_anomaly=False, predicted_leaks=[], node_metrics={}, flow_metrics={})
-        
-    baseline_df = pd.read_csv(baseline_csv, index_col=0)
-    test_df = pd.read_csv(test_csv, index_col=0)
-    
-    # Read flow data if available
-    b_flow_df = pd.read_csv(baseline_flow_csv, index_col=0) if os.path.exists(baseline_flow_csv) else None
-    t_flow_df = pd.read_csv(test_flow_csv, index_col=0) if os.path.exists(test_flow_csv) else None
+    # Restrict names to simple file stems; scenarios are generated locally.
+    if not scenario_name.replace("_", "").isalnum():
+        raise HTTPException(status_code=400, detail="Invalid scenario name")
+    baseline_path = os.path.join(DATA_DIR, "baseline_pressures.csv")
+    test_path = os.path.join(DATA_DIR, f"{scenario_name}_pressures.csv")
+    if not os.path.isfile(baseline_path) or not os.path.isfile(test_path):
+        raise HTTPException(status_code=404, detail=f"Scenario data not found: {scenario_name}")
 
-    # Load WNTR model for elevation and link connections if available
-    wn = None
-    node_pipe_map = {}
-    node_link_dirs = {}
-    if os.path.exists(NETWORK_FILE):
-        try:
-            wn = wntr.network.WaterNetworkModel(NETWORK_FILE)
-            for node_name in wn.node_name_list:
-                str_n = str(node_name)
-                links = wn.get_links_for_node(node_name)
-                node_pipe_map[str_n] = [str(link) for link in links]
-                
-                # Directional signs: +1.0 for inflow to node, -1.0 for outflow from node
-                dirs = []
-                for link_name in links:
-                    link_obj = wn.get_link(link_name)
-                    sign = 1.0 if link_obj.end_node_name == node_name else -1.0
-                    dirs.append((str(link_name), sign))
-                node_link_dirs[str_n] = dirs
-        except Exception as e:
-            print("WNTR load notice:", e)
+    baseline = pd.read_csv(baseline_path, index_col=0)
+    test = pd.read_csv(test_path, index_col=0)
+    common_nodes = [n for n in baseline.columns if n in test.columns]
+    common_times = baseline.index.intersection(test.index)
+    if not common_nodes or len(common_times) == 0:
+        raise HTTPException(status_code=422, detail="Scenario and baseline have no matching nodes/times")
+    baseline, test = baseline.loc[common_times, common_nodes], test.loc[common_times, common_nodes]
 
+    baseline_flow_path = os.path.join(DATA_DIR, "baseline_flows.csv")
+    test_flow_path = os.path.join(DATA_DIR, f"{scenario_name}_flows.csv")
+    baseline_flow = pd.read_csv(baseline_flow_path, index_col=0) if os.path.isfile(baseline_flow_path) else None
+    test_flow = pd.read_csv(test_flow_path, index_col=0) if os.path.isfile(test_flow_path) else None
+    wn = wntr.network.WaterNetworkModel(NETWORK_FILE) if os.path.isfile(NETWORK_FILE) else None
+    link_dirs = _link_directions(wn) if wn else {}
+
+    residuals = baseline - test
     detector = AnomalyDetector()
-    detector.fit(baseline_df)
-    
-    anomalies = detector.detect(test_df)
-    has_anomaly = anomalies.any(axis=1).any()
-    
-    predictions = []
-    top_predicted_node_ids = set()
+    detector.fit(baseline)
+    anomalies = detector.detect(test)
+    has_anomaly = bool(anomalies.to_numpy().any())
+    peak_node = str(residuals.max().idxmax())
+    peak_time = str(residuals[peak_node].idxmax())
+    peak_drop = float(residuals[peak_node].max())
+    event_assessment = "anomaly detected; cause not classified" if has_anomaly else "no pressure anomaly detected"
+
+    explanation = []
     if has_anomaly:
-        localizer = Localizer(flow_weight=50.0)
-        localizer.fit(baseline_df, b_flow_df)
-        ranked_nodes = localizer.localize(test_df, t_flow_df, node_link_dirs)
-        
-        # Filter candidate leak locations to junction nodes
+        explanation.append(f"Pressure residual exceeded the {detector.threshold_drop:.2f} m threshold.")
+        explanation.append(f"Largest pressure drop was {peak_drop:.2f} m at node {peak_node}, time index {peak_time}.")
+        explanation.append("The cause is not classified by the current detector; demand or equipment changes may also cause pressure drops.")
+    else:
+        explanation.append(f"No node exceeded the {detector.threshold_drop:.2f} m pressure-drop threshold.")
+
+    predictions = []
+    ranked = pd.Series(dtype=float)
+    node_divergence = {}
+    if has_anomaly:
+        localizer = Localizer(flow_weight=FLOW_WEIGHT)
+        localizer.fit(baseline, baseline_flow)
+        ranked = localizer.localize(test, test_flow, link_dirs)
         if wn:
-            ranked_nodes = ranked_nodes[ranked_nodes.index.isin(wn.junction_name_list)]
-        
-        # Take Top 5
-        for node_id, score in ranked_nodes.head(5).items():
-            str_id = str(node_id)
-            predictions.append(PredictionResult(
-                node_id=str_id,
-                confidence_score=float(score)
-            ))
-            top_predicted_node_ids.add(str_id)
-            
-    # Calculate detailed node metrics for every node
+            ranked = ranked[ranked.index.astype(str).isin(set(map(str, wn.junction_name_list)))]
+        for node_id, score in ranked.head(5).items():
+            s = str(node_id)
+            div = 0.0
+            if baseline_flow is not None and test_flow is not None and s in link_dirs:
+                common_links = [p for p, _ in link_dirs[s] if p in baseline_flow and p in test_flow]
+                if common_links:
+                    series = pd.Series(0.0, index=common_times)
+                    for link, sign in link_dirs[s]:
+                        if link in common_links:
+                            series += (test_flow.loc[common_times, link] - baseline_flow.loc[common_times, link]) * sign
+                    div = max(0.0, float(series.max()))
+            predictions.append(PredictionResult(node_id=s, confidence_score=float(score),
+                                                 pressure_drop=float(residuals[s].max()), flow_divergence=div))
+        if predictions:
+            explanation.append(f"Candidate ranking combines maximum pressure drop with positive connected-link flow divergence (weight {FLOW_WEIGHT:g}).")
+            explanation.append("The ranking is a heuristic score, not a calibrated probability or proof of a leak.")
+
+    top_ids = {p.node_id for p in predictions}
     node_metrics = {}
-    
-    # Compute residuals (Baseline - Test)
-    residuals = baseline_df - test_df
-    max_drops = residuals.max()
-    
-    for col in test_df.columns:
-        str_node = str(col)
-        base_press = float(baseline_df[col].mean())
-        curr_press = float(test_df[col].mean())
-        drop_val = float(max_drops[col])
-        
-        # Extract 24-hour time series arrays
-        b_series = [round(float(v), 2) for v in baseline_df[col].values]
-        c_series = [round(float(v), 2) for v in test_df[col].values]
-
-        # Determine status — use 3.0m threshold for visual highlighting
-        # (0.5m is too sensitive; nearly all connected nodes exceed it)
-        if str_node in top_predicted_node_ids:
-            status = "Predicted Leak Location"
-        elif drop_val > 3.0:
-            status = "Anomalous Pressure Drop"
-        else:
-            status = "Normal"
-            
-        elevation = 0.0
-        connected_pipes = []
-        node_type = "Junction"
-        if wn and str_node in wn.node_name_list:
-            node_obj = wn.get_node(str_node)
-            elevation = float(getattr(node_obj, 'elevation', 0.0) or 0.0)
-            node_type = str(node_obj.node_type)
-            if getattr(node_obj, 'base_demand', 0.0) is not None and getattr(node_obj, 'base_demand', 0.0) < 0:
-                node_type = "Reservoir"  # Main Supply Source Inlet
-            connected_pipes = node_pipe_map.get(str_node, [])
-            
-        # Flow divergence (mass imbalance) for this node
-        node_div = 0.0
-        if b_flow_df is not None and t_flow_df is not None and str_node in node_link_dirs:
-            net_div_series = pd.Series(0.0, index=t_flow_df.index)
-            for link_name, direction_sign in node_link_dirs[str_node]:
-                if link_name in t_flow_df.columns and link_name in b_flow_df.columns:
-                    net_div_series += (t_flow_df[link_name] - b_flow_df[link_name]) * direction_sign
-            node_div = max(0.0, float(net_div_series.max()))
-
-        # Composite score
-        comp_score = float(ranked_nodes.get(str_node, drop_val + 20.0 * node_div)) if has_anomaly else 0.0
-
-        node_metrics[str_node] = NodeMetric(
-            node_id=str_node,
-            node_type=node_type,
-            elevation=elevation,
-            baseline_pressure=round(base_press, 2),
-            current_pressure=round(curr_press, 2),
-            pressure_drop=round(drop_val, 2),
-            flow_divergence=round(node_div, 4),
-            composite_score=round(comp_score, 2),
-            status=status,
-            connected_pipes=connected_pipes,
-            baseline_series=b_series,
-            current_series=c_series
+    for col in common_nodes:
+        node = str(col)
+        drop_series = residuals[col]
+        drop = float(drop_series.max())
+        div = next((p.flow_divergence for p in predictions if p.node_id == node), 0.0)
+        node_type, elevation, connected = "Junction", 0.0, []
+        if wn and node in wn.node_name_list:
+            obj = wn.get_node(node)
+            node_type = str(obj.node_type)
+            elevation = float(getattr(obj, "elevation", 0.0) or 0.0)
+            connected = [str(x) for x in wn.get_links_for_node(node)]
+        status = "Top leak candidate" if node in top_ids else ("Pressure drop" if drop > detector.threshold_drop else "Normal")
+        node_metrics[node] = NodeMetric(
+            node_id=node, node_type=node_type, elevation=elevation,
+            baseline_pressure=round(float(baseline[col].mean()), 2),
+            current_pressure=round(float(test[col].mean()), 2), pressure_drop=round(drop, 2),
+            flow_divergence=round(div, 4), composite_score=round(float(ranked.get(node, drop)), 2),
+            status=status, connected_pipes=connected,
+            baseline_series=[round(float(x), 2) for x in baseline[col]],
+            current_series=[round(float(x), 2) for x in test[col]],
         )
 
-    # Compute flow metrics for pipes if available
     flow_metrics = {}
-    if b_flow_df is not None and t_flow_df is not None:
-        for col in t_flow_df.columns:
-            str_link = str(col)
-            b_flow = float(b_flow_df[col].mean())
-            c_flow = float(t_flow_df[col].mean())
-            f_change = c_flow - b_flow
-            flow_metrics[str_link] = FlowMetric(
-                link_id=str_link,
-                baseline_flow=round(b_flow, 4),
-                current_flow=round(c_flow, 4),
-                flow_change=round(f_change, 4)
-            )
+    if baseline_flow is not None and test_flow is not None:
+        common_links = [x for x in baseline_flow.columns if x in test_flow.columns]
+        common_flow_times = baseline_flow.index.intersection(test_flow.index)
+        for col in common_links:
+            b = baseline_flow.loc[common_flow_times, col]
+            c = test_flow.loc[common_flow_times, col]
+            flow_metrics[str(col)] = FlowMetric(link_id=str(col), baseline_flow=round(float(b.mean()), 4),
+                current_flow=round(float(c.mean()), 4), flow_change=round(float((c-b).mean()), 4))
 
-    return AnalysisResponse(
-        has_anomaly=bool(has_anomaly),
-        predicted_leaks=predictions,
-        node_metrics=node_metrics,
-        flow_metrics=flow_metrics
-    )
+    scenario_truth = {}
+    manifest = os.path.join(DATA_DIR, "scenarios.csv")
+    if os.path.isfile(manifest):
+        rows = pd.read_csv(manifest).fillna("")
+        match = rows[rows["scenario_id"].astype(str) == scenario_name]
+        if not match.empty:
+            truth = match.iloc[0]
+            scenario_truth = {k: str(truth[k]) for k in ("type", "node", "pump", "factor", "leak_area", "start_hour")
+                              if k in truth and str(truth[k]) != ""}
+
+    return AnalysisResponse(has_anomaly=has_anomaly, event_assessment=event_assessment,
+        scenario_truth=scenario_truth,
+        explanation=explanation, peak_time=peak_time, max_pressure_drop=round(peak_drop, 2),
+        predicted_leaks=predictions, node_metrics=node_metrics, flow_metrics=flow_metrics)

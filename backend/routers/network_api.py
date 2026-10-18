@@ -19,7 +19,7 @@ def get_network():
     for name, node in wn.nodes():
         elev = getattr(node, 'elevation', 0.0)
         n_type = str(node.node_type)
-        # In Net2, Node 1 is the main water injection inlet (negative demand)
+        # Mark any negative-demand node as a supply source for the map legend.
         if getattr(node, 'base_demand', 0.0) is not None and getattr(node, 'base_demand', 0.0) < 0:
             n_type = "Reservoir"  # Main Supply Source
             
